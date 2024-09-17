@@ -1,4 +1,23 @@
 import { Schema, model } from 'mongoose';
+/* import Comment from './commentSchema';
+
+const tasksSchema = new Schema({
+    day: {
+        type: String,
+        enum: ["Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì"],
+        required: true,
+    },
+    when: {
+        type: String,
+        enum: ["Mattina", "Pomeriggio"],
+        required: true,
+    },
+    description: String,
+    comments: [{
+        type: Schema.Types.ObjectId,
+        ref: "Comment"
+    }]
+}); */
 
 const employeeSchema = new Schema({
     role: {
