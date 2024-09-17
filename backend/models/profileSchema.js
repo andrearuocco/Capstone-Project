@@ -60,7 +60,7 @@ const profileSchema = new Schema({
         // se l'utente è un employee, usa un ObjectId per referenziare uno schema esterno
         employeeData: {
             type: Schema.Types.ObjectId,
-            ref: 'Employee',  // Fa riferimento al modello Employee
+            ref: 'Employee',  // fa riferimento al modello Employee
             required: function() { return this.whoIs.type === 'employee'; }
         }
     }
