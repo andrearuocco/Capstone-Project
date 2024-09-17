@@ -28,8 +28,8 @@
     "passport-google-oauth20": "^2.0.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.4",
-    "@faker-js/faker": "^8.4.1"
-  },
+    "@faker-js/faker": "^8.4.1",
+    "nodemon": "^3.1.4"
+   },
   "description": ""
 }
