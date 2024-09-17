@@ -1,0 +1,20 @@
+###
+POST http://localhost:5000/profile
+Content-Type: application/json
+
+{
+    "name": "Andrea",
+    "surname": "Ruocco",
+    "email": "ruoca96@gmail.com",
+    "password": "andrearuocco",
+    "birthDate": 774032800000,
+    "avatar": "",
+    "country": "Italy",
+    "whoIs": {
+        "type": "admin",
+        "adminData": {
+            "name": "Amministratore Delegato",
+            "description": "Direttore di questa bellissima azienda."
+        }
+    }
+}

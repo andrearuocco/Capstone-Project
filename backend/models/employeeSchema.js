@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-/* import Comment from './commentSchema';
+/* import Comment from './commentSchema.js';
 
 const tasksSchema = new Schema({
     day: {

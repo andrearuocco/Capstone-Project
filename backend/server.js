@@ -4,6 +4,7 @@ import mongoose from 'mongoose'
 import cors from 'cors'
 import morgan from 'morgan'
 import helmet from 'helmet'
+import profileRoutes from './routes/profileRoutes.js'
 /* import passport from 'passport'
 import GoogleStrategy from './config/passport.config.js' 
 import authorization from './middleware/authorization.js' */
@@ -16,6 +17,8 @@ server.use(express.json()) // express è un middleware utilizzato in modo che il
 server.use(cors()) // cors è un middleware che consente la connessione tra il server di backend e quello di frontend
 server.use(morgan("dev")) // middleware che mostra i log delle richieste http
 server.use(helmet()) // modulo che aiuta a proteggere le applicazioni
+
+server.use('/profile', profileRoutes)
 
 await mongoose.connect(process.env.MONGODB_URL)
     .then(() => console.log('Connessione al database...'))
