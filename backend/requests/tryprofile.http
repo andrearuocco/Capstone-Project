@@ -7,8 +7,9 @@ Content-Type: application/json
     "surname": "Ruocco",
     "email": "ruoca96@gmail.com",
     "password": "andrearuocco",
-    "birthDate": 774032800000,
+    "birthday": 774032800000,
     "avatar": "",
+    "IBAN": "IT60X0542811101000000123456",
     "country": "Italy",
     "whoIs": {
         "type": "admin",
