@@ -13,35 +13,36 @@ const googleStrategy = new GoogleStrategy({
 async function (accessToken, refreshToken, profile, callback) {
         console.log(`${process.env.HOST}${process.env.GOOGLE_CALLBACK}`)
 
+        
         const {given_name: name, family_name: surname, email, sub: googleId, picture: avatar} = profile._json
         
         // ricerco l'utente sul db
-        let profile = await Profiles.findOne({googleId: googleId})
+        let myProfile = await Profiles.findOne({googleId: googleId})
         // se non c'è lo creo
-        if (!profile) {
+        if (!myProfile) {
             console.log('creo nuovo profilo')
-            const newProfile = Profiles({
+            const newProfile = new Profiles({
                 name, surname, email, googleId,  whoIs: {
                     type: 'employee', 
                 }, avatar
             })
-            profile = await newProfile.save()
+            myProfile = await newProfile.save()
         }
 
         // a prescindere, genero il jwt per l'utente
         
         jwt.sign({
             // l'userId nel token NON deve essere il googleId
-            userId: userProfile._id
+            profileId: profile._id
             },
             process.env.JWT_SECRET, {
                 expiresIn: '1h'
             },
             // funzione di callback
             (error, jwtToken) => {
-                if(error) return res.status(500).send('Errore durante il login con google.')
+                if(error) return res.status(500).send('Errore durante il login con google')
                 
-                return callback(null, jwtToken)
+                return passportNext(null, { jwtToken })
             }
         )
     }   

@@ -19,3 +19,16 @@ Content-Type: application/json
         }
     }
 }
+
+###
+POST http://localhost:5000/api/v1/auth/login
+Content-Type: application/json
+
+{
+    "email": "ruoca96@gmail.com",
+    "password": "andrearuocco"
+}
+
+###
+GET http://localhost:5000/api/v1/auth/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9maWxlSWQiOiI2NmVhOWIwMmMwZGJhYTdhNjgyNDdhODQiLCJpYXQiOjE3MjY2NjM0MzAsImV4cCI6MTcyNjY2NzAzMH0.cltqmJ77f5iGKQoiVbZ1C4MYq8HhGiqOr78NAISvgEM
