@@ -28,18 +28,18 @@ export const registerProfile = async (req, res) => {
         // dati specifici per admin o employee
         if (req.body.whoIs.type === 'admin') {
 
-        /*     if (!req.body.whoIs.adminData) {
-                return res.status(400).send('Dati admin mancanti.');
-            } */
+            /*     if (!req.body.whoIs.adminData) {
+                    return res.status(400).send('Dati admin mancanti.');
+                } */
 
-            newProfile.whoIs.adminData = req.body.whoIs.adminData; 
+            newProfile.whoIs.adminData = req.body.whoIs.adminData;
         } else if (req.body.whoIs.type === 'employee') {
 
-        /*             if (!req.body.whoIs.employeeData) {
-                return res.status(400).send('Dati employee mancanti.');
-            } */
+            /*             if (!req.body.whoIs.employeeData) {
+                    return res.status(400).send('Dati employee mancanti.');
+                } */
 
-            newProfile.whoIs.employeeData = req.body.whoIs.employeeData; 
+            newProfile.whoIs.employeeData = req.body.whoIs.employeeData;
         }
 
         const createdProfile = await newProfile.save()

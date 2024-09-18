@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import Profile from '../models/profileSchema.js';
+import Profiles from '../models/profileSchema.js';
 
 export default (req, res, next) => {
     // verifacere se c'è l'header Authorization e se è di tipo Bearer
@@ -17,7 +17,7 @@ export default (req, res, next) => {
         if (err) return res.status(401).send();
 
         // recuperiamo i dati dell'utente dal database escludendo il campo password
-        const profile = await Profile.findById(payload.profileId);
+        const profile = await Profiles.findById(payload.profileId);
 
         // l'utente potrebbe aver eliminato l'account nel frattempo e quindi non esistere più nel database
         if (!profile) return res.status(401).send();

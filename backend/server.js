@@ -5,11 +5,10 @@ import cors from 'cors'
 import morgan from 'morgan'
 import helmet from 'helmet'
 import profileRoutes from './routes/profileRoutes.js'
-import authRouter from './routes/authenticationRoutes.js'
+import authRouter from './routes/authRoutes.js'
 import GoogleStrategy from './config/passport.js' 
 import passport from 'passport'
 import employeeRouter from './routes/employeeRoutes.js'
-
 /* import authorization from './middleware/authorization.js' */
 
 const port = process.env.PORT || 5000

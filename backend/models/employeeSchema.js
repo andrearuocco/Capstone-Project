@@ -31,7 +31,7 @@ const employeeSchema = new Schema({
         maximum: 5,
         multipleOf: 0.1,
     },
-    // come rotta sarà necessaria una richiesta di permesso poi da poter approvare 
+    // ?? come rotta sarà necessaria una richiesta di permesso poi da poter approvare 
     paidLeave: {
         type: Number,
         unit: String,
@@ -40,7 +40,7 @@ const employeeSchema = new Schema({
         type: Number,
         unit: String,
     },
-    // come rotta sarà necessaria una richiesta di permesso poi da poter approvare
+    // come rotta sarà necessaria una richiesta di permesso poi da poter approvare ??
     holidaysYear: {
         type: Number,
         unit: String,
