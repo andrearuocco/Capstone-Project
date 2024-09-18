@@ -50,5 +50,5 @@ export const callbackGoogle = async (req,res) => {
     // passport ci crea nella richiesta un oggetto user, a cui noi possiamo poi aggiungere per esempio la proprietà token
 	
     // effettuo il redirect alla home
-	res.redirect(`http://localhost:3000/login?token=${req.user.jwtToken}`) // da inserire indirizzo di caricamento front-end
+	res.redirect(`http://localhost:3000?token=${req.user.jwtToken}`) // da inserire indirizzo di caricamento front-end
 }

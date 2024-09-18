@@ -8,6 +8,8 @@ import profileRoutes from './routes/profileRoutes.js'
 import authRouter from './routes/authenticationRoutes.js'
 import GoogleStrategy from './config/passport.js' 
 import passport from 'passport'
+import employeeRouter from './routes/employeeRoutes.js'
+
 /* import authorization from './middleware/authorization.js' */
 
 const port = process.env.PORT || 5000
@@ -23,6 +25,7 @@ server.use(helmet()) // modulo che aiuta a proteggere le applicazioni
 
 server.use('/api/v1/auth', authRouter)
 server.use('/profile', profileRoutes)
+server.use('/employee', employeeRouter)
 
 await mongoose.connect(process.env.MONGODB_URL)
     .then(() => console.log('Connessione al database...'))
