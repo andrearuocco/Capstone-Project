@@ -8,11 +8,9 @@ const googleStrategy = new GoogleStrategy({
     clientID: process.env.GOOGLE_ID,
 	clientSecret: process.env.GOOGLE_SECRET,
     //google callback è la rotta che verrà richiamata post ricezione token
-	callbackURL: `${process.env.HOST}${process.env.GOOGLE_CALLBACK}`
+	callbackURL: `${process.env.HOST}:${process.env.PORT}${process.env.GOOGLE_CALLBACK}`
 },
 async function (accessToken, refreshToken, profile, callback) {
-        console.log(`${process.env.HOST}${process.env.GOOGLE_CALLBACK}`)
-
         
         const {given_name: name, family_name: surname, email, sub: googleId, picture: avatar} = profile._json
         

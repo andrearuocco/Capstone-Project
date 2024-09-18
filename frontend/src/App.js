@@ -1,18 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom"
 import { Button } from "react-bootstrap";
+import { BrowserRouter as Router } from "react-router-dom";
 /* import NavBar from "./components/navbar/BlogNavbar";
 import Footer from "./components/footer/Footer";
 import Home from "./views/home/Home";
 import Blog from "./views/blog/Blog";
-import NewBlogPost from "./views/new/New";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; */
+import NewBlogPost from "./views/new/New"; */
 
 function App() {
   return (
-    <>
-    <Button as={Link} to={'http://localhost:5000/api/v1/auth/login-google'} className="mx-2" variant="primary">Login with Google</Button>
-    {/* <Router>
+    <Router>
+      <Button as={Link} to={'http://localhost:5000/api/v1/auth/login-google'} className="m-4" variant="primary">Login with Google</Button>
+      {/* <Router>
       <NavBar />
       <Routes>
         <Route path="/" exact element={<Home />} />
@@ -20,7 +20,8 @@ function App() {
         <Route path="/new" element={<NewBlogPost />} />
       </Routes>
       <Footer />
-    </Router> */}</>
+      </Router> */}
+    </Router>
   );
 }
 
