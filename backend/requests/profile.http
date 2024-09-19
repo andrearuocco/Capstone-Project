@@ -1,0 +1,43 @@
+###
+GET http://localhost:5000/profile
+
+###
+GET http://localhost:5000/profile/66ea9b02c0dbaa7a68247a84
+
+###
+PUT http://localhost:5000/profile/66eafeb483e067f94f0e8ebc
+Content-Type: application/json
+
+{
+    "name": "Antonio",
+    "surname": "Vero",
+    "email": "veroanto@gmail.com",
+    "birthday": 551334800000,
+    "avatar": ""
+}
+
+###
+PUT http://localhost:5000/profile/66ea9b02c0dbaa7a68247a84
+Content-Type: application/json
+
+{
+    "name": "Andrea",
+    "password": "ruoccoandrea"
+}
+
+###
+PUT http://localhost:5000/profile/66eafeb483e067f94f0e8ebc
+Content-Type: application/json
+
+{
+  "whoIs": {
+    "type": "admin",
+    "adminData": {
+      "name": "Direttore Tecnico",  
+      "description": "Responsabile del reparto tecnico"  
+    }
+  }
+}
+
+###
+DELETE http://localhost:5000/profile/66ec432ef04045e5956879e9

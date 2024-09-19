@@ -1,5 +1,6 @@
 import Profile from '../models/profileSchema.js'
 import bcrypt from "bcrypt"
+import Employee from '../models/employeeSchema.js'
 
 export const registerProfile = async (req, res) => {
     try {
@@ -47,5 +48,107 @@ export const registerProfile = async (req, res) => {
     } catch (error) {
         console.log(error)
         res.status(400).send(error)
+    }
+}
+
+export const getAllProfile = async (req,res) => {
+    try {
+/*      const page = req.query.page || 1;
+        let perPage = req.query.perPage || 3;
+        perPage = perPage > 9 ? 3 : perPage  // se l'utente richiede più di 20 profiles su una pagina saranno mostrati 3 profiles come di default */
+
+        const profile = await Profile.find().populate({
+            path: 'whoIs.employeeData',  
+            model: 'Employee',
+        })
+/*          .collation({locale: 'it'}) //serve per ignorare maiuscole e minuscole nell'ordine alfabetico del sort
+            .sort({name:1, surname:1})  // ordino gli oggetti JSON in ordine alfabetico secondo il nome e la cognome
+            .skip((page - 1) * perPage) // salto documenti pagina precedente 
+            .limit(perPage); // indico gli elementi da mostrare per pagina
+
+        const totalResults = await Author.countDocuments(); // conta tutti i documenti profile nella collection 
+        const totalPages = Math.ceil(totalResults / perPage); */
+
+        res.send(/* {
+            dati: */ profile
+/*          totalPages,
+            totalResults,
+            page,
+        } */);
+    } catch(err) {
+        res.status(404).send();
+    }
+}
+
+export const getSingleProfile = async (req,res)=>{
+    const {id} =req.params
+    try {
+        const profile = await Profile.findById(id).populate({
+            path: 'whoIs.employeeData',  
+            model: 'Employee',
+        })
+        res.send(profile) 
+    } catch (error) {
+        res.status(404).send({message: 'Not Found'})
+    }
+}
+
+export const editProfile = async (req, res) => {
+    const { id } = req.params;
+    const { whoIs, password } = req.body;
+
+    try {
+        // trova il profilo da aggiornare
+        const profile = await Profile.findById(id);
+
+        if (!profile) {
+            return res.status(404).send({ message: 'Profilo non trovato.' });
+        }
+
+        // gestisci l'aggiornamento della password 
+        if (password) {
+            req.body.password = await bcrypt.hash(password, 10);
+        } else {
+            delete req.body.password;  // non aggiornare la password se non è stata fornita una nuova
+        }
+
+        // gestisci eventuale aggiornamento di whoIs
+        if (whoIs) {
+            // se si cambia da employee a admin
+            if (whoIs.type === 'admin') {
+                
+                if (profile.whoIs.type === 'employee' && profile.whoIs.employeeData) {
+                    await Employee.findByIdAndDelete(profile.whoIs.employeeData); // elimina l'employee collegato nella collection dipendenti
+                }
+
+                // aggiorna il profilo ad admin
+                req.body.whoIs = {
+                    type: 'admin',
+                    adminData: req.body.whoIs.adminData,  // inseriemento dati per lo schema embeddato admin
+                };
+                profile.whoIs.employeeData = undefined;  // rimuovi il riferimento a employeeData (chiave di whoIs)
+            }
+        }
+
+        // non viene fatto il passaggio da admin ad employee in quanto considerato meno necessario per le esigenze aziendali immaginate 
+
+        // esegui l'aggiornamento del profilo
+        const updatedProfile = await Profile.findByIdAndUpdate(id, req.body, { new: true });
+
+        res.send(updatedProfile);
+    } catch (err) {
+        console.error('Errore durante aggiornamento profilo:', err);
+        res.status(400).send({ error: 'Errore durante aggiornamento profilo' });
+    }
+}
+
+export const deleteProfile = async (req, res) => {
+    const { id } = req.params
+    try {
+        const profile = await Profile.findByIdAndDelete(id)
+        if(profile.whoIs.type === 'employee') await Employee.findByIdAndDelete(profile.whoIs.employeeData); 
+        res.send(`Successfully deleted author with id ${id}.`)
+    } catch (error) {
+        res.status(404).send({ message: `ID ${id} not found` })
     }
 }
