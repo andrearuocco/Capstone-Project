@@ -39,9 +39,9 @@ const profileSchema = new Schema({
         type: String,
     },
     googleId: String, 
-    SPIDId: String, 
+    // SPIDId: String, 
     IBAN: {
-        type: String, // questi dati sono sensibili come le password quindi dovranno essere hashati 
+        type: String, 
     },
     TIN: {
         type: String,

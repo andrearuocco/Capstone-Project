@@ -18,7 +18,7 @@ export const registerProfile = async (req, res) => {
             birthday: req.body.birthday,
             avatar: req.file ? req.file.path : 'https://thumbs.dreamstime.com/z/disegno-vettoriale-immagine-profilo-avatar-vuoto-262683009.jpg?ct=jpeg',
             country: req.body.country,
-            IBAN: await bcrypt.hash(req.body.IBAN, 20),
+            IBAN: req.body.IBAN,
             TIN: req.body.TIN,
             whoIs: {
                 type: req.body.whoIs.type, // 'admin' or 'employee'

@@ -1,0 +1,16 @@
+###
+GET http://localhost:5000/employee
+
+###
+GET http://localhost:5000/employee/66ec432ef04045e5956879e7
+
+###
+PUT http://localhost:5000/employee/66ec432ef04045e5956879e7
+Content-Type: application/json
+
+{
+    "role": "addetto alle operazioni di magazzino"
+}
+
+###
+DELETE http://localhost:5000/employee/66ec432ef04045e5956879e7
