@@ -4,17 +4,17 @@ import { addEmployee, getAllEmployee, getSingleEmployee, editEmployee, deleteEmp
 
 const employeeRouter = express.Router()
 
-/* employeeRouter.post('/', addEmployee) */ // questa va fatta per un profilo utente specifico
-
 // le rotte che modificano la posizione lavorativa saranno prerogativa solo degli admin 
 // per cui sarà necessario proteggere queste rotte con un autorizzazione 
 
-employeeRouter.get('/', getAllEmployee) // questa rotta servirà per avere una lista di tutte le posizioni lavorative occupate nell'azienda (con paginazione) e per ricercare una singola posizione lavorativa occupata 
+employeeRouter.post('/profile/:profileId/employee', addEmployee) // questa va a modificare anche un profilo utente specifico nel suo collegamento con la referenza employee (whoIs)
 
-employeeRouter.get('/:id', getSingleEmployee) // questa rotta servirà per ricercare un dipendente attraverso il proprio id e in virtù della referenza saranno visibili anche le sue buste paga 
+employeeRouter.get('/employee', getAllEmployee) // questa rotta servirà per avere una lista di tutte le posizioni lavorative occupate nell'azienda (con paginazione) e per ricercare una singola posizione lavorativa occupata 
 
-employeeRouter.put('/:id', editEmployee) 
+employeeRouter.get('/employee/:id', getSingleEmployee) // questa rotta servirà per ricercare un dipendente attraverso il proprio id e in virtù della referenza saranno visibili anche le sue buste paga 
 
-employeeRouter.delete('/:id', deleteEmployee)
+employeeRouter.put('/employee/:id', editEmployee) 
+
+employeeRouter.delete('/profile/:profileId/employee/:employeeId', deleteEmployee)
 
 export default employeeRouter

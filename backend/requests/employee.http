@@ -1,4 +1,12 @@
 ###
+POST http://localhost:5000/profile/66ef0ca8fb7dcb0a4f45eee2/employee
+Content-Type: application/json
+
+{
+    "role": "addetto al reparto idraulico"
+}
+
+###
 GET http://localhost:5000/employee
 
 ###
@@ -16,4 +24,4 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:5000/employee/66ef08388b48d84fa357dee6
+DELETE http://localhost:5000/profile/66ef0ca8fb7dcb0a4f45eee2/employee/66ef1f03baafdf1aa7ebfa66

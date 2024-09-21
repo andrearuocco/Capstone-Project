@@ -25,7 +25,7 @@ server.use(helmet()) // modulo che aiuta a proteggere le applicazioni
 
 server.use('/api/v1/auth', authRouter)
 server.use('/profile', profileRoutes)
-server.use('/employee', employeeRouter)
+server.use('/', employeeRouter)
 server.use('/api/v1', payEnvelopeRouter)
 
 await mongoose.connect(process.env.MONGODB_URL)

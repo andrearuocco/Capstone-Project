@@ -1,15 +1,29 @@
 import Employee from '../models/employeeSchema.js'
+import Profile from '../models/profileSchema.js'
 
 export const addEmployee = async (req, res) => {
-    // crea nuova istanza del modello employee con i dati definiti nel corpo della richiesta 
-    const employee = new Employee(req.body)
+    const { profileId } = req.params;  
+    const employeeData = req.body;  
 
     try {
-        await employee.save() // salva i dati nel DB
+        
+        const employee = new Employee(employeeData); // crea un nuovo documento employee con i dati del corpo della richiesta
 
-        return res.send(employee)  // mando in risposta il nuovo employee salvato 
+        await employee.save();
+
+        const updatedProfile = await Profile.findByIdAndUpdate(
+            profileId,
+            {
+                "whoIs.type": "employee",  
+                "whoIs.employeeData": employee._id  // referenzia il profilo con l'ID del dipendente creato
+            },
+            { new: true }  
+        );
+
+        return res.status(201).send({ updatedProfile });
+
     } catch (error) {
-        return res.status(400).send(error)
+        return res.status(400).send({ message: "Utenza profilo esistente non aggiornata con i dati dipendente", error });
     }
 }
 
@@ -67,11 +81,26 @@ export const editEmployee = async (req, res)=>{
 }
 
 export const deleteEmployee = async (req, res) => {
-    const { id } = req.params
+    const { profileId, employeeId } = req.params;
+
     try {
-        const employee = await Employee.findByIdAndDelete(id)
-        res.send(`Successfully deleted employee with id ${id}.`)
+        
+        const employee = await Employee.findByIdAndDelete(employeeId);
+        if (!employee) {
+            return res.status(404).send({ message: `Dipendente con ID n.${employeeId} non esiste nel DB` });
+        }
+
+        const updatedProfile = await Profile.findByIdAndUpdate(
+            profileId,
+            {
+                "whoIs.employeeData": null, // svuota la proprietà whoIs dal documento profile trovato attraverso l'ID
+            },
+            { new: true }
+        );
+
+        res.send({ message: `Ecco il profilo dopo aver rimosso ${employeeId}`, updatedProfile });
+
     } catch (error) {
-        res.status(404).send({ message: `ID ${id} not found` })
+        res.status(500).send({ message: "Errore nella cancellazione del ruolo dipendente", error });
     }
 }
