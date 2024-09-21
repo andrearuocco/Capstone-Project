@@ -1,10 +1,10 @@
 import express from 'express'
-import { addPayments } from '../controllers/payenvelope.controller.js';
+import { addPayEnvelope } from '../controllers/payenvelope.controller.js';
 /* import uploadCloudinary from '../middleware/uploadCloudinary.js'; */
 
 const payEnvelopeRouter = express.Router()
 
-payEnvelopeRouter.post('/', addPayments)
+payEnvelopeRouter.post('/profile/:profileId/employee/:employeeId/payEnvelope', addPayEnvelope)
 
 payEnvelopeRouter.get('/', )
 
