@@ -9,9 +9,9 @@ const employeeRouter = express.Router()
 // le rotte che modificano la posizione lavorativa saranno prerogativa solo degli admin 
 // per cui sarà necessario proteggere queste rotte con un autorizzazione 
 
-employeeRouter.get('/', getAllEmployee) // questa rotta servirà per avere una lista di tutte le posizioni lavorative occupate nell'azienda (con paginazione)
+employeeRouter.get('/', getAllEmployee) // questa rotta servirà per avere una lista di tutte le posizioni lavorative occupate nell'azienda (con paginazione) e per ricercare una singola posizione lavorativa occupata 
 
-employeeRouter.get('/:id', getSingleEmployee) // questa rotta servirà per ricerca una singola posizione lavorativa occupata o un dipendente attraverso il proprio id 
+employeeRouter.get('/:id', getSingleEmployee) // questa rotta servirà per ricercare un dipendente attraverso il proprio id 
 
 employeeRouter.put('/:id', editEmployee) 
 

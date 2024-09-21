@@ -42,6 +42,7 @@ const profileSchema = new Schema({
     // SPIDId: String, 
     IBAN: {
         type: String, 
+        required: true,
     },
     TIN: {
         type: String,
