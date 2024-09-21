@@ -8,7 +8,7 @@ payEnvelopeRouter.post('/profile/:profileId/employee/:employeeId/payEnvelope', a
 
 payEnvelopeRouter.get('/payEnvelope', getPayments)
 
-payEnvelopeRouter.get('/:id', )
+payEnvelopeRouter.get('/employee/:employeeId/payEnvelope', )
 
 payEnvelopeRouter.put('/:id', )
 
