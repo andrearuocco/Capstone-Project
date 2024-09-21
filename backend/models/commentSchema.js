@@ -1,5 +1,5 @@
 import {model, Schema} from 'mongoose'
-import Profile from './profileSchema';
+import Profile from './profileSchema.js';
 
 const commentsSchema = new Schema(
     {

@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-/* import Comment from './commentSchema.js';
+import Comment from './commentSchema.js';
 
 const tasksSchema = new Schema({
     day: {
@@ -17,7 +17,7 @@ const tasksSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "Comment"
     }]
-}); */
+}); 
 
 const employeeSchema = new Schema({
     role: {
@@ -46,7 +46,7 @@ const employeeSchema = new Schema({
         unit: String,
         minimum: 20,
     },
-    dailyTask: [], // tasksSchema => compiti per l'ottimizzazione della gestione delle risorse umane 
+    dailyTask: [tasksSchema], // compiti per l'ottimizzazione della gestione delle risorse umane 
     payments: [{
         type: Schema.Types.ObjectId,
         ref: "payEnvelope"
