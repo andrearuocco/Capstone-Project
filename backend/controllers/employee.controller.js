@@ -23,7 +23,7 @@ export const getAllEmployee = async (req,res) => {
             .sort({ holidaysYear:-1, paidLeave:-1, reliabilityRates:-1 })  // ordino gli oggetti JSON in ordine decrescente secondo rates, permessi e ferie 
             .skip((page - 1) * perPage) // salto documenti pagina precedente 
             .limit(perPage) // indico gli elementi da mostrare per pagina
-            /* .populate('payEnvelope') */;
+            .populate('payEnvelope');
 
         const totalResults = await Employee.countDocuments(); // conta tutti i documenti employee nella collection 
         const totalPages = Math.ceil(totalResults / perPage);
@@ -42,7 +42,7 @@ export const getAllEmployee = async (req,res) => {
 export const getSingleEmployee = async (req,res)=>{
     const {id} = req.params
     try {
-        const employee = await Employee.findById(id)/* .populate('payEnvelope') */
+        const employee = await Employee.findById(id).populate('payEnvelope')
         res.send(employee) 
     } catch (error) {
         res.status(404).send({message: 'Not Found'})

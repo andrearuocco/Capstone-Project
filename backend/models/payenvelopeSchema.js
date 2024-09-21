@@ -14,7 +14,7 @@ const payEnvelopeSchema = new Schema({
         IBAN: { type: String, required: true }
     },
     payPeriod: {
-        month: { type: String, required: true },
+        month: { type: Number, required: true },
         year: { type: Number, required: true },
         worked: {
             days: { type: Number, required: true },

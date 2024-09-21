@@ -1,55 +1,78 @@
-import payEnvelope from '../models/payenvelopeSchema.js'; // Importa il modello per la busta paga
-import Employee from '../models/employeeSchema.js'; // Importa il modello per i dipendenti
-import Profile from '../models/profileSchema.js'; // Importa il modello per i profili
+import payEnvelope from '../models/payenvelopeSchema.js'; 
+import Employee from '../models/employeeSchema.js'; 
+import Profile from '../models/profileSchema.js'; 
 
-export const addPayEnvelope = async (req, res) => {
+export const addPayments = async (req, res) => {
     try {
-      /* const { profileId, employeeId } = req.params; */
-    
-      // Verifica l'ID del profilo
-      console.log(req.params.profileId);
-      console.log(req.params.employeeId);
+      // verifica l'ID del profilo
+      console.log(req.params.profileId); // id profile
+      console.log(req.params.employeeId); // id employee
+
       const profile = await Profile.findById(req.params.profileId);
-      
       if (!profile) {
-        console.log('Profilo non trovato');
-        return res.status(404).json({ error: "Profilo non trovato" });
+        console.log('Questa utenza non esiste');
+        return res.status(404).json({ error: "Questa utenza non esiste" });
       }
   
-      // Verifica che sia un employee
+      // verifica che sia un employee
       if (profile.whoIs.type !== 'employee') {
-        console.log('Non è un employee');
-        return res.status(400).json({ error: "Questo profilo non è di un employee" });
+        console.log('Questo profilo non è di un dipendente');
+        return res.status(400).json({ error: "Questo profilo non è di un dipendente" });
       }
   
-      // Verifica che l'ID dell'employee corrisponda
+      // verifica che l'ID dell'employee corrisponda
       if (profile.whoIs.employeeData.toString() !== req.params.employeeId) {
-        console.log("L'ID dell'employee non corrisponde");
-        return res.status(400).json({ error: "L'ID dell'employee non corrisponde" });
+        console.log('Questo profilo non corrisponde con i rispettivi dati dipendente');
+        return res.status(400).json({ error: "Questo profilo non corrisponde con i rispettivi dati dipendente" });
       }
   
-      // Cerca l'employee
-      console.log('Cercando l\'employee con ID:', req.params.employeeId);
+      // cerca l'employee
       const employee = await Employee.findById(req.params.employeeId);
       if (!employee) {
-        console.log('Employee non trovato');
-        return res.status(404).json({ error: "Employee non trovato" });
+        console.log('Dipendente non trovato');
+        return res.status(404).json({ error: "Dipendente non trovato" });
       }
   
-      // Crea la busta paga
-      const newPayEnvelope = new payEnvelope(req.body);
-      await newPayEnvelope.save();
+      // crea la busta paga
+      const newpayments = new payEnvelope(req.body);
+      await newpayments.save();
   
-      // Aggiungi la busta paga all'employee
-      employee.payments.push(newPayEnvelope._id);
+      // aggiungi la busta paga all'employee
+      employee.payments.push(newpayments._id);
       await employee.save();
   
       return res.status(201).json({
-        message: 'Busta paga aggiunta con successo',
-        payEnvelope: newPayEnvelope
+        message: `Busta paga inserita per il dipendente con ID ${req.params.employeeId}`,
+        payEnvelope: newpayments
       });
+
     } catch (error) {
-      console.error(error);
-      return res.status(500).json({ error: 'Errore del server' });
+      
+      return res.status(500).json({ error: 'Errore server' });
     }
   };
+
+  export const getPayments = async (req,res) => {
+    try {
+        const page = req.query.page || 1;
+        let perPage = req.query.perPage || 4;
+        perPage = perPage > 6 ? 4 : perPage  
+
+        const payments = await payEnvelope.find({}) 
+            .sort()  
+            .skip((page - 1) * perPage) 
+            .limit(perPage); 
+
+        const totalResults = await payEnvelope.countDocuments(); 
+        const totalPages = Math.ceil(totalResults / perPage);
+
+        res.send({
+            dati: payments,
+            totalPages,
+            totalResults,
+            page,
+        });
+    } catch(err) {
+        res.status(404).send();
+    }
+}

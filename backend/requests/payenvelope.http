@@ -1,5 +1,5 @@
 ###
-POST http://localhost:5000/api/v1/profile/66ee8569ff7d595fca3c351b/employee/66ee8569ff7d595fca3c3519/payEnvelope
+POST http://localhost:5000/api/v1/profile/66ee854eff7d595fca3c3516/employee/66ee854eff7d595fca3c3514/payEnvelope
 Content-Type: application/json
 
 {
@@ -9,7 +9,7 @@ Content-Type: application/json
         "IBAN": "IT60X1234567890123456789012"
     },
     "payPeriod": {
-        "month": "Settembre",
+        "month": 3,
         "year": 2024,
         "worked": {
             "days": 22,
@@ -27,3 +27,6 @@ Content-Type: application/json
     },
     "payCheck": 1550
 }
+
+###
+GET http://localhost:5000/api/v1/payEnvelope
