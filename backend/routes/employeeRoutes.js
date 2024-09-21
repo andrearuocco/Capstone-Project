@@ -4,7 +4,7 @@ import { addEmployee, getAllEmployee, getSingleEmployee, editEmployee, deleteEmp
 
 const employeeRouter = express.Router()
 
-/* employeeRouter.post('/', addEmployee) */
+/* employeeRouter.post('/', addEmployee) */ // questa va fatta per un profilo utente specifico
 
 // le rotte che modificano la posizione lavorativa saranno prerogativa solo degli admin 
 // per cui sarà necessario proteggere queste rotte con un autorizzazione 

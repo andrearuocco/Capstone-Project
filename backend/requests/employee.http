@@ -2,13 +2,13 @@
 GET http://localhost:5000/employee
 
 ###
-GET http://localhost:5000/employee?role=Carpentiere
+GET http://localhost:5000/employee?role=addetto
 
 ###
-GET http://localhost:5000/employee/66eee0632541693376d243bb
+GET http://localhost:5000/employee/66ef08388b48d84fa357dee6
 
 ###
-PUT http://localhost:5000/employee/66eee0632541693376d243bb
+PUT http://localhost:5000/employee/66ef08388b48d84fa357dee6
 Content-Type: application/json
 
 {
@@ -16,4 +16,4 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:5000/employee/66ec432ef04045e5956879e7
+DELETE http://localhost:5000/employee/66ef08388b48d84fa357dee6

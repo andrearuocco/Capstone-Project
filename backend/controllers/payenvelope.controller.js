@@ -135,20 +135,28 @@ export const editPayment = async (req, res) => {
 
 export const deletePayment = async (req, res) => {
   const { employeeId, payEnvelopeId } = req.params;
+
   try {
-    const employee = await Employee.findById(employeeId);
+    
+    const employee = await Employee.findById(employeeId) // trova il dipendente tramite l'ID
     if (!employee) {
       return res.status(404).json({ message: 'Dipendente non trovato' });
     }
-    const payment = await payEnvelope.exists({ _id: req.params.payEnvelopeId })
-    if (payment) {
-      const paymentToDelete = await payEnvelope.findOneAndDelete(payEnvelopeId)
-      return res.status(200).send(`Cancellata pagamento con n. ID: ${payEnvelopeId}`)
-    } else {
-      return res.status(404).send({ message: 'Payment not found' })
-    }
-  } catch (error) {
-    res.status(400).send(error)
-  }
 
+    employee.payments.splice(employee.payments.indexOf(payEnvelopeId), 1) // rimuovi il pagamento dall'array payments
+
+    const payment = await payEnvelope.findByIdAndDelete(payEnvelopeId) // cancella il pagamento dal database
+    if (!payment) {
+      return res.status(404).json({ message: 'Pagamento non trovato nel database' });
+    }
+
+    await employee.save() // salva il dipendente aggiornato
+
+    return res.status(200).json({ message: `Pagamento con ID ${payEnvelopeId} cancellato` });
+
+  } catch (error) {
+    return res.status(400).json({ message: error.message });
+  }
 }
+
+

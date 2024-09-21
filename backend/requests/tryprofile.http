@@ -31,4 +31,4 @@ Content-Type: application/json
 
 ###
 GET http://localhost:5000/api/v1/auth/me
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9maWxlSWQiOiI2NmVlZGY3NTI1NDE2OTMzNzZkMjQzYTMiLCJpYXQiOjE3MjY5MzA4MzAsImV4cCI6MTcyNjkzNDQzMH0.GUkFZhNMd-2D5hDOxLnVJVLJMJa76-G7vbc1BIcaebA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9maWxlSWQiOiI2NmVmMDVkYjhiNDhkODRmYTM1N2RlYzgiLCJpYXQiOjE3MjY5NDA2NDMsImV4cCI6MTcyNjk0NDI0M30.4QD9_rlm6JVM-gQnqSolPfaF4eMIWjdaBeJrJL12i80
