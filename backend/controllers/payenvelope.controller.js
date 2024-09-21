@@ -55,8 +55,8 @@ export const addPayments = async (req, res) => {
 export const getPayments = async (req, res) => {
   try {
     const page = req.query.page || 1;
-    let perPage = req.query.perPage || 12;
-    perPage = perPage > 24 ? 12 : perPage
+    let perPage = req.query.perPage || 6;
+    perPage = perPage > 12 ? 6 : perPage
 
     // crea un oggetto filtro usato per anno e mese
     const filter = {};

@@ -1,5 +1,5 @@
 ###
-POST http://localhost:5000/api/v1/profile/66ee854eff7d595fca3c3516/employee/66ee854eff7d595fca3c3514/payEnvelope
+POST http://localhost:5000/api/v1/profile/66eee1cb82ea31748d40dcde/employee/66eee1cb82ea31748d40dcdc/payEnvelope
 Content-Type: application/json
 
 {
@@ -17,7 +17,7 @@ Content-Type: application/json
         }
     },
     "salary": {
-        "basicSalary": 2000,
+        "basicSalary": 1800,
         "total": 2300
     },
     "deductions": {

@@ -33,7 +33,7 @@ const googleStrategy = new GoogleStrategy({
                     type: 'employee',
                     employeeData: saveEmployee._id // referenzia l'ID dell'employee appena creato
                 },
-                IBAN: " "
+                IBAN: "0000000000000000"
             });
 
             myProfile = await newProfile.save();
