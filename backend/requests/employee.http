@@ -2,10 +2,13 @@
 GET http://localhost:5000/employee
 
 ###
-GET http://localhost:5000/employee/66ec432ef04045e5956879e7
+GET http://localhost:5000/employee?role=addetto
 
 ###
-PUT http://localhost:5000/employee/66ec432ef04045e5956879e7
+GET http://localhost:5000/employee/66ee854eff7d595fca3c3514
+
+###
+PUT http://localhost:5000/employee/66ee854eff7d595fca3c3514
 Content-Type: application/json
 
 {

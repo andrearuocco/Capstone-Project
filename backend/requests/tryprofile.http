@@ -5,7 +5,7 @@ Content-Type: application/json
 {
     "name": "Andrea",
     "surname": "Giaccio",
-    "email": "giaccio96@gmail.com",
+    "email": "giaccio96@gmail.com",s
     "password": "andrearuocco",
     "birthday": 774032800000,
     "avatar": "",
@@ -25,10 +25,10 @@ POST http://localhost:5000/api/v1/auth/login
 Content-Type: application/json
 
 {
-    "email": "ruoca96@gmail.com",
-    "password": "ruoccoandrea"
+    "email": "giaccio96@gmail.com",
+    "password": "andrearuocco"
 }
 
 ###
 GET http://localhost:5000/api/v1/auth/me
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9maWxlSWQiOiI2NmVhOWIwMmMwZGJhYTdhNjgyNDdhODQiLCJpYXQiOjE3MjY2NzY3MDksImV4cCI6MTcyNjY4MDMwOX0.xl_fxOsqVkO5lWs9gyj5gd-B12yd4rUQK-Mo8a5kaiQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9maWxlSWQiOiI2NmVlODJmN2NiOGEyM2FkYzMwZDAxMjAiLCJpYXQiOjE3MjY5MDcxNzAsImV4cCI6MTcyNjkxMDc3MH0.t2bfrIA-hsZJy-h0XTioECoZuSxTw_XdIvuSkacvmaY
