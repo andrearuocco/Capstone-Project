@@ -150,7 +150,7 @@ export const deletePayment = async (req, res) => {
       return res.status(404).json({ message: 'Pagamento non trovato nel database' });
     }
 
-    await employee.save() // salva il dipendente aggiornato
+    await employee.save() // salva i dati dipendente aggiornati
 
     return res.status(200).json({ message: `Pagamento con ID ${payEnvelopeId} cancellato` });
 
