@@ -1,0 +1,29 @@
+###
+POST http://localhost:5000/api/v1/profile/66ee8569ff7d595fca3c351b/employee/66ee8569ff7d595fca3c3519/payEnvelope
+Content-Type: application/json
+
+{
+    "companyData": {
+        "companyName": "Nome Azienda",
+        "vatNumber": "12345678901",
+        "IBAN": "IT60X1234567890123456789012"
+    },
+    "payPeriod": {
+        "month": "Settembre",
+        "year": 2024,
+        "worked": {
+            "days": 22,
+            "hours": 176
+        }
+    },
+    "salary": {
+        "basicSalary": 2000,
+        "total": 2300
+    },
+    "deductions": {
+        "taxes": 400,
+        "socialContributions": 300,
+        "totalDeductions": 750
+    },
+    "payCheck": 1550
+}
