@@ -11,7 +11,7 @@ const employeeRouter = express.Router()
 
 employeeRouter.get('/', getAllEmployee) // questa rotta servirà per avere una lista di tutte le posizioni lavorative occupate nell'azienda (con paginazione) e per ricercare una singola posizione lavorativa occupata 
 
-employeeRouter.get('/:id', getSingleEmployee) // questa rotta servirà per ricercare un dipendente attraverso il proprio id 
+employeeRouter.get('/:id', getSingleEmployee) // questa rotta servirà per ricercare un dipendente attraverso il proprio id e in virtù della referenza saranno visibili anche le sue buste paga 
 
 employeeRouter.put('/:id', editEmployee) 
 

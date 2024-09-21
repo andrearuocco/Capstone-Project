@@ -1,5 +1,5 @@
 import express from 'express'
-import { addPayments, getPayments } from '../controllers/payenvelope.controller.js';
+import { addPayments, getPayments, getSinglePayment } from '../controllers/payenvelope.controller.js';
 /* import uploadCloudinary from '../middleware/uploadCloudinary.js'; */
 
 const payEnvelopeRouter = express.Router()
@@ -8,9 +8,9 @@ payEnvelopeRouter.post('/profile/:profileId/employee/:employeeId/payEnvelope', a
 
 payEnvelopeRouter.get('/payEnvelope', getPayments) // elencate tutte le buste paga rilasciate dall'azienda dando la possibilità agli admin di visualizzarle secondo anno e mese attraverso un filtro su payPeriod
 
-payEnvelopeRouter.get('/employee/:employeeId/payEnvelope', )
+payEnvelopeRouter.get('/employee/:employeeId/payEnvelope/:payEnvelopeId', getSinglePayment) // restituisce una busta paga specifica di un dipendente 
 
-payEnvelopeRouter.put('/:id', )
+payEnvelopeRouter.put('/employee/:employeeId/payEnvelope/:payEnvelopeId', )
 
 payEnvelopeRouter.delete('/:id', )
 

@@ -30,3 +30,14 @@ Content-Type: application/json
 
 ###
 GET http://localhost:5000/api/v1/payEnvelope?year=2024
+
+###
+GET http://localhost:5000/api/v1/employee/66eee0632541693376d243bb/payEnvelope/66eee1092541693376d243c2
+
+###
+PUT http://localhost:5000/api/v1/employee/66eee0632541693376d243bb/payEnvelope/66eee1092541693376d243c2
+Content-Type: application/json
+
+{
+
+}

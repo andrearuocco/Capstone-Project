@@ -85,3 +85,25 @@ export const getPayments = async (req, res) => {
     res.status(404).send();
   }
 }
+
+export const getSinglePayment = async (req, res) => {
+  try {
+    const employee = await Employee.findById(req.params.employeeId).populate({
+      path: 'payments',
+      model: 'payEnvelope',
+      match: { _id: req.params.payEnvelopeId } 
+    });
+
+    // controlla se il dipendente e la busta paga esistono
+    if (!employee || !employee.payments.length) {
+      return res.status(404).send({ message: 'Not Found' });
+    }
+
+    // restituisce solo il payments identificato con l'ID e lo 'tira fuori' dall'array
+    const payment = employee.payments[0];
+    res.send(payment);
+  } catch (error) {
+    res.status(500).send({ message: 'Internal Server Error' });
+  }
+}
+
