@@ -39,7 +39,6 @@ const profileSchema = new Schema({
         type: String,
     },
     googleId: String, 
-    // SPIDId: String, 
     IBAN: {
         type: String, 
         required: true,
