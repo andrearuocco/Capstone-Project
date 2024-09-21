@@ -1,0 +1,9 @@
+###
+POST http://localhost:5000/profile/66ef363a36764bf5ce07646c/employee/66ef363a36764bf5ce07646a/dailytask
+Content-Type: application/json
+
+{
+  "day": "Martedì",
+  "when": "Pomeriggio",
+  "description": "Eseguire test."
+}

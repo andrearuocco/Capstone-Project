@@ -10,6 +10,7 @@ import GoogleStrategy from './config/passport.js'
 import passport from 'passport'
 import employeeRouter from './routes/employeeRoutes.js'
 import payEnvelopeRouter from './routes/payenvelopeRoutes.js'
+import dailytaskRouter from './routes/dailytaskRoutes.js'
 /* import authorization from './middleware/authorization.js' */
 
 const port = process.env.PORT || 5000
@@ -27,6 +28,7 @@ server.use('/api/v1/auth', authRouter)
 server.use('/profile', profileRoutes)
 server.use('/', employeeRouter)
 server.use('/api/v1', payEnvelopeRouter)
+server.use('/profile', dailytaskRouter)
 
 await mongoose.connect(process.env.MONGODB_URL)
     .then(() => console.log('Connessione al database...'))
