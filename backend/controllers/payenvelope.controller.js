@@ -107,3 +107,48 @@ export const getSinglePayment = async (req, res) => {
   }
 }
 
+export const editPayment = async (req, res) => {
+  const { employeeId, payEnvelopeId } = req.params;
+  const updatedFields = req.body; 
+
+  try {
+    
+    const employee = await Employee.findById(employeeId);
+    if (!employee) {
+      return res.status(404).json({ message: 'Dipendente non trovato' });
+    }
+
+    const payment = await payEnvelope.findByIdAndUpdate(payEnvelopeId, updatedFields, { new: true });
+
+    res.status(200).json({
+      message: 'Busta paga aggiornata correttamente',
+      payment
+    });
+
+  } catch (error) {
+
+    console.error('Errore in fase di aggiornamento:', error);
+    res.status(500).json({ message: 'Internal server error' });
+
+  }
+}
+
+export const deletePayment = async (req, res) => {
+  const { employeeId, payEnvelopeId } = req.params;
+  try {
+    const employee = await Employee.findById(employeeId);
+    if (!employee) {
+      return res.status(404).json({ message: 'Dipendente non trovato' });
+    }
+    const payment = await payEnvelope.exists({ _id: req.params.payEnvelopeId })
+    if (payment) {
+      const paymentToDelete = await payEnvelope.findOneAndDelete(payEnvelopeId)
+      return res.status(200).send(`Cancellata pagamento con n. ID: ${payEnvelopeId}`)
+    } else {
+      return res.status(404).send({ message: 'Payment not found' })
+    }
+  } catch (error) {
+    res.status(400).send(error)
+  }
+
+}
