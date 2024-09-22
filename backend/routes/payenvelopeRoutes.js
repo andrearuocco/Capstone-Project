@@ -1,6 +1,5 @@
 import express from 'express'
 import { addPayments, getPayments, getSinglePayment, editPayment, deletePayment } from '../controllers/payenvelope.controller.js';
-/* import uploadCloudinary from '../middleware/uploadCloudinary.js'; */
 
 const payEnvelopeRouter = express.Router()
 

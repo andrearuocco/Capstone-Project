@@ -1,17 +1,16 @@
 import express from 'express'
-import { adddailytask/* , getAlldailytask, getdailytask, editdailytask, deletedailytask */ } from '../controllers/dailytask.controller.js';
-/* import uploadCloudinary from '../middleware/uploadCloudinary.js'; */
+import { adddailytask, getAlldailytask, getdailytask, editdailytask, deletedailytask } from '../controllers/dailytask.controller.js';
 
 const dailytaskRouter = express.Router()
 
 dailytaskRouter.post('/:profileId/employee/:employeeId/dailytask', adddailytask) 
 
-dailytaskRouter.get('/'/* , getAlldailytask */) 
+dailytaskRouter.get('/:profileId/employee/:employeeId/dailytask', getAlldailytask) // sarà usata dai dipendenti per vedere i task assegnati e consentirà loro una ricerca secondo i giorni settimanali
 
-dailytaskRouter.get('/:id'/* , getdailytask */)  
+dailytaskRouter.get('/:profileId/employee/:employeeId/dailytask/:dailytaskId', getdailytask) // i titolari potranno vedere a chi hanno assegnato un task specifico 
 
-dailytaskRouter.put(':/id'/* , editdailytask */) 
+dailytaskRouter.put('/:profileId/employee/:employeeId/dailytask/:dailytaskId', editdailytask) 
 
-dailytaskRouter.delete('/.id'/* , deletedailytask */)
+dailytaskRouter.delete('/:profileId/employee/:employeeId/dailytask/:dailytaskId', deletedailytask)
 
 export default dailytaskRouter

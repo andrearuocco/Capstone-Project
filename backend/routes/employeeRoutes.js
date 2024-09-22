@@ -1,6 +1,5 @@
 import express from 'express'
-import { addEmployee, getAllEmployee, getSingleEmployee, editEmployee, deleteEmployee } from '../controllers/employee.controller.js';
-/* import uploadCloudinary from '../middleware/uploadCloudinary.js'; */
+import { addEmployee, getAllEmployee, getSingleEmployee, editEmployee, deleteEmployee, getdailytaskForEmployee } from '../controllers/employee.controller.js';
 
 const employeeRouter = express.Router()
 
@@ -16,5 +15,7 @@ employeeRouter.get('/employee/:id', getSingleEmployee) // questa rotta servirà 
 employeeRouter.put('/employee/:id', editEmployee) 
 
 employeeRouter.delete('/profile/:profileId/employee/:employeeId', deleteEmployee)
+
+employeeRouter.get('/profile/:profileId/employee/:employeeId/dailytask/:dailytaskId', getdailytaskForEmployee) // i dipendenti potranno vedere un task specifico a loro assegnato
 
 export default employeeRouter

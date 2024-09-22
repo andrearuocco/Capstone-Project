@@ -7,3 +7,20 @@ Content-Type: application/json
   "when": "Pomeriggio",
   "description": "Eseguire test."
 }
+
+###
+GET http://localhost:5000/profile/66ef363a36764bf5ce07646c/employee/66ef363a36764bf5ce07646a/dailytask?day=Martedì
+
+###
+GET http://localhost:5000/profile/66ef363a36764bf5ce07646c/employee/66ef363a36764bf5ce07646a/dailytask/66ef3bddbe6e52684f9d11f5
+
+###
+PUT http://localhost:5000/profile/66ef363a36764bf5ce07646c/employee/66ef363a36764bf5ce07646a/dailytask/66ef3bddbe6e52684f9d11f5
+Content-Type: application/json
+
+{
+  "day": "Venerdì"
+}
+
+###
+DELETE http://localhost:5000/profile/66ef363a36764bf5ce07646c/employee/66ef363a36764bf5ce07646a/dailytask/66ef3bddbe6e52684f9d11f5
