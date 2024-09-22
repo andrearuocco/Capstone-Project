@@ -1,0 +1,10 @@
+###
+POST http://localhost:5000/profile/66ef05db8b48d84fa357dec8/employee/66ef363a36764bf5ce07646a/dailytask/66ef3b7afcb6b7e8a4430d8b/comment
+Content-Type: application/json
+
+{
+    "content": "portare due sacchi di cemento"
+}
+
+###
+GET http://localhost:5000/profile/66ef05db8b48d84fa357dec8/employee/66ef363a36764bf5ce07646a/dailytask/66ef3b7afcb6b7e8a4430d8b/comment
