@@ -104,26 +104,3 @@ export const deleteEmployee = async (req, res) => {
         res.status(500).send({ message: "Errore nella cancellazione del ruolo dipendente", error });
     }
 }
-
-export const getdailytaskForEmployee = async (req, res) => {
-    const { profileId, employeeId, dailytaskId } = req.params
-    try {
-        const profile = await Profile.findOne({ _id: profileId, 'whoIs.employeeData': employeeId }).populate('whoIs.employeeData')
-
-        const employee = profile.whoIs.employeeData
-
-        const task = employee.dailyTask.id(dailytaskId)
-
-        res.status(200).send({
-            message: `Il tuo task n.${dailytaskId}`,
-            employee: {
-                _id: employee._id,
-                role: employee.role,
-                dailyTask: [task] 
-            }  
-        })
-    } catch (error) {
-
-        res.status(500).send({ error: 'Errore interno del server' });
-    }
-} 
