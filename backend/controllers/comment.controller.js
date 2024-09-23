@@ -43,8 +43,8 @@ export const getAll = async (req, res) => {
                 populate: {
                     path: 'dailyTask.comments', 
                     populate: {
-                        path: 'profile', 
-                        model: 'Profile' 
+                        path: 'comments', 
+                        model: 'Comment' 
                     }
                 }
             });
@@ -139,7 +139,7 @@ export const deleteComment = async (req, res) => {
 
     try {
         
-        const employee = await Employee.findById(employeeId) // devo utilizzare employee per poi poter modificare la chiave che riguarda i compiti quotidiani che è un array 
+        const employee = await Employee.findById(employeeId) // devo utilizzare employee per poi poter modificare la chiave che riguarda i compiti quotidiani che contiene un array 
         if (!employee) {
             return res.status(404).send({ message: 'Questo dipendente non esiste' });
         }

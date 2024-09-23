@@ -4,8 +4,8 @@ Content-Type: application/json
 
 {
     "name": "Andrea",
-    "surname": "Giaccio",
-    "email": "giaccio96@gmail.com",
+    "surname": "Giovanni",
+    "email": "andrea1996@gmail.com",
     "password": "andrearuocco",
     "birthday": 774032800000,
     "avatar": "",
@@ -15,7 +15,7 @@ Content-Type: application/json
         "type": "admin",
         "adminData": {
             "name": "Amministratore Delegato",
-            "description": "Direttore di questa bellissima azienda."
+            "description": "Socio"
         }
     }
 }

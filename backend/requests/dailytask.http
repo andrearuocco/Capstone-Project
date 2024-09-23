@@ -1,18 +1,18 @@
 ###
-POST http://localhost:5000/profile/66ef363a36764bf5ce07646c/employee/66ef363a36764bf5ce07646a/dailytask
+POST http://localhost:5000/profile/66ef05db8b48d84fa357dec8/employee/66f1ab4e778da5d539742d8a/dailytask
 Content-Type: application/json
 
 {
-  "day": "Martedì",
+  "day": "Mercoledì",
   "when": "Pomeriggio",
   "description": "Eseguire test."
 }
 
 ###
-GET http://localhost:5000/profile/66ef363a36764bf5ce07646c/employee/66ef363a36764bf5ce07646a/dailytask?day=Martedì
+GET http://localhost:5000/profile/66ef05db8b48d84fa357dec8/employee/66f1ab4e778da5d539742d8a/dailytask
 
 ###
-GET http://localhost:5000/profile/66ef363a36764bf5ce07646c/employee/66ef363a36764bf5ce07646a/dailytask/66ef3bddbe6e52684f9d11f5
+GET http://localhost:5000/profile/66f1ab4e778da5d539742d8c/employee/66f1ab4e778da5d539742d8a/dailytask/66f1ab86778da5d539742d90
 
 ###
 PUT http://localhost:5000/profile/66ef363a36764bf5ce07646c/employee/66ef363a36764bf5ce07646a/dailytask/66ef3bddbe6e52684f9d11f5

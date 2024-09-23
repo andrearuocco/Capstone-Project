@@ -19,12 +19,12 @@ export const adddailytask = async (req, res) => {
 
         await employee.save()
 
-        const updateProfile = await Profile.findById(profileId).populate({
-            path: 'whoIs.employeeData',  
-            model: 'Employee',
-        })
+        const updatedEmployee = await Employee.findById(employeeId).populate('dailyTask');
 
-        res.status(201).json({ message: 'Nuova compito giornaliero assegnato', updateProfile });
+        res.status(201).json({ 
+            message: 'Nuovo compito giornaliero assegnato', 
+            updatedEmployee 
+        });
     } catch (error) {
         res.status(500).json({ error: 'Internal Server Error' })
     }
@@ -35,12 +35,21 @@ export const getAlldailytask = async (req, res) => {
     const { day } = req.query
 
     try {
-        const profile = await Profile.findOne({ 'whoIs.employeeData': employeeId }).populate('whoIs.employeeData') // carica i dati profilo popolati con i dati employee secondo le regole dei due Schema
+        const profile = await Profile.findOne({ 'whoIs.employeeData': employeeId })
+            .populate({
+                path: 'whoIs.employeeData',
+                populate: {
+                    path: 'dailyTask',  
+                    populate: {
+                        path: 'comments'
+                    }
+                }
+            }); // carica i dati profilo popolati con i dati employee secondo le regole dei due Schema
         if (!profile) {
             return res.status(404).send({ message: 'Dipendente non trovato' })
         }
 
-        const employee = profile.whoIs.employeeData
+        const employee = profile.whoIs.employeeData;
 
         let tasks = employee.dailyTask;
         if (day) {
@@ -67,13 +76,13 @@ export const getdailytask = async (req, res) => {
 
         res.status(200).send({
             message: `Il task assegnato al profilo n.${profileId}`,
-            profile: profile,  // restituisce il profilo completo in modo che gli admin possono vedere a chi hanno assegnato il task  
+            profile: profile,  // restituisce employeeData completo in modo che gli admin possono capire a chi hanno assegnato il task  
         })
     } catch (error) {
 
         res.status(500).send({ error: 'Errore interno del server' })
     }
-} 
+}
 
 export const editdailytask = async (req, res) => {
     const { employeeId, dailytaskId } = req.params;

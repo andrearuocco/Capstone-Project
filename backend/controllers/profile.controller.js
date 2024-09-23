@@ -1,8 +1,10 @@
 import Profile from '../models/profileSchema.js'
 import bcrypt from "bcrypt"
 import Employee from '../models/employeeSchema.js'
+import transport from '../services/serviceMail.js';
 
 export const registerProfile = async (req, res) => {
+    let newProfile
     try {
         // verificare che la mail sia già utilizzata
         const profile = await Profile.findOne({ email: req.body.email })
@@ -10,7 +12,7 @@ export const registerProfile = async (req, res) => {
             return res.status(500).send('Mail già nel database.')
         }
         // se non è utilizzata allora registrare il nuovo utente con la password hashata
-        const newProfile = new Profile({
+        newProfile = new Profile({
             name: req.body.name,
             surname: req.body.surname,
             email: req.body.email,
@@ -48,6 +50,19 @@ export const registerProfile = async (req, res) => {
     } catch (error) {
         console.log(error)
         res.status(400).send(error)
+    }
+
+    try {
+        const profile = await Profile.findById(newProfile._id)
+        await transport.sendMail({
+            from: 'noreply@epicoders.com', // sender address
+            to: profile.email, // list of receivers
+            subject: "Nuova Utenza Creata", // Subject line
+            text: "Adesso sei dei nostri, benvenuto!!", // plain text body
+            html: "<b>Adesso sei dei nostri, benvenuto!!</b>" // html body
+        })
+    } catch (error) {
+        console.log(error)
     }
 }
 
@@ -150,5 +165,17 @@ export const deleteProfile = async (req, res) => {
         res.send(`Successfully deleted author with id ${id}.`)
     } catch (error) {
         res.status(404).send({ message: `ID ${id} not found` })
+    }
+}
+
+export const patchProfile = async (req, res) => {
+    // la patch serve per modificare una risorsa nel DB che esiste già
+    const { id } = req.params // recupero l'id dalla richiesta
+    try {
+        const profile = await Profile.findByIdAndUpdate(id, { avatar: req.file.path }, { new: true }) // trovo profile attraverso il proprio id esplicitato nella richiesta e lo modifica secondo il corpo di quest'ultima
+
+        res.status(200).send(profile)
+    } catch(error) {
+        res.status(400).send(error)
     }
 }
