@@ -3,8 +3,22 @@ POST http://localhost:5000/profile/66ef05db8b48d84fa357dec8/employee/66ef363a367
 Content-Type: application/json
 
 {
-    "content": "portare due sacchi di cemento"
+    "content": "cancellare il commento per forza 3"
 }
 
 ###
 GET http://localhost:5000/profile/66ef05db8b48d84fa357dec8/employee/66ef363a36764bf5ce07646a/dailytask/66ef3b7afcb6b7e8a4430d8b/comment
+
+###
+GET http://localhost:5000/profile/66ef363a36764bf5ce07646c/employee/66ef363a36764bf5ce07646a/dailytask/66ef3b7afcb6b7e8a4430d8b/comment/66f02ae86278ef2928ef361e
+
+###
+PUT http://localhost:5000/profile/66ef05db8b48d84fa357dec8/employee/66ef363a36764bf5ce07646a/dailytask/66ef3b7afcb6b7e8a4430d8b/comment/66f02ae86278ef2928ef361e
+Content-Type: application/json
+
+{
+    "content": "riunione in magazzino alle 11:30"
+}
+
+###
+DELETE http://localhost:5000/profile/66ef05db8b48d84fa357dec8/employee/66ef363a36764bf5ce07646a/dailytask/66ef3b7afcb6b7e8a4430d8b/comment/66f19170a0ba2de0ed15a224

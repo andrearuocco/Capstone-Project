@@ -1,6 +1,6 @@
 import express from 'express'
 import { adddailytask, getAlldailytask, getdailytask, editdailytask, deletedailytask } from '../controllers/dailytask.controller.js'
-import { createOne, getAll } from '../controllers/comment.controller.js'
+import { createOne, getAll, getComment, updateComment, deleteComment } from '../controllers/comment.controller.js'
 
 const dailytaskRouter = express.Router()
 
@@ -18,10 +18,10 @@ dailytaskRouter.post('/:profileId/employee/:employeeId/dailytask/:dailytaskId/co
 
 dailytaskRouter.get('/:profileId/employee/:employeeId/dailytask/:dailytaskId/comment', getAll) // tutti i commenti di un task assegnato
 
-dailytaskRouter.get('/:profileId/employee/:employeeId/dailytask/:dailytaskId/comment/:commentId', ) // un singolo commento di uno specifico task 
+dailytaskRouter.get('/:profileId/employee/:employeeId/dailytask/:dailytaskId/comment/:commentId', getComment) // un singolo commento di uno specifico task 
 
-dailytaskRouter.put('/:profileId/employee/:employeeId/dailytask/:dailytaskId/comment/:commentId', ) 
+dailytaskRouter.put('/:profileId/employee/:employeeId/dailytask/:dailytaskId/comment/:commentId', updateComment) 
 
-dailytaskRouter.delete('/:profileId/employee/:employeeId/dailytask/:dailytaskId/comment/:commentId', )
+dailytaskRouter.delete('/:profileId/employee/:employeeId/dailytask/:dailytaskId/comment/:commentId', deleteComment)
 
 export default dailytaskRouter
