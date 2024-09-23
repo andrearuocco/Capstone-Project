@@ -138,44 +138,35 @@ export const deleteComment = async (req, res) => {
     const { employeeId, dailytaskId, commentId } = req.params;
 
     try {
-        // Trova il profilo del dipendente
-        const employee = await Employee.findById(employeeId);
         
+        const employee = await Employee.findById(employeeId) // devo utilizzare employee per poi poter modificare la chiave che riguarda i compiti quotidiani che è un array 
         if (!employee) {
-            return res.status(404).send({ message: 'Dipendente non trovato' });
+            return res.status(404).send({ message: 'Questo dipendente non esiste' });
         }
 
-        // Trova il task specifico con dailytaskId
-        const task = employee.dailyTask.id(dailytaskId);
-        
+        const task = employee.dailyTask.id(dailytaskId)
         if (!task) {
             return res.status(404).send({ message: 'Task non trovato' });
         }
 
-        // Rimuovi il commento dall'array di commenti
-        const commentIndex = task.comments.indexOf(commentId);
+        const commentIndex = task.comments.indexOf(commentId) // cerca il commento nell'array dei task con indexOf + ID comment di params e lo rimuove con lo splice che è un metodo per gli array
         if (commentIndex > -1) {
-            task.comments.splice(commentIndex, 1);  // Rimuove il commento dall'array
+            task.comments.splice(commentIndex, 1);  
         } else {
-            return res.status(404).send({ message: 'Commento non trovato nel task' });
+            return res.status(404).send({ message: 'Commento non presente per questo task quotidiano' });
         }
 
-        // Salva l'aggiornamento al documento employee
-        await employee.save();
+        await employee.save()
 
-        // Elimina il commento dalla collezione Comment
-        const deletedComment = await Comment.findByIdAndDelete(commentId);
+        const deletedComment = await Comment.findByIdAndDelete(commentId)
 
-        if (!deletedComment) {
-            return res.status(404).send({ message: 'Commento non trovato nella collezione Comment' });
-        }
+        res.status(200).send({ message: 'Commento eliminato correttamente' })
 
-        res.status(200).send({ message: 'Commento eliminato correttamente' });
     } catch (error) {
         console.error(error);
         res.status(500).send({ error: 'Errore interno del server' });
     }
-};
+}
 
 
 

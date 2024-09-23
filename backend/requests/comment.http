@@ -3,7 +3,7 @@ POST http://localhost:5000/profile/66ef05db8b48d84fa357dec8/employee/66ef363a367
 Content-Type: application/json
 
 {
-    "content": "cancellare il commento per forza 3"
+    "content": "cancellare"
 }
 
 ###
@@ -21,4 +21,4 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:5000/profile/66ef05db8b48d84fa357dec8/employee/66ef363a36764bf5ce07646a/dailytask/66ef3b7afcb6b7e8a4430d8b/comment/66f19170a0ba2de0ed15a224
+DELETE http://localhost:5000/profile/66ef05db8b48d84fa357dec8/employee/66ef363a36764bf5ce07646a/dailytask/66ef3b7afcb6b7e8a4430d8b/comment/66f19625dd64647b3b602cc8
