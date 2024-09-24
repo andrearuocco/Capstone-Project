@@ -4,9 +4,9 @@ Content-Type: application/json
 
 {
     "name": "Andrea",
-    "surname": "Giovanni",
-    "email": "andrea1996@gmail.com",
-    "password": "andrearuocco",
+    "surname": "Epicode",
+    "email": "andreaepicode@gmail.com",
+    "password": "andreaepicode",
     "birthday": 774032800000,
     "avatar": "",
     "IBAN": "IT60X0542811101000000123456",
@@ -15,8 +15,26 @@ Content-Type: application/json
         "type": "admin",
         "adminData": {
             "name": "Amministratore Delegato",
-            "description": "Socio"
+            "description": "Amministatore unico di questa bellissima azienda."
         }
+    }
+}
+
+###
+POST http://localhost:5000/profile
+Content-Type: application/json
+
+{
+    "name": "Vincenzo",
+    "surname": "Epicode",
+    "email": "vincenzoepicode@gmail.com",
+    "password": "vincenzoaepicode",
+    "birthday": 774032800000,
+    "avatar": "",
+    "IBAN": "FR60X0542811101000000123456",
+    "country": "Italy",
+    "whoIs": {
+        "type": "employee"
     }
 }
 
@@ -25,10 +43,10 @@ POST http://localhost:5000/api/v1/auth/login
 Content-Type: application/json
 
 {
-    "email": "giaccio96@gmail.com",
-    "password": "andrearuocco"
+    "email": "vincenzoepicode@gmail.com",
+    "password": "vincenzoaepicode"
 }
 
 ###
 GET http://localhost:5000/api/v1/auth/me
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9maWxlSWQiOiI2NmVmMDVkYjhiNDhkODRmYTM1N2RlYzgiLCJpYXQiOjE3MjY5NDA2NDMsImV4cCI6MTcyNjk0NDI0M30.4QD9_rlm6JVM-gQnqSolPfaF4eMIWjdaBeJrJL12i80
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9maWxlSWQiOiI2NmYyNjFhYzU3YjZjYTY2Mjg1ZDVkMDEiLCJpYXQiOjE3MjcxNjA5OTcsImV4cCI6MTcyNzE2NDU5N30.qazcMe5u2Bn_erV368hTgKGGDfgVujpZPzzQtihxn1I

@@ -42,7 +42,12 @@ export const registerProfile = async (req, res) => {
                     return res.status(400).send('Dati employee mancanti.');
                 } */
 
-            newProfile.whoIs.employeeData = req.body.whoIs.employeeData;
+            const newEmployee = new Employee({
+                role: "Carpentiere"
+            });
+            const saveEmployee = await newEmployee.save()
+
+            newProfile.whoIs.employeeData = saveEmployee._id;
         }
 
         const createdProfile = await newProfile.save()

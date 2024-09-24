@@ -41,10 +41,14 @@ export const getAll = async (req, res) => {
             .populate({
                 path: 'whoIs.employeeData',
                 populate: {
-                    path: 'dailyTask.comments', 
+                    path: 'dailyTask',
                     populate: {
-                        path: 'comments', 
-                        model: 'Comment' 
+                        path: 'comments',
+                        model: 'Comment',
+                        populate: {
+                            path: 'profile',
+                            select: 'name surname' 
+                        }
                     }
                 }
             });
@@ -123,11 +127,18 @@ export const updateComment = async (req, res) => {
             select: '_id name surname' // se l'ID del profile corrisponde all'ID dell'utenza loggata allora consentirà lato front-end la modifica
         });
 
-        const commentFind = employee.dailyTask.comments.findIndex(comment => comment._id.toString() === commentId)
-        employee.dailyTask.comments.splice(commentFind, 1)
+        // findIndex con la variabile comment trova un Object perché così è referenziato dentro dailyTask chiave del documento/oggetto JSON employee 
+        const commentIndex = task.comments.findIndex(comment => comment._id.toString() === commentId)
+        if (commentIndex === -1) {
+            return res.status(404).send({ message: 'Commento non presente per questo task quotidiano' });
+        }
 
-        comment.content = content;
-        await comment.save();
+        task.comments.splice(commentIndex, 1)
+
+        comment.content = content
+
+        await comment.save()
+        await employeeProfile.save()
         res.status(200).send({ message: 'Commento modificato correttamente', comment })
     } catch (error) {
         res.status(500).send({ error: 'Errore interno del server' });

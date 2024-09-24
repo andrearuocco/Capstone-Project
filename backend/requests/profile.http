@@ -2,31 +2,30 @@
 GET http://localhost:5000/profile
 
 ###
-GET http://localhost:5000/profile/66f1ab4e778da5d539742d8c
+GET http://localhost:5000/profile/66f26ae90060e5b8d6b57886
 
 ###
-PUT http://localhost:5000/profile/66ef06658b48d84fa357ded2
+PUT http://localhost:5000/profile/66f260ac3286e2dd15955757
 Content-Type: application/json
 
 {
-    "name": "Enrico",
-    "surname": "Ruocco",
-    "email": "ruoccoenrico@gmail.com",
-    "birthday": 551334800000,
-    "avatar": ""
+  "name": "Enrico",
+  "surname": "Ruocco",
+  "email": "ruoccoenrico@gmail.com",
+  "birthday": 551334800000,
+  "avatar": ""
 }
 
 ###
-PUT http://localhost:5000/profile/66ef06658b48d84fa357ded2
+PUT http://localhost:5000/profile/66f261ac57b6ca66285d5d01
 Content-Type: application/json
 
 {
-    "name": "Giovanni",
-    "password": "ruoccogiovanni"
+  "password": "vincenzoepicode"
 }
 
 ###
-PUT http://localhost:5000/profile/66ef06658b48d84fa357ded2
+PUT http://localhost:5000/profile/66f261ac57b6ca66285d5d01
 Content-Type: application/json
 
 {
@@ -40,4 +39,4 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:5000/profile/66ef07178b48d84fa357dee1
+DELETE http://localhost:5000/profile/66f268497b7921980f3ec943

@@ -1,30 +1,27 @@
 ###
-POST http://localhost:5000/profile/66ef0ca8fb7dcb0a4f45eee2/employee
+POST http://localhost:5000/profile/66f26ae90060e5b8d6b57886/employee
 Content-Type: application/json
 
 {
-    "role": "addetto al reparto idraulico"
+    "role": "addetta al reparto idraulico"
 }
 
 ###
 GET http://localhost:5000/employee
 
 ###
-GET http://localhost:5000/employee?role=addetto
+GET http://localhost:5000/employee?role=addetta
 
 ###
-GET http://localhost:5000/employee/66f1ab4e778da5d539742d8a
+GET http://localhost:5000/employee/66f26b180060e5b8d6b57888
 
 ###
-PUT http://localhost:5000/employee/66f1ab4e778da5d539742d8a
+PUT http://localhost:5000/employee/66f26b180060e5b8d6b57888
 Content-Type: application/json
 
 {
-    "role": "addetto alle operazioni di magazzino"
+    "role": "parrucchiere"
 }
 
 ###
-DELETE http://localhost:5000/profile/66ef0ca8fb7dcb0a4f45eee2/employee/66ef1f03baafdf1aa7ebfa66
-
-###
-GET http://localhost:5000/profile/66f1ab4e778da5d539742d8c/employee/66f1ab4e778da5d539742d8a/dailytask/66f1d47e45b04aae547e6b15
+DELETE http://localhost:5000/profile/66f26ae90060e5b8d6b57886/employee/66f26b180060e5b8d6b57888
