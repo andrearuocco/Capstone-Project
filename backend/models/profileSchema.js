@@ -55,12 +55,15 @@ const profileSchema = new Schema({
         // se l'utente è un admin, usa lo schema embeddato
         adminData: {
             type: adminSchema,
+            // con il this si accede al campo whoIs dell'oggetto corrente, in particolare a type
             required: function() { return this.whoIs.type === 'admin'; }
         },
         // se l'utente è un employee, usa un ObjectId per referenziare uno schema esterno
         employeeData: {
             type: Schema.Types.ObjectId,
             ref: 'Employee',  // fa riferimento al modello Employee
+            // l'uso di required assegnato a una funzione e l'utilizzo del this determina
+            // l'assegnazione del doc. corrente da parte di mongoose 
             required: function() { return this.whoIs.type === 'employee'; }
         }
     }
