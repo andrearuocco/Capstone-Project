@@ -1,4 +1,5 @@
 import {Card, Col, Button} from 'react-bootstrap/'
+import './ProfileOne.css'
 
 function ProfileOne({profile}) {
     console.log(profile) 
@@ -8,8 +9,18 @@ function ProfileOne({profile}) {
             <Card.Body>
                 <Card.Title>{profile.name} {profile.surname} {` - ${profile.whoIs.type}`}</Card.Title>
                 <Card.Text>
-                    Some quick example text to build on the card title and make up the
-                    bulk of the card's content.
+                    {profile.whoIs.type === 'admin' && (
+                        <ul className='list-unstyled'>
+                            <li>Role: {profile.whoIs.adminData.name}</li>
+                            <li className='overF'>Description: {profile.whoIs.adminData.description}</li>
+                        </ul>
+                    )}
+                    {profile.whoIs.type === 'employee' && (
+                        <ul className='list-unstyled'>
+                            <li>Role: {profile.whoIs.employeeData.role}</li>
+                            {profile.whoIs.employeeData.dailyTask.map(dT =>  <li className='overF'>dailyTask: {dT.description} {dT.day}</li> )}
+                        </ul>
+                    )}
                 </Card.Text>
                 <Button variant="primary">Go somewhere</Button>
             </Card.Body>
