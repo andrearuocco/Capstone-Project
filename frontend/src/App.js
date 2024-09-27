@@ -9,7 +9,9 @@ function App() {
 /*  <Router>
       <Button as={Link} to={'http://localhost:5000/api/v1/auth/login-google'} className="m-4" variant="primary">Login with Google</Button>
     </Router> */
-    <Container><ProfileList/></Container>
+    <Container>
+      <ProfileList/>
+    </Container>
   );
 }
 
