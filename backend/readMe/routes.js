@@ -2,7 +2,7 @@
 
 // POST http://localhost:5000/api/v1/auth/login => restituisce il token dell'utente loggato 
 
-// GET http://localhost:5000/api/v1/auth/me => manda in risposta un oggetto profile con i dati del doc. nella collection che corrisponde al token nell'autorizzazione 
+// GET http://localhost:5000/api/v1/auth/me (me edit DA FARE)=> manda in risposta un oggetto profile con i dati del doc. nella collection che corrisponde al token nell'autorizzazione 
 
 // GET http://localhost:5000/profile => manda in risposta un json con tutti i profili dell'azienda con i dati admin o employee
 

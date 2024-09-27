@@ -64,7 +64,7 @@ const profileSchema = new Schema({
             ref: 'Employee',  // fa riferimento al modello Employee
             // l'uso di required assegnato a una funzione e l'utilizzo del this determina
             // l'assegnazione del doc. corrente da parte di mongoose 
-            required: function() { return this.whoIs.type === 'employee'; }
+            required: function() { return this.whoIs.type === 'employee'; } 
         }
     }
 }, { collection: "profiles" });  
