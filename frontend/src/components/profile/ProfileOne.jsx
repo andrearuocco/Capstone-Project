@@ -1,15 +1,15 @@
-import {Card, Col, Button, Offcanvas } from 'react-bootstrap/'
+import { Card, Col, Button, Offcanvas } from 'react-bootstrap/'
 import './ProfileOne.css'
 import { useState } from 'react';
 
 const offcanvasConfig = {
-  name: 'ProfileDetails',
-  scroll: true,
-  backdrop: true,
+    name: 'ProfileDetails',
+    scroll: true,
+    backdrop: true,
 };
 
-function ProfileOne({profile}) {
-    console.log(profile) 
+function ProfileOne({ profile }) {
+    console.log(profile)
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -32,7 +32,7 @@ function ProfileOne({profile}) {
 
                             {profile.whoIs.employeeData.dailyTask.length > 0 && (
                                 <li className='overF'>
-                                    dailyTask: 
+                                    dailyTask:
                                     {profile.whoIs.employeeData.dailyTask[profile.whoIs.employeeData.dailyTask.length - 1].description} {/* mostro solo il task assegnato più di recente */}
                                     {profile.whoIs.employeeData.dailyTask[profile.whoIs.employeeData.dailyTask.length - 1].day}
                                 </li>
@@ -49,9 +49,33 @@ function ProfileOne({profile}) {
                             <Offcanvas.Title>Profile Details</Offcanvas.Title>
                         </Offcanvas.Header>
                         <Offcanvas.Body>
-                            <ul>
-                                <li><Card.Img variant="top" src={profile.avatar} style={{ height: '12rem' }} /></li>
-                                <li>{profile.name} {profile.surname }</li>
+                            <ul className='list-unstyled'>
+                                <li className='d-flex justify-content-between align-items-center mb-4'>
+                                    <Card.Img variant="top" className='border-50 me-3' src={profile.avatar} />
+                                    <div>{profile.name} {profile.surname}</div>
+                                    <div>{profile.whoIs.type === 'admin' && (
+                                        <ul className='list-unstyled'>
+                                            <li>Role: {profile.whoIs.adminData.name}</li>
+                                        </ul>
+                                    )}
+                                    {profile.whoIs.type === 'employee' && (
+                                        <ul className='list-unstyled'>
+                                            <li>Role: {profile.whoIs.employeeData.role}</li>
+                                        </ul>
+                                    )}</div>
+                                </li>
+                                <li className='mb-4'>Email: {profile.email}</li>
+                                <li className='mb-4'>Birthday: {new Date(profile.birthday).toLocaleDateString('it-IT')}</li>
+                                <li className='mb-4'>Country: {profile.country}</li>
+                                <li className='mb-4'>IBAN: {profile.IBAN}</li>
+                                <li className='mb-4'>TIN: {profile.TIN}</li>
+                                {profile.whoIs.type === 'employee' && (
+                                    <> {profile.whoIs.employeeData.dailyTask.map((dT, index) => <div>dailyTask{index}:{dT.description} 
+                                            <p><span className='me-2'>DAY:{dT.day}</span> 
+                                            WHEN:{dT.when}</p>
+                                        </div>)}
+                                    </>
+                                )}
                             </ul>
                         </Offcanvas.Body>
                     </Offcanvas>
