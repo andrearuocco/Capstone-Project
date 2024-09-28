@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ProfileList from "./components/profile/ProfileList";
 import { MeProvider } from "./components/context/MeContext";
 import Login from "./components/view/Login";
+import ProtectedRoutes from './components/routes/ProtectedRoutes';
 
 function App() {
   return (
@@ -15,8 +16,15 @@ function App() {
       <Router>
         <Container>
           <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/" element={<ProfileList />} />
+            <Route path="/login" element={<Login/>} />
+            <Route
+              path="/"
+              element={
+                <ProtectedRoutes>
+                  <ProfileList />
+                </ProtectedRoutes>
+              }
+            />
           </Routes>
         </Container>
       </Router>
