@@ -9,7 +9,7 @@ function ProtectedRoute({ children }) {
     return <Navigate to="/login" replace />
   }
 
-  return children // l'utente è loggato non mostare più il login ma i suoi figli (quelli del componente ProtectedRoutes in App)
+  return children // se l'utente è loggato non mostare più il login ma i figli delle rotte protette (quelli del componente ProtectedRoutes in App)
 }
 
 export default ProtectedRoute
