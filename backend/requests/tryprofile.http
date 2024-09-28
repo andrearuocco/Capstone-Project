@@ -44,9 +44,9 @@ Content-Type: application/json
 
 {
     "email": "vincenzoepicode@gmail.com",
-    "password": "vincenzoaepicode"
+    "password": "vincenzoepicode"
 }
 
 ###
 GET http://localhost:5000/api/v1/auth/me
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9maWxlSWQiOiI2NmYyNjFhYzU3YjZjYTY2Mjg1ZDVkMDEiLCJpYXQiOjE3MjcxNjA5OTcsImV4cCI6MTcyNzE2NDU5N30.qazcMe5u2Bn_erV368hTgKGGDfgVujpZPzzQtihxn1I
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9maWxlSWQiOiI2NmYyNjFhYzU3YjZjYTY2Mjg1ZDVkMDEiLCJpYXQiOjE3Mjc1MDk0MDAsImV4cCI6MTcyNzUxMzAwMH0.7sai0RsT8KRalFPbb476siw8FbvyWxTtOtvAV9lkkbI
