@@ -36,7 +36,7 @@ export const ProfileContextProvider = ({ children }) => {
 
   const getUser = async () => {
     const token = localStorage.getItem("token") // prendo il token dal localStorage
-
+    console.log(token)
     if (token) {
       try {
         const res = await fetch("http://localhost:5000/api/v1/auth/me", {

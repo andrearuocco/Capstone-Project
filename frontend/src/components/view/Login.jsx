@@ -8,10 +8,11 @@ function Login() {
     const [showForm, setShowForm] = useState(true)
     const { me } = useContext(ProfileContext)
     const navigate = useNavigate()
-    const redirectIfLoggedIn = function () {
-        if (me) navigate('/')
-    }
-    useEffect(redirectIfLoggedIn, [me])
+    useEffect(() => {
+        if (me) {
+          navigate('/')
+        }
+      }, [me]);
     return (
         <Row>
             <Col xs={12} md={12} lg={9} className="d-flex">
