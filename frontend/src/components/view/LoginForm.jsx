@@ -1,10 +1,11 @@
 import { ProfileContext } from "../context/ProfileContextProvider"
-import { useContext, useState } from "react"
+import { useContext, useState, useEffect } from "react"
 import { Button, Form } from "react-bootstrap"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useSearchParams } from "react-router-dom"
+import { login } from "../../data/fetch"
 
 function LoginForm({ showForm, setShowForm }) {
-  const { login } = useContext(ProfileContext)
+/*   const { login } = useContext(ProfileContext)
   const navigate = useNavigate()
 
   const [loginFormData, setLoginFormData] = useState({
@@ -32,7 +33,45 @@ function LoginForm({ showForm, setShowForm }) {
   // funzione per mostrare il form di registrazione
   const showRegisterForm = () => {
     setShowForm(!showForm)
-  }
+  } */
+  
+    let [searchParams, setSearchParams]=useSearchParams()
+    const [formValue, setFormValue] = useState({email:"", password:""})
+    const showRegisterForm = () => {
+      setShowForm(!showForm)
+    } 
+    useEffect(()=>{
+      console.log(searchParams.get('token'))
+      if(searchParams.get('token')){
+        localStorage.setItem('token',searchParams.get('token'))
+        setToken(searchParams.get('token'))// aggiorna il token nello stato del contesto
+      }
+    },[])
+    const {token, setToken, userInfo, setUserInfo} = useContext(ProfileContext)
+
+    const handleLogin = async () => {
+        try {
+          const tokenObj = await login(formValue) //così abbiamo il token da mettere nel localstorage
+          if(tokenObj && tokenObj.token){ // ctrollo se tokenObj e token sono definiti
+          localStorage.setItem('token', tokenObj.token) //ls setitem accetta 2 parametri: la chiave con cui vuoi salvare e poi il valore
+          setToken(tokenObj.token) //dentro token obj c'è la risposta completa dell'end point che è un oggetto e noi dobbiamo prendere solo la propiretà token
+     
+          alert('Login effettuato')
+          }else {
+          alert("Credenziali errate")
+          }
+        } catch (error) {
+          console.log(error)
+          alert(error + 'Errore, riporva più tardi')
+        }
+      }
+
+      const handleChange = (event) =>{
+        setFormValue({
+          ...formValue, 
+          [event.target.name] : event.target.value
+        })
+      }
 
   return (
     <Form onSubmit={handleLogin}>
@@ -42,8 +81,7 @@ function LoginForm({ showForm, setShowForm }) {
           type="email"
           name="email"
           placeholder="Enter email"
-          value={loginFormData.email}
-          onChange={handleFormChange}
+          onChange={handleChange}
           required
         />
       </Form.Group>
@@ -53,8 +91,7 @@ function LoginForm({ showForm, setShowForm }) {
           type="password"
           name="password"
           placeholder="Password"
-          value={loginFormData.password}
-          onChange={handleFormChange}
+          onChange={handleChange}
           required
         />
       </Form.Group>
