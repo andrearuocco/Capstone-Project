@@ -1,8 +1,8 @@
 import { createContext, useState, useEffect } from "react"
 
-export const MeContext = createContext()
+export const ProfileContext = createContext()
 
-export const MeProvider = ({ children }) => {
+export const ProfileContextProvider = ({ children }) => {
   const [me, setMe] = useState(null) // chi è l'utente loggato
 
   const login = async (email, password) => {
@@ -13,7 +13,7 @@ export const MeProvider = ({ children }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, password }),
-      });
+      })
       if (!res.ok) {
         throw new Error('Credenziali non corrette per autenticazione');
       };
@@ -64,13 +64,13 @@ export const MeProvider = ({ children }) => {
 
   useEffect(() => {
     getUser()
-  })
+  }, [])
 
   return (
-    <MeContext.Provider
+    <ProfileContext.Provider
       value={{ me, login, logout }}
     >
       {children}
-    </MeContext.Provider>
+    </ProfileContext.Provider>
   );
 }

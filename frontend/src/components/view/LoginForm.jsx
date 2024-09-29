@@ -1,10 +1,10 @@
-import { MeContext } from "../context/MeContext";
-import { useContext, useState } from "react";
-import { Button, Form } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { ProfileContext } from "../context/ProfileContextProvider"
+import { useContext, useState } from "react"
+import { Button, Form } from "react-bootstrap"
+import { useNavigate } from "react-router-dom"
 
 function LoginForm({ showForm, setShowForm }) {
-  const { login } = useContext(MeContext)
+  const { login } = useContext(ProfileContext)
   const navigate = useNavigate()
 
   const [loginFormData, setLoginFormData] = useState({
@@ -16,17 +16,15 @@ function LoginForm({ showForm, setShowForm }) {
     const target = event.target
     setLoginFormData({ ...loginFormData, [target.name]: target.value }) // cattura i valori dell'evento di trasformazione dei campi vuoti in seguito all'inserimento dati dell'utente
   }
-
-  // Funzione per gestire il login al submit
+  
+  // funzione per gestire il login al submit
   const handleLogin = async (event) => {
     event.preventDefault()
     try {
       
       await login(loginFormData.email, loginFormData.password) // alla funzione di login chiamata dal context vengono passati come paramentri necessari i valori di email e password 
-
-      navigate('/') // se il login è riuscito vai alla pagina personalizzata (edit / in the future _ 28/09)
+      navigate('/') // se il login è riuscito vai alla pagina PERSONALIZZATA
     } catch (error) {
-
       alert(`Login non riuscito, controlla le tue credenziali. ${error}`)
     }
   }
@@ -60,7 +58,6 @@ function LoginForm({ showForm, setShowForm }) {
           required
         />
       </Form.Group>
-
       <div>
         <Button variant="primary" type="submit">
           Submit

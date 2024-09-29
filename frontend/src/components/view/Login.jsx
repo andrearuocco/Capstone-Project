@@ -1,21 +1,17 @@
 import React, { useContext, useState, useEffect } from "react";
-import { MeContext } from "../context/MeContext";
+import { ProfileContext } from "../context/ProfileContextProvider";
 import { Button, Form, Container, Row, Col } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import LoginForm from "./LoginForm";
-
 function Login() {
     // stato per gestire la visualizzazione dei form
     const [showForm, setShowForm] = useState(true)
-    const { me } = useContext(MeContext)
+    const { me } = useContext(ProfileContext)
     const navigate = useNavigate()
-
     const redirectIfLoggedIn = function () {
         if (me) navigate('/')
     }
-
     useEffect(redirectIfLoggedIn, [me])
-
     return (
         <Row>
             <Col xs={12} md={12} lg={9} className="d-flex">
@@ -23,12 +19,9 @@ function Login() {
                 {/*  {!showForm && <RegisterForm showForm={showForm} setShowForm={setShowForm} />} */}
             </Col>
             <Col lg={3} className="d-none d-sm-none d-md-none d-lg-block">
-{/*                 <div className="loginImage">
-                    <img alt="Ti diamo il benvenuto nella tua community professionale" src="https://static.licdn.com/aero-v1/sc/h/dxf91zhqd2z6b0bwg85ktm5s4"></img>
-                </div> */}
+                <Button as={Link} to={'http://localhost:5000/api/v1/auth/login-google'} className="m-4" variant="primary">Login with Google</Button>
             </Col>
         </Row>
     );
 }
-
 export default Login
