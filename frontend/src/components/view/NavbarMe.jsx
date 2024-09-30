@@ -7,7 +7,9 @@ import { ProfileContext } from '../context/ProfileContextProvider'
 
 function NavbarMe() {
     const { userInfo } = useContext(ProfileContext);
-  
+    if (!userInfo) {
+      return null
+    }
     return (
       <Navbar bg="dark" data-bs-theme="dark">
         <Container>
