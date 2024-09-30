@@ -9,8 +9,8 @@ import { motion } from 'framer-motion'
 import businessImage from '../view/business-concept-with-team-close-up.jpg'
 import brandImage from '../view/brand.jpg'
 
-function ProfileList() {
-    const [profile, setProfile] = useState([])
+function ProfileList({profile, setProfile}) {
+    /* const [profile, setProfile] = useState([]) */
     const [showForm, setShowForm] = useState(true)
     let [searchParams, setSearchParams]=useSearchParams()
     const [formValue, setFormValue] = useState({email:"", password:""})
@@ -69,7 +69,7 @@ function ProfileList() {
               backgroundImage: `url(${brandImage})`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
-              height: '400px',
+              height: '300px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -124,21 +124,14 @@ function ProfileList() {
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      className="mx-2 btn btn-outline-primary"
-                      as="a"
-                      href="http://localhost:5000/api/v1/auth/login-google"
-                    >
-                      Google For Employee
-                    </motion.button>
-
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
                       className="mx-2 btn btn-link"
                       onClick={showRegisterForm}
                     >
                       Don't have an account? Register here!
                     </motion.button>
+
+                    <Button as={Link} to={'http://localhost:5000/api/v1/auth/login-google'} className="m-4" variant="primary">Login with Google</Button>
+
                   </div>
                 </Form>
               </Row>

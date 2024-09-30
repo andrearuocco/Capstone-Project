@@ -51,3 +51,19 @@ export const login = async (formValue) => {
       return {error: 'Errore, riporva più tardi'} 
   }
 }
+
+export const profileId = async (id) => {
+    try {
+        const res = await fetch(`http://localhost:5000/profile/${id}`, {
+            method: 'GET',
+        })
+        if(res.ok){
+            const data = await res.json();
+            return data
+        }else {const errorData = await res.json()
+            return {error: errorData.message || 'Profile non trovato'}
+        }
+    } catch (error) {
+        return {error: 'Riprova più tardi'} 
+    }
+  }

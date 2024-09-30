@@ -1,6 +1,7 @@
 import { Card, Col, Button, Offcanvas } from 'react-bootstrap/'
 import './ProfileOne.css'
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const offcanvasConfig = {
     name: 'ProfileDetails',
