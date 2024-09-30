@@ -52,8 +52,7 @@ function ProfileList() {
 
 
     console.log(profile)
-    return (<><NavbarMe></NavbarMe>
-    <Container>
+    return (<>
     {!token &&<Form onSubmit={handleLogin}>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
@@ -84,9 +83,10 @@ function ProfileList() {
         </Button>
       </div>
     </Form>}
-    {token && <Row>
+    {token && <><NavbarMe></NavbarMe>
+    <Container><Row>
             {profile.map(p =>  <ProfileOne key={p._id} profile={p} /> )}
-        </Row>}    </Container></>
+        </Row></Container></>}    </>
     )
 }
 

@@ -30,13 +30,12 @@ function ProfileOne({ profile }) {
                         <ul className='list-unstyled'>
                             <li>Role: {profile.whoIs.employeeData.role}</li>
 
-                            {profile.whoIs.employeeData.dailyTask.length > 0 && (
-                                <li className='overF'>
-                                    dailyTask:
+                            <li className='overF'>dailyTask:{profile.whoIs.employeeData.dailyTask.length > 0 && (
+                                <span>
                                     {profile.whoIs.employeeData.dailyTask[profile.whoIs.employeeData.dailyTask.length - 1].description} {/* mostro solo il task assegnato più di recente */}
                                     {profile.whoIs.employeeData.dailyTask[profile.whoIs.employeeData.dailyTask.length - 1].day}
-                                </li>
-                            )}
+                                </span>
+                            )}</li>
                         </ul>
                     )}
                 </Card.Text>
