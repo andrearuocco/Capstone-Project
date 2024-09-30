@@ -18,7 +18,7 @@ function ProfileOne({ profile }) {
         <Card /* style={{ width: '18rem' }} */ >
             <Card.Img variant="top" src={profile.avatar} style={{ height: '18rem' }} />
             <Card.Body>
-                <Card.Title>{profile.name} {profile.surname} {` - ${profile.whoIs.type}`}</Card.Title>
+                <Card.Title className='overF'>{profile.name} {profile.surname} {` - ${profile.whoIs.type}`}</Card.Title>
                 <Card.Text>
                     {profile.whoIs.type === 'admin' && (
                         <ul className='list-unstyled'>
