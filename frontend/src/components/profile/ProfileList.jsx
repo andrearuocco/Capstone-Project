@@ -14,6 +14,7 @@ function ProfileList() {
     const [showForm, setShowForm] = useState(true)
     let [searchParams, setSearchParams]=useSearchParams()
     const [formValue, setFormValue] = useState({email:"", password:""})
+    const {token, setToken, userInfo, setUserInfo} = useContext(ProfileContext)
     const showRegisterForm = () => {
       setShowForm(!showForm)
     } 
@@ -23,9 +24,11 @@ function ProfileList() {
         localStorage.setItem('token',searchParams.get('token'))
         setToken(searchParams.get('token'))// aggiorna il token nello stato del contesto
       }
-      fetchGetProfiles().then(data => setProfile(data))
-    },[])
-    const {token, setToken, userInfo, setUserInfo} = useContext(ProfileContext)
+      fetchGetProfiles().then(data => {
+        const filteredProfiles = data.filter(p => p._id !== userInfo?._id);
+        setProfile(filteredProfiles)
+      })
+    },[userInfo])
 
     const handleLogin = async (event) => {
         event.preventDefault(); // previene il comportamento predefinito del form (che ricarica la pagina)
@@ -59,9 +62,9 @@ function ProfileList() {
         <Container fluid>
 
           <motion.div
-            initial={{ opacity: 0, y: -50 }}
+            initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.0, ease: 'easeOut' }}
+            transition={{ delay: 0.75, duration: 1 }}
             style={{
               backgroundImage: `url(${brandImage})`,
               backgroundSize: 'cover',
@@ -78,9 +81,9 @@ function ProfileList() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
+            initial={{ opacity: 0, y: 50 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            transition={{ delay: 1, duration: 2 }} 
             style={{ paddingTop: '2rem' }}
           >
             <Container>
@@ -143,9 +146,9 @@ function ProfileList() {
           </motion.div>
 
           <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 1.2 }}
+            initial={{ opacity: 0, y: 50 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            transition={{ delay: 1, duration: 2 }} 
             className="d-flex justify-content-center mt-5"
           >
             <img
