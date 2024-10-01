@@ -90,7 +90,7 @@ export const profileId = async (id) => {
             headers: {
                 "Content-Type": "application/json",
             },
-            method: 'PUT', // Cambiato da POST a PUT
+            method: 'PUT', 
             body: JSON.stringify(employeeForm)
         });
         if (res.ok) {
@@ -133,6 +133,21 @@ export const editWhoIs = async (id, whoIsForm) => {
         } else {
             const errorData = await res.json();
             return { error: errorData.message || 'Utenza non trovata' };
+        }
+    } catch (error) {
+        return { error: 'Riprova più tardi' };
+    }
+};
+
+export const employeePayments = async (employeeId, payEnvelopeId) => {
+    try {
+        const res = await fetch(`http://localhost:5000/api/v1/employee/${employeeId}/payEnvelope/${payEnvelopeId}`)
+        if (res.ok) {
+            const data = await res.json();
+            return data;
+        } else {
+            const errorData = await res.json();
+            return { error: errorData.message || 'Employee non trovato' };
         }
     } catch (error) {
         return { error: 'Riprova più tardi' };

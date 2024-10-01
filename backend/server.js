@@ -11,6 +11,7 @@ import passport from 'passport'
 import employeeRouter from './routes/employeeRoutes.js'
 import payEnvelopeRouter from './routes/payenvelopeRoutes.js'
 import dailytaskRouter from './routes/dailytaskRoutes.js'
+import authorization from './middleware/authorization.js'
 /* import authorization from './middleware/authorization.js' */
 
 const port = process.env.PORT || 5000
@@ -27,7 +28,7 @@ server.use(helmet()) // modulo che aiuta a proteggere le applicazioni
 server.use('/api/v1/auth', authRouter)
 server.use('/profile', profileRoutes)
 server.use('/', employeeRouter)
-server.use('/api/v1', payEnvelopeRouter)
+server.use('/api/v1', authorization, payEnvelopeRouter)
 server.use('/profile', dailytaskRouter)
 
 await mongoose.connect(process.env.MONGODB_URL)

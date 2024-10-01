@@ -79,7 +79,7 @@ export const getAllProfile = async (req,res) => {
 
         const profile = await Profile.find().populate({
             path: 'whoIs.employeeData',  
-            model: 'Employee',
+
         })
 /*          .collation({locale: 'it'}) //serve per ignorare maiuscole e minuscole nell'ordine alfabetico del sort
             .sort({name:1, surname:1})  // ordino gli oggetti JSON in ordine alfabetico secondo il nome e la cognome
