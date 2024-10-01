@@ -67,3 +67,75 @@ export const profileId = async (id) => {
         return {error: 'Riprova più tardi'} 
     }
   }
+
+  export const employeeId = async (id) => {
+    try {
+        const res = await fetch(`http://localhost:5000/employee/${id}`, {
+            method: 'GET',
+        })
+        if(res.ok){
+            const data = await res.json();
+            return data
+        }else {const errorData = await res.json()
+            return {error: errorData.message || 'Employee non trovato'}
+        }
+    } catch (error) {
+        return {error: 'Riprova più tardi'} 
+    }
+  }
+
+  export const editEmployee = async (id, employeeForm) => {
+    try {
+        const res = await fetch(`http://localhost:5000/employee/${id}`, {
+            headers: {
+                "Content-Type": "application/json",
+            },
+            method: 'PUT', // Cambiato da POST a PUT
+            body: JSON.stringify(employeeForm)
+        });
+        if (res.ok) {
+            const data = await res.json();
+            return data;
+        } else {
+            const errorData = await res.json();
+            return { error: errorData.message || 'Employee non trovato' };
+        }
+    } catch (error) {
+        return { error: 'Riprova più tardi' };
+    }
+};
+
+export const editWhoIs = async (id, whoIsForm) => {
+    try {
+        const payload = { type: whoIsForm.type } // verifica se type è stato cambiato da employee ad admin 
+        if (whoIsForm.type === "admin") {
+            
+            payload.adminData = {} // solo se questo è già successo allora crea il campo adminData
+
+            if (whoIsForm.name) {
+                payload.adminData.name = whoIsForm.name
+            }
+
+            if (whoIsForm.description) {
+                payload.adminData.description = whoIsForm.description
+            }
+        }
+        const res = await fetch(`http://localhost:5000/profile/${id}`, {
+            headers: {
+                "Content-Type": "application/json",
+            },
+            method: 'PUT',
+            body: JSON.stringify(whoIsForm)
+        });
+        if (res.ok) {
+            const data = await res.json();
+            return data;
+        } else {
+            const errorData = await res.json();
+            return { error: errorData.message || 'Utenza non trovata' };
+        }
+    } catch (error) {
+        return { error: 'Riprova più tardi' };
+    }
+};
+
