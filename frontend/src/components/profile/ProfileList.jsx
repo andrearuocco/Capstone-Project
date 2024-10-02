@@ -112,14 +112,9 @@ function ProfileList() {
                   </Form.Group>
 
                   <div className="d-flex justify-content-center">
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="mx-2 btn btn-primary"
-                      type="submit"
-                    >
-                      Submit
-                    </motion.button>
+                    <Button type='submit' className="m-4" variant="primary">
+                      Accedi con le credenziali inserite
+                    </Button>
 
                     <motion.button
                       whileHover={{ scale: 1.05 }}
@@ -130,7 +125,7 @@ function ProfileList() {
                       Don't have an account? Register here!
                     </motion.button>
 
-                    <Button as={Link} to={'http://localhost:5000/api/v1/auth/login-google'} className="m-4" variant="primary">Login with Google</Button>
+                    <Button as={Link} to={'http://localhost:5000/api/v1/auth/login-google'} className="m-4" variant="primary">Google For Employee</Button>
                   </div>
                 </Form>
               </Row>
