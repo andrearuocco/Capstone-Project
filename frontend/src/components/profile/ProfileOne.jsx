@@ -77,7 +77,7 @@ function ProfileOne({ profile }) {
                                     </>
                                 )}
                                 <li><Button as={Link} to={`/${profile._id}`} variant="primary" className='mb-4'>Modifica Posizione Lavorativa</Button></li>
-                                <li><Button className='mb-4'>Aggiungi Pagamento</Button></li>
+                                <li><Button as={Link} to={`/payments/${profile.whoIs.employeeData._id}`} variant="primary" className='mb-4'>Aggiungi Pagamento</Button></li>
                             </ul>
                         </Offcanvas.Body>
                     </Offcanvas>

@@ -220,7 +220,7 @@ const EmployeeEdit = () => {
                                                 id="description"
                                                 name="description"
                                                 value={adminData.whoIs.adminData.description}
-                                                onChange={handleChange}
+                                                onChange={handleAdmin}
                                             />
                                         </div>
                                     </div>
