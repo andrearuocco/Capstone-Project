@@ -77,7 +77,6 @@ function ProfileOne({ profile }) {
                                     </>
                                 )}
                                 <li><Button as={Link} to={`/${profile._id}`} variant="primary" className='mb-4'>Modifica Posizione Lavorativa</Button></li>
-                                <li><Button className='mb-4'>Aggiungi Compito Specifico</Button></li>
                                 <li><Button className='mb-4'>Aggiungi Pagamento</Button></li>
                             </ul>
                         </Offcanvas.Body>
