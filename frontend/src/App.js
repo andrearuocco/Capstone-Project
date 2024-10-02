@@ -13,7 +13,7 @@ function App() {
           <Routes>
             <Route path="/" element={<ProfileList  />} />
             <Route path="/:id" element={<EmployeeEdit  />} />
-            <Route path="/payments/:employeeId" element={<PayEnvelope  />} />
+            <Route path="/payments/:employeeDataId" element={<PayEnvelope  />} />
           </Routes>
 
       </Router>
