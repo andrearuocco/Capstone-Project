@@ -9,8 +9,8 @@ import { motion } from 'framer-motion'
 import businessImage from '../view/business-concept-with-team-close-up.jpg'
 import brandImage from '../view/brand.jpg'
 
-function ProfileList({profile, setProfile}) {
-    /* const [profile, setProfile] = useState([]) */
+function ProfileList() {
+    const [profile, setProfile] = useState([]) 
     const [showForm, setShowForm] = useState(true)
     let [searchParams, setSearchParams]=useSearchParams()
     const [formValue, setFormValue] = useState({email:"", password:""})
@@ -131,7 +131,6 @@ function ProfileList({profile, setProfile}) {
                     </motion.button>
 
                     <Button as={Link} to={'http://localhost:5000/api/v1/auth/login-google'} className="m-4" variant="primary">Login with Google</Button>
-
                   </div>
                 </Form>
               </Row>
