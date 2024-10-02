@@ -107,19 +107,7 @@ export const profileId = async (id) => {
 
 export const editWhoIs = async (id, whoIsForm) => {
     try {
-        const payload = { type: whoIsForm.type } // verifica se type è stato cambiato da employee ad admin 
-        if (whoIsForm.type === "admin") {
-            
-            payload.adminData = {} // solo se questo è già successo allora crea il campo adminData
 
-            if (whoIsForm.name) {
-                payload.adminData.name = whoIsForm.name
-            }
-
-            if (whoIsForm.description) {
-                payload.adminData.description = whoIsForm.description
-            }
-        }
         const res = await fetch(`http://localhost:5000/profile/${id}`, {
             headers: {
                 "Content-Type": "application/json",
@@ -153,4 +141,14 @@ export const employeePayments = async (employeeId, payEnvelopeId) => {
         return { error: 'Riprova più tardi' };
     }
 };
+
+export const deleteEmployee = async (id, employeeId) => {
+
+        const response = await fetch(`http://localhost:5000/profile/${id}/employee/${employeeId}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+    };
 
