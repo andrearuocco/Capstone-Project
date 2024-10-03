@@ -143,7 +143,7 @@ export const deleteEmployee = async (id, employeeId) => {
 export const editPay = async (employeeDataId, payEnvelopeId, payForm) => {
     try {
 
-        const res = await fetch(`http://localhost:5000/employee/${employeeDataId}/payEnvelope/${payEnvelopeId}`, {
+        const res = await fetch(`http://localhost:5000/api/v1/employee/${employeeDataId}/payEnvelope/${payEnvelopeId}`, {
             headers: {
                 "Content-Type": "application/json",
             },

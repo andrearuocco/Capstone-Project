@@ -3,7 +3,7 @@ import { addPayments, getPayments, getSinglePayment, editPayment, deletePayment 
 import adminAuthor from '../middleware/adminAuthor.js'
 const payEnvelopeRouter = express.Router()
 
-payEnvelopeRouter.post('/profile/:profileId/employee/:employeeId/payEnvelope', adminAuthor ,addPayments) // aggiunge una busta paga per un dipendente specifico indicato nell'url della richiesta
+payEnvelopeRouter.post('/profile/:profileId/employee/:employeeId/payEnvelope', /* adminAuthor, */ addPayments) // aggiunge una busta paga per un dipendente specifico indicato nell'url della richiesta
 
 payEnvelopeRouter.get('/payEnvelope', getPayments) // elenca tutte le buste paga rilasciate dall'azienda dando la possibilità agli admin di visualizzarle secondo anno e mese attraverso un filtro su payPeriod
 
