@@ -130,21 +130,6 @@ export const editWhoIs = async (id, whoIsForm) => {
     }
 }
 
-export const employeePayments = async (employeeId, payEnvelopeId) => {
-    try {
-        const res = await fetch(`http://localhost:5000/api/v1/employee/${employeeId}/payEnvelope/${payEnvelopeId}`)
-        if (res.ok) {
-            const data = await res.json();
-            return data;
-        } else {
-            const errorData = await res.json()
-            return { error: errorData.message || 'Employee non trovato' }
-        }
-    } catch (error) {
-        return { error: 'Riprova più tardi' }
-    }
-}
-
 export const deleteEmployee = async (id, employeeId) => {
 
     const response = await fetch(`http://localhost:5000/profile/${id}/employee/${employeeId}`, {
@@ -153,5 +138,27 @@ export const deleteEmployee = async (id, employeeId) => {
             'Content-Type': 'application/json',
         }
     })
+}
+
+export const editPay = async (employeeDataId, payEnvelopeId, payForm) => {
+    try {
+
+        const res = await fetch(`http://localhost:5000/employee/${employeeDataId}/payEnvelope/${payEnvelopeId}`, {
+            headers: {
+                "Content-Type": "application/json",
+            },
+            method: 'PUT',
+            body: JSON.stringify(payForm)
+        });
+        if (res.ok) {
+            const data = await res.json();
+            return data;
+        } else {
+            const errorData = await res.json()
+            return { error: errorData.message || 'Pagamento modificato correttamente.' }
+        }
+    } catch (error) {
+        return { error: 'Riprova più tardi.' }
+    }
 }
 
