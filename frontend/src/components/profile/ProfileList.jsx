@@ -1,6 +1,6 @@
 import ProfileOne from './ProfileOne'
 import { useEffect, useState, useContext } from 'react'
-import { Container, Row, Form, Button } from 'react-bootstrap/'
+import { Container, Row, Form, Button, Col } from 'react-bootstrap/'
 import { fetchGetProfiles, login } from '../../data/fetch'
 import { ProfileContext } from '../context/ProfileContextProvider'
 import NavbarMe from '../view/NavbarMe'
@@ -8,6 +8,7 @@ import { useSearchParams, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import businessImage from '../view/business-concept-with-team-close-up.jpg'
 import brandImage from '../view/brand.jpg'
+import './ProfileList.css'
 
 function ProfileList() {
     const [profile, setProfile] = useState([]) 
@@ -57,27 +58,29 @@ function ProfileList() {
 
       console.log(profile)
   return (
-    <>
-      {!token && (
+    <div className='bg-gradient bg-opacity-25 bg-success-subtle'>
+  {!token && (
         <Container fluid>
-
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.75, duration: 1 }}
+            className='br-40'
             style={{
               backgroundImage: `url(${brandImage})`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
-              height: '300px',
+              height: '50vh',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               color: 'white',
             }}
           >
-            <div className='d-flex flex-column text-black-50'><h1>Manage your business with our help</h1>
-            <p>Manage your business operations with ease</p></div>
+            <div className='d-flex flex-column text-black-50 mt-5'>
+              <h1 className='mt-5'>Manage your business with our help</h1>
+              <p>Manage your business operations with ease</p>
+            </div>
           </motion.div>
 
           <motion.div
@@ -87,63 +90,76 @@ function ProfileList() {
             style={{ paddingTop: '2rem' }}
           >
             <Container>
-              <Row className="justify-content-center">
-                <Form onSubmit={handleLogin} className="col-md-6">
-                  <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label>Email address</Form.Label>
-                    <Form.Control
-                      type="email"
-                      name="email"
-                      placeholder="Enter email"
-                      onChange={handleChange}
-                      required
-                    />
-                  </Form.Group>
+              <Row className="justify-content-center align-items-center">
+                {/* Colonna Form */}
+                <Col md={6}>
+                  <Form onSubmit={handleLogin} className="login-form">
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                      <Form.Label>Email address</Form.Label>
+                      <motion.div
+                        className="input-border"
+                        initial={{ borderColor: 'transparent' }}
+                        whileFocus={{ borderColor: '#007bff' }}  
+                        transition={{ duration: 0.5 }}
+                      >
+                        <Form.Control
+                          type="email"
+                          name="email"
+                          placeholder="Enter email"
+                          onChange={handleChange}
+                          required
+                        />
+                      </motion.div>
+                    </Form.Group>
 
-                  <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control
-                      type="password"
-                      name="password"
-                      placeholder="Password"
-                      onChange={handleChange}
-                      required
-                    />
-                  </Form.Group>
+                    <Form.Group className="mb-3" controlId="formBasicPassword">
+                      <Form.Label>Password</Form.Label>
+                      <motion.div
+                        className="input-border"
+                        initial={{ borderColor: 'transparent' }}
+                        whileFocus={{ borderColor: '#007bff' }}  
+                        transition={{ duration: 0.5 }}
+                      >
+                        <Form.Control
+                          type="password"
+                          name="password"
+                          placeholder="Password"
+                          onChange={handleChange}
+                          required
+                        />
+                      </motion.div>
+                    </Form.Group>
 
-                  <div className="d-flex justify-content-center">
-                    <Button type='submit' className="m-4" variant="primary">
-                      Accedi con le credenziali inserite
-                    </Button>
+                    <div className="row">
+                      <Button type='submit' className="my-2 col-sm-6 col-md-4 login" variant="primary">
+                        Accesso con credenziali
+                      </Button>
 
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="mx-2 btn btn-link"
-                      onClick={showRegisterForm}
-                    >
-                      Don't have an account? Register here!
-                    </motion.button>
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="my-2 btn btn-link col-sm-6 col-md-4"
+                        onClick={showRegisterForm}
+                      >
+                        Don't have an account? Register here!
+                      </motion.button>
 
-                    <Button as={Link} to={'http://localhost:5000/api/v1/auth/login-google'} className="m-4" variant="primary">Google For Employee</Button>
-                  </div>
-                </Form>
+                      <Button as={Link} to={'http://localhost:5000/api/v1/auth/login-google'} className="google my-2 col-sm-6 col-md-4 bg-white">
+                        <span className='text-primary'>Google For Employee</span>
+                      </Button>
+                    </div>
+                  </Form>
+                </Col>
+
+                <Col md={6} className="d-flex justify-content-center">
+                  <img src={businessImage} alt="Your business" style={{ width: '100%', height: '40vh' }} className='br-40' />
+                </Col>
               </Row>
             </Container>
           </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 50 }} 
-            animate={{ opacity: 1, y: 0 }} 
-            transition={{ delay: 1, duration: 2 }} 
-            className="d-flex justify-content-center mt-5"
-          >
-            <img
-              src={businessImage}
-              alt="Your business"
-              style={{ width: '300px' }}
-            />
-          </motion.div>
+          <footer className='sticky-bottom footer br-40'>
+            <strong className='footer-text'>Nuove soluzioni per la gestione e l'amministrazione della tua impresa.</strong>
+          </footer>
         </Container>
       )}
 
@@ -161,7 +177,7 @@ function ProfileList() {
           </Container>
         </>
       )}
-    </>
+    </div>
   );
 }
 
