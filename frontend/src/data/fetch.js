@@ -164,35 +164,53 @@ export const editPay = async (employeeDataId, payEnvelopeId, payForm) => {
 
 export const loadRequest = async () => {
     try {
-        const response = await fetch('http://localhost:5000/api/v1/employee/:id/requests', {
-            headers: {
-
-
-            'Authorization': `Bearer ${localStorage.getItem('token')}`
-        }})
+        
+        const response = await fetch(`http://localhost:5000/requests`)
+        if (!response.ok) {
+            throw new Error('Errore nel caricamento delle richieste')
+        }
         const data = await response.json()
-        return data;
+        return data
     } catch (error) {
-        console.error('Le richieste non sono disponibili:', error);
-        throw error
-    }
-}
-
-export const responseFeHo = async (requestId, action) => {
-    try {
-        const response = await fetch(`http://localhost:5000/profile/:id/employee/:employeeId/requests/${requestId}`, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json',
-
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
-            },
-            body: JSON.stringify({ status: action })
-        })
-        return await response.json()
-    } catch (error) {
-        console.error('Richiesta non gestita correttamente:', error);
-        throw error
+        console.error('Riprova più tardi:', error);
     }
 }
   
+export const employeeRequest = async (employeeId, requestData) => {
+    try {
+      /* const employeeId = '6701296374a18dafd4ce3f3c' */
+      const response = await fetch(`http://localhost:5000/api/v1/employee/${employeeId}/requests`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestData),
+      });
+      if (!response.ok) {
+        throw new Error('Richiesta non inoltrata')
+      }
+      const data = await response.json()
+      console.log('Richiesta inviata:', data)
+    } catch (error) {
+      console.error('Riprova più tardi:', error);
+    }
+  }
+
+ export const patchRequest = async (employeeId, requestId, action) => {
+    try {
+      
+      const response = await fetch(`http://localhost:5000/api/v1/employee/${employeeId}/requests/${requestId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ status: action }), 
+      });
+      if (!response.ok) {
+        throw new Error('Richiesta non gestica correttamente')
+      }
+      /* setRequests(requests.filter(request => request._id !== requestId)); */
+    } catch (error) {
+      console.error('Riprova più tardi:', error);
+    }
+  };

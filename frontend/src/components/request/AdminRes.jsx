@@ -1,30 +1,17 @@
 import { useState, useEffect } from 'react'
 import { Button, Table } from 'react-bootstrap'
-import { loadRequest, responseFeHo } from '../../data/fetch'
+import { loadRequest, patchRequest } from '../../data/fetch'
 
 const AdminRes = () => {
   const [requests, setRequests] = useState([]);
 
-  useEffect(() => {
-    const fetchRequests = async () => {
-      try {
-        await loadRequest().then(data => setRequests(data))
-
-      } catch (error) {
-        console.error('Questa richiesta non esiste.', error)
-      }
-    };
-    fetchRequests()
-  }, [])
-
-  const handleAction = async (requestId, action) => {
-    try {
-      await responseFeHo(requestId, action )
-      setRequests(requests.filter(request => request._id !== requestId))
-    } catch (error) {
-      console.error('Richiesta non gestita correttamente', error)
-    }
+  const handleAction = async (employeeId, requestId, action) => {
+    await patchRequest(employeeId, requestId, action)
+    setRequests(requests.filter(request => request._id !== requestId))
   }
+  useEffect(() => {
+    loadRequest().then(data => setRequests(data));
+  }, []);
 
   return (
     <Table striped bordered hover>
@@ -45,8 +32,8 @@ const AdminRes = () => {
             <td>{new Date(request.startDate).toLocaleDateString()}</td>
             <td>{new Date(request.endDate).toLocaleDateString()}</td>
             <td>
-              <Button variant="success" onClick={() => handleAction(request._id, 'approved')}>Accetta</Button>
-              <Button variant="danger" onClick={() => handleAction(request._id, 'rejected')}>Rifiuta</Button>
+              <Button variant="success" onClick={() => handleAction(request.employee._id, request._id, 'approved')}>Accetta</Button>
+              <Button variant="danger" onClick={() => handleAction(request.employee._id, request._id, 'rejected')}>Rifiuta</Button>
             </td>
           </tr>
         ))}

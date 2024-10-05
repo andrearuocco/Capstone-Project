@@ -1,44 +1,35 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Form, Modal, Button } from 'react-bootstrap'
-
+import { employeeRequest } from '../../data/fetch'
+import { ProfileContext } from '../context/ProfileContextProvider'
 
 const EmployeeRequest = () => {
-  const [showModal, setShowModal] = useState(false)
+    const [showModal, setShowModal] = useState(false);
+    const [leaveType, setLeaveType] = useState("paid");
+    const [startDate, setStartDate] = useState("");
+    const [endDate, setEndDate] = useState("");
 
-  const handleOpenModal = () => setShowModal(true)
-  const handleCloseModal = () => setShowModal(false)
+    const handleOpenModal = () => setShowModal(true);
+    const handleCloseModal = () => setShowModal(false);
 
-  const submitLeaveRequest = (requestData) => {
-    
-    console.log('Richiesta inviata:', requestData)
-    handleCloseModal()
-  }
+    const { userInfo } = useContext(ProfileContext)
+    console.log(userInfo.whoIs.employeeData)
 
-  const [leaveType, setLeaveType] = useState("paid");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    const request = {
-      type: leaveType,
-      startDate,
-      endDate
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const request = {
+            type: leaveType,
+            startDate,
+            endDate
+        }
+        await employeeRequest(userInfo.whoIs.employeeData, request)
+        handleCloseModal()
     }
-    submitLeaveRequest(request)
-  }
 
     return (
         <div>
             <h1>Dashboard Dipendente</h1>
             <button onClick={handleOpenModal}>Richiedi Permesso/Ferie</button>
-
-            {/*       
-      <LeaveRequestModal 
-        show={showModal} 
-        handleClose={handleCloseModal} 
-        submitRequest={submitLeaveRequest} 
-      /> */}
 
             {showModal && <Modal show={showModal} onHide={handleCloseModal}>
                 <Modal.Header closeButton>

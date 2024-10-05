@@ -2,7 +2,6 @@ import express from 'express'
 import { addEmployee, getAllEmployee, getSingleEmployee, editEmployee, deleteEmployee } from '../controllers/employee.controller.js';
 import Request from '../models/requestSchema.js';
 import Employee from '../models/employeeSchema.js';
-import employeeAuthor from '../middleware/employeeAuthor.js';
 
 const employeeRouter = express.Router()
 
@@ -79,6 +78,20 @@ employeeRouter.patch('/api/v1/employee/:employeeId/requests/:requestId', async (
     } catch (error) {
         console.error(error)
         return res.status(500).json({ message: 'Gestione della richesta non riuscita' })
+    }
+})
+
+employeeRouter.get('/requests', async (req,res) => {
+    try {
+
+        const requests = await Request.find().populate({
+            path: 'employee',  
+            model: 'Employee',
+        })
+
+        res.send(requests);
+    } catch(err) {
+        res.status(404).send();
     }
 })
 

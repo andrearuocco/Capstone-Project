@@ -4,8 +4,6 @@ import ProfileList from './components/profile/ProfileList';
 import ProfileContextProvider from './components/context/ProfileContextProvider';
 import EmployeeEdit from './components/employee/EmployeeEdit';
 import PayEnvelope from './components/payEnvelope/PayEnvelope';
-import EmployeeRequest from './components/request/EmployeeRequest';
-import AdminRes from './components/request/AdminRes';
 
 function App() {
   return (
@@ -16,9 +14,6 @@ function App() {
           <Route path="/" element={<ProfileList />} />
           <Route path="/:id" element={<EmployeeEdit />} />
           <Route path="/:id/payments/:employeeDataId" element={<PayEnvelope />} />
-
-          <Route path="/admin/requests" element={<AdminRes />} /> 
-          <Route path="/employee/leave-request" element={<EmployeeRequest />} />
         </Routes>
 
       </Router>

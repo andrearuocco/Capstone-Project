@@ -69,3 +69,7 @@ Content-Type: application/json
     "type": "paid"
 }
 
+###
+GET http://localhost:5000/requests
+
+
