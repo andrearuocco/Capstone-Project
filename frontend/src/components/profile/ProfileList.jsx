@@ -58,110 +58,112 @@ function ProfileList() {
 
       console.log(profile)
   return (
-    <div className='bg-gradient bg-opacity-25 bg-success-subtle'>
-  {!token && (
-        <Container fluid>
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.75, duration: 1 }}
-            className='br-40'
-            style={{
-              backgroundImage: `url(${brandImage})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              height: '50vh',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: 'white',
-            }}
-          >
-            <div className='d-flex flex-column text-black-50 mt-5'>
-              <h1 className='mt-5'>Manage your business with our help</h1>
-              <p>Manage your business operations with ease</p>
-            </div>
-          </motion.div>
+    <>
+      <div className='bg-gradient bg-opacity-25 bg-success-subtle'>
+        {!token && (
+          <Container fluid>
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.75, duration: 1 }}
+              className='br-40'
+              style={{
+                backgroundImage: `url(${brandImage})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                height: '50vh',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: 'white',
+              }}
+            >
+              <div className='d-flex flex-column text-black-50 mt-5'>
+                <h1 className='mt-5'>Manage your business with our help</h1>
+                <p>Manage your business operations with ease</p>
+              </div>
+            </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 50 }} 
-            animate={{ opacity: 1, y: 0 }} 
-            transition={{ delay: 1, duration: 2 }} 
-            style={{ paddingTop: '2rem' }}
-          >
-            <Container>
-              <Row className="justify-content-center align-items-center">
-                {/* Colonna Form */}
-                <Col md={6}>
-                  <Form onSubmit={handleLogin} className="login-form">
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                      <Form.Label>Email address</Form.Label>
-                      <motion.div
-                        className="input-border"
-                        initial={{ borderColor: 'transparent' }}
-                        whileFocus={{ borderColor: '#007bff' }}  
-                        transition={{ duration: 0.5 }}
-                      >
-                        <Form.Control
-                          type="email"
-                          name="email"
-                          placeholder="Enter email"
-                          onChange={handleChange}
-                          required
-                        />
-                      </motion.div>
-                    </Form.Group>
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1, duration: 2 }}
+              style={{ paddingTop: '2rem' }}
+            >
+              <Container>
+                <Row className="justify-content-center align-items-center">
+                  {/* Colonna Form */}
+                  <Col md={6}>
+                    <Form onSubmit={handleLogin} className="login-form">
+                      <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Label>Email address</Form.Label>
+                        <motion.div
+                          className="input-border"
+                          initial={{ borderColor: 'transparent' }}
+                          whileFocus={{ borderColor: '#007bff' }}
+                          transition={{ duration: 0.5 }}
+                        >
+                          <Form.Control
+                            type="email"
+                            name="email"
+                            placeholder="Enter email"
+                            onChange={handleChange}
+                            required
+                          />
+                        </motion.div>
+                      </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="formBasicPassword">
-                      <Form.Label>Password</Form.Label>
-                      <motion.div
-                        className="input-border"
-                        initial={{ borderColor: 'transparent' }}
-                        whileFocus={{ borderColor: '#007bff' }}  
-                        transition={{ duration: 0.5 }}
-                      >
-                        <Form.Control
-                          type="password"
-                          name="password"
-                          placeholder="Password"
-                          onChange={handleChange}
-                          required
-                        />
-                      </motion.div>
-                    </Form.Group>
+                      <Form.Group className="mb-3" controlId="formBasicPassword">
+                        <Form.Label>Password</Form.Label>
+                        <motion.div
+                          className="input-border"
+                          initial={{ borderColor: 'transparent' }}
+                          whileFocus={{ borderColor: '#007bff' }}
+                          transition={{ duration: 0.5 }}
+                        >
+                          <Form.Control
+                            type="password"
+                            name="password"
+                            placeholder="Password"
+                            onChange={handleChange}
+                            required
+                          />
+                        </motion.div>
+                      </Form.Group>
 
-                    <div className="row">
-                      <Button type='submit' className="my-2 col-sm-6 col-md-4 login" variant="primary">
-                        Accesso con credenziali
-                      </Button>
+                      <div className="row">
+                        <Button type='submit' className="my-2 col-sm-6 col-md-4 login" variant="primary">
+                          Accesso con credenziali
+                        </Button>
 
-                      <motion.button
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="my-2 btn btn-link col-sm-6 col-md-4"
-                        onClick={showRegisterForm}
-                      >
-                        Don't have an account? Register here!
-                      </motion.button>
+                        <motion.button
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          className="my-2 btn btn-link col-sm-6 col-md-4"
+                          onClick={showRegisterForm}
+                        >
+                          Don't have an account? Register here!
+                        </motion.button>
 
-                      <Button as={Link} to={'http://localhost:5000/api/v1/auth/login-google'} className="google my-2 col-sm-6 col-md-4 bg-white">
-                        <span className='text-primary'>Google For Employee</span>
-                      </Button>
-                    </div>
-                  </Form>
-                </Col>
+                        <Button as={Link} to={'http://localhost:5000/api/v1/auth/login-google'} className="google my-2 col-sm-6 col-md-4 bg-white">
+                          <span className='text-primary'>Google For Employee</span>
+                        </Button>
+                      </div>
+                    </Form>
+                  </Col>
 
-                <Col md={6} className="d-flex justify-content-center">
-                  <img src={businessImage} alt="Your business" style={{ width: '100%', height: '40vh' }} className='br-40' />
-                </Col>
-              </Row>
-            </Container>
-          </motion.div>
-          <footer className='sticky-bottom footer br-40'>
-            <strong className='footer-text'>Nuove soluzioni per la gestione e l'amministrazione della tua impresa.</strong>
-          </footer>
-        </Container>
-      )}
+                  <Col md={6} className="d-flex justify-content-center">
+                    <img src={businessImage} alt="Your business" style={{ width: '100%', height: '40vh' }} className='br-40' />
+                  </Col>
+                </Row>
+              </Container>
+            </motion.div>
+            <footer className='sticky-bottom footer br-40'>
+              <strong className='footer-text'>Nuove soluzioni per la gestione e l'amministrazione della tua impresa.</strong>
+            </footer>
+          </Container>
+        )}
+      </div>
 
       {token && (
         <>
@@ -177,7 +179,7 @@ function ProfileList() {
           </Container>
         </>
       )}
-    </div>
+    </>
   );
 }
 

@@ -1,5 +1,19 @@
 .he-wi {
-    height: 30px;
-    width: 30px;
+    height: 35px;
+    width: 35px;
     border-radius: 50%;
 }
+
+.dropdown-menu-end {
+    border: 3px solid rgb(124, 173, 119);
+    background-color: #d1e7dd;
+    font-style: oblique;
+    font-family: fangsong;
+    font-size: 1.2rem;
+}
+
+.bor-nvm {
+    border-radius: 10px;
+}
+
+  
