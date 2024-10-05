@@ -7,7 +7,6 @@ const requestSchema = new Schema({
     startDate: { type: Date, required: true },
     endDate: { type: Date, required: true },
     status: { type: String, enum: ['pending', 'approved', 'rejected'], default: 'pending' }
-}, { timestamps: true })
+}, { collection: "requests", timestamps: true, })
 
-const Request = model('Request', requestSchema)
-export default Request
+export default model('Request', requestSchema)

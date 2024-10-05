@@ -35,16 +35,13 @@ const employeeSchema = new Schema({
     // ?? come rotta sarà necessaria una richiesta di permesso poi da poter approvare 
     paidLeave: {
         type: Number,
-        unit: String,
     },
     unpaidLeave: {
         type: Number,
-        unit: String,
     },
     // come rotta sarà necessaria una richiesta di permesso poi da poter approvare ??
     holidaysYear: {
         type: Number,
-        unit: String,
         minimum: 20,
     },
     dailyTask: [tasksSchema], // compiti per l'ottimizzazione della gestione delle risorse umane 

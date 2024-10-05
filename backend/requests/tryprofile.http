@@ -52,23 +52,18 @@ GET http://localhost:5000/api/v1/auth/me
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9maWxlSWQiOiI2NzAwZjZhNDkxODU3ZTdhYzUzY2E0MzQiLCJpYXQiOjE3MjgxMTg1MzUsImV4cCI6MTcyODEyMjEzNX0.MCMtPnR1Y390uN6sUUrHUUBJThGO-1QGiC6UT7J20Fc
 
 ###
-PATCH http://localhost:5000/profile/6700f6b991857e7ac53ca43d/employee/6700f6b991857e7ac53ca43b/requests/:requestId
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9maWxlSWQiOiI2NzAwZjZhNDkxODU3ZTdhYzUzY2E0MzQiLCJpYXQiOjE3MjgxMTg1MzUsImV4cCI6MTcyODEyMjEzNX0.MCMtPnR1Y390uN6sUUrHUUBJThGO-1QGiC6UT7J20Fc
+PATCH http://localhost:5000/api/v1/employee/6701296374a18dafd4ce3f3c/requests/6701297c74a18dafd4ce3f47
 Content-Type: application/json
 
 {
-    "employee": "6700f6b991857e7ac53ca43b",
-    "startDate": "774032800000",
-    "endDate": "774032800001",
-    "type": "paid",
     "status": "approved"
 }
 
 ###
-POST http://localhost:5000/api/v1/employee/6700f6b991857e7ac53ca43b/requests
+POST http://localhost:5000/api/v1/employee/6701296374a18dafd4ce3f3c/requests
+Content-Type: application/json 
 
 {
-    "employee": "6700f6b991857e7ac53ca43b",
     "startDate": 774032800000,
     "endDate": 774032800001,
     "type": "paid"

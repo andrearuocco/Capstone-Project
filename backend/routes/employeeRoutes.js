@@ -19,9 +19,9 @@ employeeRouter.put('/employee/:id', editEmployee)
 
 employeeRouter.delete('/profile/:profileId/employee/:employeeId', deleteEmployee)
 
-employeeRouter.post('/api/v1/employee/:id/requests', /* employeeAuthor, */ async (req, res) => {
-    const { id, type, startDate, endDate } = req.body
-    console.log(req.body)
+employeeRouter.post('/api/v1/employee/:id/requests', async (req, res) => {
+    const { type, startDate, endDate } = req.body
+    const { id } = req.params
     try {
         const request = new Request({ employee: id, type, startDate, endDate })
         await request.save()
@@ -29,6 +29,56 @@ employeeRouter.post('/api/v1/employee/:id/requests', /* employeeAuthor, */ async
         res.status(201).json(request)
     } catch (error) {
         res.status(500).json({ error: 'Richiesta di permesso non inviata' })
+    }
+})
+
+employeeRouter.patch('/api/v1/employee/:employeeId/requests/:requestId', async (req, res) => {
+    try {
+        const { employeeId, requestId } = req.params;
+        const { status } = req.body;
+
+        const request = await Request.findOne({ _id: requestId, employee: employeeId })
+
+        if (!request) {
+            return res.status(404).json({ message: 'Richiesta non trovata' });
+        }
+
+        const employee = await Employee.findById(employeeId)
+
+        if (!employee) {
+            return res.status(404).json({ message: 'Dipendente non trovato' });
+        }
+
+        // verifica se lo stato è 'approved' o 'rejected'
+        if (status === 'approved') {
+            // aggiorna i campi paidLeave o unpaidLeave dell'employee in base al tipo di richiesta
+            const duration = Math.ceil((new Date(request.endDate) - new Date(request.startDate)) / (1000 * 60 * 60 * 24)) // durata in interi
+
+            if (request.type === 'paid') {
+                // se ferie pagate, somma la durata delle ferie al paidLeave dell'employee
+                employee.paidLeave = (employee.paidLeave || 0) + duration;
+            } else if (request.type === 'unpaid') {
+                // se ferie non pagate, somma la durata delle ferie al unpaidLeave dell'employee
+                employee.unpaidLeave = (employee.unpaidLeave || 0) + duration;
+            }
+
+            await employee.save()
+        }
+
+        request.status = status
+        await request.save()
+
+        // rimuovi la richiesta dall'array requests dell'employee
+        employee.requests = employee.requests.filter(reqId => reqId.toString() !== requestId)
+        await employee.save()
+
+        // cancella la richiesta dal database
+        await Request.findByIdAndDelete(requestId)
+
+        return res.json({ message: `Richiesta ${status}`, employee })
+    } catch (error) {
+        console.error(error)
+        return res.status(500).json({ message: 'Gestione della richesta non riuscita' })
     }
 })
 
