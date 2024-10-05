@@ -1,5 +1,8 @@
 import express from 'express'
 import { addEmployee, getAllEmployee, getSingleEmployee, editEmployee, deleteEmployee } from '../controllers/employee.controller.js';
+import Request from '../models/requestSchema.js';
+import Employee from '../models/employeeSchema.js';
+import employeeAuthor from '../middleware/employeeAuthor.js';
 
 const employeeRouter = express.Router()
 
@@ -15,5 +18,18 @@ employeeRouter.get('/employee/:id', getSingleEmployee) // questa rotta servirà 
 employeeRouter.put('/employee/:id', editEmployee) 
 
 employeeRouter.delete('/profile/:profileId/employee/:employeeId', deleteEmployee)
+
+employeeRouter.post('/api/v1/employee/:id/requests', /* employeeAuthor, */ async (req, res) => {
+    const { id, type, startDate, endDate } = req.body
+    console.log(req.body)
+    try {
+        const request = new Request({ employee: id, type, startDate, endDate })
+        await request.save()
+        await Employee.findByIdAndUpdate(id, { $push: { requests: request._id } }, { new: true })
+        res.status(201).json(request)
+    } catch (error) {
+        res.status(500).json({ error: 'Richiesta di permesso non inviata' })
+    }
+})
 
 export default employeeRouter

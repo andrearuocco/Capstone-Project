@@ -43,10 +43,34 @@ POST http://localhost:5000/api/v1/auth/login
 Content-Type: application/json
 
 {
-    "email": "vincenzoepicode@gmail.com",
-    "password": "vincenzoepicode"
+    "email": "andreaepicode@gmail.com",
+    "password": "andreaepicode"
 }
 
 ###
 GET http://localhost:5000/api/v1/auth/me
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9maWxlSWQiOiI2NmYyNjFhYzU3YjZjYTY2Mjg1ZDVkMDEiLCJpYXQiOjE3Mjc2MTU4ODYsImV4cCI6MTcyNzYxOTQ4Nn0.fKsLpHoWl7eIIs8eaWi4hX07TIpzaN74BGoDycgayJA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9maWxlSWQiOiI2NzAwZjZhNDkxODU3ZTdhYzUzY2E0MzQiLCJpYXQiOjE3MjgxMTg1MzUsImV4cCI6MTcyODEyMjEzNX0.MCMtPnR1Y390uN6sUUrHUUBJThGO-1QGiC6UT7J20Fc
+
+###
+PATCH http://localhost:5000/profile/6700f6b991857e7ac53ca43d/employee/6700f6b991857e7ac53ca43b/requests/:requestId
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9maWxlSWQiOiI2NzAwZjZhNDkxODU3ZTdhYzUzY2E0MzQiLCJpYXQiOjE3MjgxMTg1MzUsImV4cCI6MTcyODEyMjEzNX0.MCMtPnR1Y390uN6sUUrHUUBJThGO-1QGiC6UT7J20Fc
+Content-Type: application/json
+
+{
+    "employee": "6700f6b991857e7ac53ca43b",
+    "startDate": "774032800000",
+    "endDate": "774032800001",
+    "type": "paid",
+    "status": "approved"
+}
+
+###
+POST http://localhost:5000/api/v1/employee/6700f6b991857e7ac53ca43b/requests
+
+{
+    "employee": "6700f6b991857e7ac53ca43b",
+    "startDate": 774032800000,
+    "endDate": 774032800001,
+    "type": "paid"
+}
+

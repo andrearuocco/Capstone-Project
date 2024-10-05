@@ -162,3 +162,37 @@ export const editPay = async (employeeDataId, payEnvelopeId, payForm) => {
     }
 }
 
+export const loadRequest = async () => {
+    try {
+        const response = await fetch('http://localhost:5000/api/v1/employee/:id/requests', {
+            headers: {
+
+
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }})
+        const data = await response.json()
+        return data;
+    } catch (error) {
+        console.error('Le richieste non sono disponibili:', error);
+        throw error
+    }
+}
+
+export const responseFeHo = async (requestId, action) => {
+    try {
+        const response = await fetch(`http://localhost:5000/profile/:id/employee/:employeeId/requests/${requestId}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            },
+            body: JSON.stringify({ status: action })
+        })
+        return await response.json()
+    } catch (error) {
+        console.error('Richiesta non gestita correttamente:', error);
+        throw error
+    }
+}
+  

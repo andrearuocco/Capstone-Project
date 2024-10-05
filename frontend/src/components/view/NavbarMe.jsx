@@ -4,6 +4,7 @@ import Nav from 'react-bootstrap/Nav'
 import {Navbar, NavDropdown} from 'react-bootstrap'
 import './NavbarMe.css'
 import { ProfileContext } from '../context/ProfileContextProvider'
+import { Link } from 'react-router-dom'
 
 function NavbarMe() {
     const { userInfo } = useContext(ProfileContext);
@@ -21,7 +22,7 @@ function NavbarMe() {
                   <li className='ms-3'>Benvenuto {userInfo.name} {userInfo.surname}</li>
                   <ul className='d-flex list-unstyled ms-4'>
                     {userInfo.whoIs.type === 'admin' && (<li>Ruolo: {userInfo.whoIs.adminData.name}</li>)}
-                    {userInfo.whoIs.type === 'employee' && (<li>Ruolo: {userInfo.whoIs.employeeData.role}</li>)}
+                    {/* {userInfo.whoIs.type === 'employee' && (<li>Ruolo: {userInfo.whoIs.employeeData.role}</li>)} */}
                     <li className='ms-3'>Birthday: {new Date(userInfo.birthday).toLocaleDateString('it-IT')}</li>
                   </ul>
                 </ul>
@@ -42,14 +43,14 @@ function NavbarMe() {
                   <>
                     <NavDropdown.Item>Cerca dipendenti per ruolo</NavDropdown.Item>
                     <NavDropdown.Item>Cerca pagamento effettuato</NavDropdown.Item>
-                    <NavDropdown.Item>Accetta richiesta di permesso</NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to={'/admin/requests'}>Accetta richiesta di permesso</NavDropdown.Item>
                     <NavDropdown.Item>Gestisci ferie</NavDropdown.Item>
                     <NavDropdown.Item>Modifica profilo</NavDropdown.Item>
                   </>
                 ) : (
                   <>
                     <NavDropdown.Item>Visualizza pagamenti ricevuti</NavDropdown.Item>
-                    <NavDropdown.Item>Invia richiesta di permesso</NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to={'/employee/leave-request'}>Invia richiesta di permesso</NavDropdown.Item>
                     <NavDropdown.Item>Gestisci ferie</NavDropdown.Item>
                     <NavDropdown.Item>Modifica profilo</NavDropdown.Item>
                   </>

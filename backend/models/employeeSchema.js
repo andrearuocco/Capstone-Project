@@ -51,6 +51,10 @@ const employeeSchema = new Schema({
     payments: [{
         type: Schema.Types.ObjectId,
         ref: "payEnvelope"
+    }],
+    requests: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Request',
     }]
 }, { collection: "employees" }); 
 
