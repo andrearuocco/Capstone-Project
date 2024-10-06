@@ -12,7 +12,7 @@
     border-radius: 20px !important;
 }
 
-.btn {
+#container-login .btn {
     --bs-btn-padding-x: 0rem !important;
     --bs-btn-padding-y: 0rem !important;
 }

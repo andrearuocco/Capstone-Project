@@ -1,6 +1,6 @@
 import ProfileOne from './ProfileOne'
 import { useEffect, useState, useContext } from 'react'
-import { Container, Row, Form, Button, Col } from 'react-bootstrap/'
+import { Container, Row, Form, Button, Col, Modal } from 'react-bootstrap/'
 import { fetchGetProfiles, login } from '../../data/fetch'
 import { ProfileContext } from '../context/ProfileContextProvider'
 import NavbarMe from '../view/NavbarMe'
@@ -9,54 +9,57 @@ import { motion } from 'framer-motion'
 import businessImage from '../view/business-concept-with-team-close-up.jpg'
 import brandImage from '../view/brand.jpg'
 import './ProfileList.css'
+import RegisterForm from '../view/RegisterForm'
 
 function ProfileList() {
-    const [profile, setProfile] = useState([]) 
-    const [showForm, setShowForm] = useState(true)
-    let [searchParams, setSearchParams]=useSearchParams()
-    const [formValue, setFormValue] = useState({email:"", password:""})
-    const {token, setToken, userInfo, setUserInfo} = useContext(ProfileContext)
-    const showRegisterForm = () => {
-      setShowForm(!showForm)
-    } 
-    useEffect(()=>{
-      console.log(searchParams.get('token'))
-      if(searchParams.get('token')){
-        localStorage.setItem('token',searchParams.get('token'))
-        setToken(searchParams.get('token'))// aggiorna il token nello stato del contesto
-      }
-      fetchGetProfiles().then(data => {
-        const filteredProfiles = data.filter(p => p._id !== userInfo?._id);
-        setProfile(filteredProfiles)
-      })
-    },[userInfo])
+  const [profile, setProfile] = useState([])
+  const [showForm, setShowForm] = useState(false)
+  let [searchParams, setSearchParams] = useSearchParams()
+  const [formValue, setFormValue] = useState({ email: "", password: "" })
+  const { token, setToken, userInfo, setUserInfo } = useContext(ProfileContext)
+  const handleClose = () => setShowForm(false)
+  const handleShow = () => setShowForm(true)
+  const showRegisterForm = () => {
+    setShowForm(!showForm)
+  }
+  useEffect(() => {
+    console.log(searchParams.get('token'))
+    if (searchParams.get('token')) {
+      localStorage.setItem('token', searchParams.get('token'))
+      setToken(searchParams.get('token'))// aggiorna il token nello stato del contesto
+    }
+    fetchGetProfiles().then(data => {
+      const filteredProfiles = data.filter(p => p._id !== userInfo?._id);
+      setProfile(filteredProfiles)
+    })
+  }, [userInfo])
 
-    const handleLogin = async (event) => {
-        event.preventDefault(); // previene il comportamento predefinito del form (che ricarica la pagina)
-        try {
-          const tokenObj = await login(formValue); // otteniamo il token dalla chiamata di login
-          if (tokenObj && tokenObj.token) { // controlliamo se il token esiste
-            localStorage.setItem('token', tokenObj.token); // salviamo il token nel localStorage
-            setToken(tokenObj.token); // aggiorniamo il token nello stato del contesto
-      
-            alert('Login effettuato');
-          } else {
-            alert("Credenziali errate");
-          }
-        } catch (error) {
-          console.log(error);
-          alert('Errore, riprova più tardi: ' + error);
-        }
-      };
-      
-      const handleChange = (event) =>{
-        setFormValue({
-          ...formValue, 
-          [event.target.name] : event.target.value
-        })
-      }
+  const handleLogin = async (event) => {
+    event.preventDefault(); // previene il comportamento predefinito del form (che ricarica la pagina)
+    try {
+      const tokenObj = await login(formValue); // otteniamo il token dalla chiamata di login
+      if (tokenObj && tokenObj.token) { // controlliamo se il token esiste
+        localStorage.setItem('token', tokenObj.token); // salviamo il token nel localStorage
+        setToken(tokenObj.token); // aggiorniamo il token nello stato del contesto
 
-      console.log(profile)
+        alert('Login effettuato');
+      } else {
+        alert("Credenziali errate");
+      }
+    } catch (error) {
+      console.log(error);
+      alert('Errore, riprova più tardi: ' + error);
+    }
+  };
+
+  const handleChange = (event) => {
+    setFormValue({
+      ...formValue,
+      [event.target.name]: event.target.value
+    })
+  }
+
+  console.log(profile)
   return (
     <>
       <div className='bg-gradient bg-opacity-25 bg-success-subtle'>
@@ -90,9 +93,9 @@ function ProfileList() {
               transition={{ delay: 1, duration: 2 }}
               style={{ paddingTop: '2rem' }}
             >
-              <Container>
+              <Container id='container-login'>
                 <Row className="justify-content-center align-items-center">
-                  {/* Colonna Form */}
+                  
                   <Col md={6}>
                     <Form onSubmit={handleLogin} className="login-form">
                       <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -140,7 +143,7 @@ function ProfileList() {
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
                           className="my-2 btn btn-link col-sm-6 col-md-4"
-                          onClick={showRegisterForm}
+                          onClick={handleShow}
                         >
                           Don't have an account? Register here!
                         </motion.button>
@@ -162,7 +165,16 @@ function ProfileList() {
               <strong className='footer-text'>Nuove soluzioni per la gestione e l'amministrazione della tua impresa.</strong>
             </footer>
           </Container>
+
         )}
+        <Modal show={showForm} onHide={handleClose}>
+          <Modal.Header closeButton>
+            
+          </Modal.Header>
+          <Modal.Body>
+            <RegisterForm showForm={showForm} setShowForm={setShowForm} />
+          </Modal.Body>
+        </Modal>
       </div>
 
       {token && (
@@ -178,7 +190,7 @@ function ProfileList() {
             </Row>
           </Container>
         </>
-      )}
+      )} 
     </>
   );
 }

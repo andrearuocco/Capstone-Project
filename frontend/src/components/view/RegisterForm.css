@@ -1,0 +1,21 @@
+.font-register {
+    font-style: oblique;
+    font-family: fangsong;
+    font-size: 1.2rem;
+}
+
+.bo-ra-register {
+    border-radius: 20px;
+}
+
+.flex-sm-row .btn {
+    --bs-btn-padding-x: 0rem !important;
+    --bs-btn-padding-y: 0rem !important;
+    padding-left: .5rem !important;
+    padding-right: .5rem !important;
+    border-radius: 6px !important;
+}
+
+.font-submit {
+    font-size: 1.3rem;
+}
