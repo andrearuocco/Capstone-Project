@@ -1,14 +1,19 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Row, Col, Container, Button, Form, Table } from 'react-bootstrap/';
+import { Row, Col, Container, Button, Form, Table, Modal } from 'react-bootstrap/';
 import { profileId, employeeId, editPay } from "../../data/fetch";
 import './PayEnvelope.css';
+import AddPayments from "./AddPayments";
 
-function PayEnvelope() {
+function PayEnvelope(/* {profiles} */) {
     const { employeeDataId } = useParams()
+    const { id } = useParams()
     console.log(employeeDataId)
-    const [profile, setProfile] = useState({})
+    const [profile, setProfile] = useState({}) 
+    const handleOpenAddPay = () => setAddPay(true)
+    const handleCloseAddPay = () => setAddPay(false)
     const [employee, setEmployee] = useState({})
+    const [addPay, setAddPay] = useState(false)
     const [showForm, setShowForm] = useState(false)
     const [paymentOne, setPaymentOne] = useState(null) // mi serve uno stato oltre quello per mostrare il form perché devo catturare con icon-pencil il pagamento da modificare
     const [formData, setFormData] = useState({
@@ -91,22 +96,28 @@ function PayEnvelope() {
     }
     useEffect(()=>{handlePayment()},[employeeDataId])
     useEffect(() => { if (paymentOne) setFormData(paymentOne) }, [paymentOne]) // controllo che i campi del form siano popolati con i valori già inseriti 
-    return (
+    useEffect(() => {handleProfile()}, [])
+
+    const handleProfile = async () => {
+        await profileId(id).then(data => setProfile(data))
+    }
+    return (<>
         <Container>
+            <div className="d-flex justify-content-around mt-3"><h1>Situazione fiscale: {profile.name} {profile.surname}</h1><Button onClick={handleOpenAddPay}>Aggiungi Busta Paga</Button></div>
             <Row>
                 <Col sm={5}>
-                {/* l'operatore ?. consente di accertare la presenza dell'oggetto employee prima di accedere ai suoi campi (chaining) */}
-                {employee.payments && employee.payments.map((payment, index) => (
+                    {/* l'operatore ?. consente di accertare la presenza dell'oggetto employee prima di accedere ai suoi campi (chaining) */}
+                    {employee.payments && employee.payments.map((payment, index) => (
                         <div key={index} className="pay-envelope mb-4">
                             <h4>Busta paga #{index + 1}</h4>
                             {payment.companyData?.companyName && <p><strong>Azienda:</strong> {payment.companyData.companyName}</p>}
                             {payment.companyData?.vatNumber && <p><strong>P. IVA:</strong> {payment.companyData.vatNumber}</p>}
                             {payment.companyData?.address && (
-                                <p><strong>Indirizzo:</strong> 
-                                    {payment.companyData.address.street || 'N/A'}, {/* valore per proprietà non obbligatorie che potrebbero riguardare dati non inseriti */} 
-                                    {payment.companyData.address.city || 'N/A'}, 
-                                    {payment.companyData.address.postalCode || 'N/A'}, 
-                                    {payment.companyData.address.province || 'N/A'}, 
+                                <p><strong>Indirizzo:</strong>
+                                    {payment.companyData.address.street || 'N/A'}, {/* valore per proprietà non obbligatorie che potrebbero riguardare dati non inseriti */}
+                                    {payment.companyData.address.city || 'N/A'},
+                                    {payment.companyData.address.postalCode || 'N/A'},
+                                    {payment.companyData.address.province || 'N/A'},
                                     {payment.companyData.address.country || 'N/A'}
                                 </p>
                             )}
@@ -145,7 +156,7 @@ function PayEnvelope() {
                     ))}
                 </Col>
                 <Col sm={7}>
-                {showForm && paymentOne && (
+                    {showForm && paymentOne && (
                         <Form>
                             <h4>Modifica Busta Paga</h4>
 
@@ -263,7 +274,7 @@ function PayEnvelope() {
                                         <td colSpan="3">
                                             <Form.Group>
                                                 <Form.Label>Totale straordinario</Form.Label>
-                                                <Form.Control type="text" value={formData.salary?.overtime?.total || ''} onChange={handleInputChange} name="salary.overtime.total"/>
+                                                <Form.Control type="text" value={formData.salary?.overtime?.total || ''} onChange={handleInputChange} name="salary.overtime.total" />
                                             </Form.Group>
                                         </td>
                                     </tr>
@@ -343,6 +354,20 @@ function PayEnvelope() {
                 </Col>
             </Row>
         </Container>
+
+        <Modal show={addPay} onHide={handleCloseAddPay} size="lg">
+            <Modal.Header closeButton>
+                <Modal.Title>Add Payments</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <AddPayments profile={id} employee={employeeDataId} /> 
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="secondary" onClick={handleCloseAddPay}>
+                    Chiudi
+                </Button>
+            </Modal.Footer>
+        </Modal></>
     );
 }
 

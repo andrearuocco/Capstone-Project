@@ -256,3 +256,25 @@ export const editProfile = async (id, formData) => {
         return { error: 'Riprova più tardi.' }
     }
 }
+
+export const addPay = async (profileId, employeeId, payForm) => {
+    try {
+
+        const res = await fetch(`http://localhost:5000/api/v1/profile/${profileId}/employee/${employeeId}/payEnvelope`, {
+            headers: {
+                "Content-Type": "application/json",
+            },
+            method: 'POST',
+            body: JSON.stringify(payForm)
+        });
+        if (res.ok) {
+            const data = await res.json();
+            return data;
+        } else {
+            const errorData = await res.json()
+            return { error: errorData.message || 'Pagamento aggiunto correttamente.' }
+        }
+    } catch (error) {
+        return { error: 'Riprova più tardi.' }
+    }
+}
