@@ -7,16 +7,20 @@ import { ProfileContext } from '../context/ProfileContextProvider'
 import { Link } from 'react-router-dom'
 import EmployeeRequest from '../request/EmployeeRequest'
 import AdminRes from '../request/AdminRes'
+import SeePayments from '../payEnvelope/SeePayments'
 
 function NavbarMe() {
   const [showEmployeeRequestModal, setShowEmployeeRequestModal] = useState(false)
   const [showAdminResModal, setShowAdminResModal] = useState(false)
+  const [showPayModal, setShowPayModal] = useState(false)
   const { userInfo } = useContext(ProfileContext)
 
   const handleShowEmployeeRequestModal = () => setShowEmployeeRequestModal(true)
   const handleCloseEmployeeRequestModal = () => setShowEmployeeRequestModal(false)
   const handleShowAdminResModal = () => setShowAdminResModal(true)
   const handleCloseAdminResModal = () => setShowAdminResModal(false)
+  const handleOpenShowPayModal = () => setShowPayModal(true)
+  const handleCloseShowPayModal = () => setShowPayModal(false)
 
   if (!userInfo) {
     return null
@@ -62,7 +66,7 @@ function NavbarMe() {
                     </>
                   ) : (
                     <>
-                      <NavDropdown.Item>Visualizza pagamenti ricevuti</NavDropdown.Item>
+                      <NavDropdown.Item onClick={handleOpenShowPayModal}>Visualizza pagamenti ricevuti</NavDropdown.Item>
                       <NavDropdown.Item onClick={handleShowEmployeeRequestModal}>
                         Invia richiesta di permesso
                       </NavDropdown.Item>
@@ -100,6 +104,20 @@ function NavbarMe() {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseAdminResModal}>
+            Chiudi
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={showPayModal} onHide={handleCloseShowPayModal} size="lg">
+        <Modal.Header closeButton>
+          <Modal.Title>Payments</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <SeePayments />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseShowPayModal}>
             Chiudi
           </Button>
         </Modal.Footer>

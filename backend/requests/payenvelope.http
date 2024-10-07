@@ -1,6 +1,5 @@
 ###
-POST http://localhost:5000/api/v1/profile/66fac23c83e921f8e573299b/employee/66fac23c83e921f8e5732999/payEnvelope
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9maWxlSWQiOiI2NmZhYzIzYzgzZTkyMWY4ZTU3MzI5OWIiLCJpYXQiOjE3Mjc4MDU2NjQsImV4cCI6MTcyNzgwOTI2NH0.bALs2Sfgh9HWMtPgFOvevFuPYa5O3ibiOi_rwasiuUQ
+POST http://localhost:5000/api/v1/profile/67039a4b4246f3f864083eb5/employee/67039a4b4246f3f864083eb3/payEnvelope
 Content-Type: application/json
 
 {
@@ -10,7 +9,7 @@ Content-Type: application/json
         "IBAN": "IT60X1234567890123456789012"
     },
     "payPeriod": {
-        "month": 4,
+        "month": 5,
         "year": 2024,
         "worked": {
             "days": 22,

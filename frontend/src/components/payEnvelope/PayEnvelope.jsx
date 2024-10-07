@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Row, Col, Container, Button, Form, Table } from 'react-bootstrap/';
 import { profileId, employeeId, editPay } from "../../data/fetch";
-import './PayEnvelope.css'
+import './PayEnvelope.css';
 
 function PayEnvelope() {
     const { employeeDataId } = useParams()

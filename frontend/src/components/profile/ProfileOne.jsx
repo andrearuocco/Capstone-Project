@@ -17,7 +17,7 @@ function ProfileOne({ profile }) {
     const toggleShow = () => setShow((s) => !s);
     return (<Col xs={12} sm={6} md={4} lg={3} className="my-3">
         <Card /* style={{ width: '18rem' }} */ >
-            <Card.Img variant="top" src={profile.avatar} style={{ height: '18rem' }} />
+            <Card.Img variant="top" src={profile.avatar} /* style={{ height: '18rem' }} */ />
             <Card.Body>
                 <Card.Title className='overF'>{profile.name} {profile.surname} {` - ${profile.whoIs.type}`}</Card.Title>
                 <Card.Text>

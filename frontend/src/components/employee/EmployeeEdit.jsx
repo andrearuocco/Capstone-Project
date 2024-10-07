@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { Container, Row, Col, Form, Button } from 'react-bootstrap'
+import { Container, Row, Col, Form, Button, Image } from 'react-bootstrap'
 import { editEmployee, employeeId, profileId, editWhoIs, deleteEmployee } from '../../data/fetch';
 
 const EmployeeEdit = () => {
@@ -129,10 +129,20 @@ const EmployeeEdit = () => {
                 <Col sm={5} className='mt-4'>
                     <h2>Dati Utente</h2>
                     <p>Nome: {profile.name}</p>
+                    <p>Cognome: {profile.surname}</p>
                     <p>Email: {profile.email}</p>
+                    <p>Data di nascita: {profile.birthday}</p>
+                    <p>Luogo di nascita: {profile.country}</p>
+                    <p>Dati fiscali: {profile.IBAN}</p>
+                    <p>Dati fiscali: {profile.TIN}</p>
+                    <p>Posizione Lavorativa Attuale: {employee.role}</p>
+                    <p><Image src={profile.avatar} className='image-id'></Image></p>
 
                     <Button variant="primary" onClick={() => setShowForm(true)}>
                         Modifica Dati Employee
+                    </Button>
+                    <Button variant="primary" /* onClick={() => setShowForm(true)} */>
+                        Elimina Utenza  
                     </Button>
                 </Col>
 

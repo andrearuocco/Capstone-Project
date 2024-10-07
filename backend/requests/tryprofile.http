@@ -3,19 +3,20 @@ POST http://localhost:5000/profile
 Content-Type: application/json
 
 {
-    "name": "Andrea",
+    "name": "Mirko",
     "surname": "Epicode",
-    "email": "andreaepicode@gmail.com",
-    "password": "andreaepicode",
+    "email": "mirkoepicode@gmail.com",
+    "password": "mirkoepicode",
     "birthday": 774032800000,
-    "avatar": "",
+    "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSenGp7lTTFNhTFmsc0JEbsnGhEg6OsIKYlxA&s",
     "IBAN": "IT60X0542811101000000123456",
+    "TIN": "MKERTE44G12E435F",
     "country": "Italy",
     "whoIs": {
         "type": "admin",
         "adminData": {
             "name": "Amministratore Delegato",
-            "description": "Amministatore unico di questa bellissima azienda."
+            "description": "Web Developer - Backend Developer"
         }
     }
 }
