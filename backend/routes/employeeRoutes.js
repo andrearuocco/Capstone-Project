@@ -59,6 +59,8 @@ employeeRouter.patch('/api/v1/employee/:employeeId/requests/:requestId', async (
             } else if (request.type === 'unpaid') {
                 // se ferie non pagate, somma la durata delle ferie al unpaidLeave dell'employee
                 employee.unpaidLeave = (employee.unpaidLeave || 0) + duration;
+            } else if (request.type === 'holiday') {
+                employee.holidaysYear = (employee.holidaysYear || 20) - duration;
             }
 
             await employee.save()
