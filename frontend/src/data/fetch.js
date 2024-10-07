@@ -314,3 +314,20 @@ export const patchProfile = async (id, avatar) => {
         console.error('Riprova più tardi:', error)
     }
 }
+
+export const getPaySearch = async (month, year) => {
+    try {
+        const res = await fetch(`http://localhost:5000/api/v1/payEnvelope?month=${month}&year=${year}`, {
+            method: 'GET',
+        })
+        if (res.ok) {
+            const data = await res.json();
+            return data
+        } else {
+            const errorData = await res.json()
+            return { error: errorData.message || 'Nessun pagamento trovato.' }
+        }
+    } catch (error) {
+        return { error: 'Riprova più tardi' }
+    }
+}

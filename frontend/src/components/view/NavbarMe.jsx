@@ -9,7 +9,7 @@ import EmployeeRequest from '../request/EmployeeRequest'
 import AdminRes from '../request/AdminRes'
 import SeePayments from '../payEnvelope/SeePayments'
 import EditProfile from '../profile/EditProfile'
-import { patchProfile } from '../../data/fetch'
+import { getPaySearch, patchProfile } from '../../data/fetch'
 
 function NavbarMe() {
   const [showEmployeeRequestModal, setShowEmployeeRequestModal] = useState(false)
@@ -17,7 +17,11 @@ function NavbarMe() {
   const [showPayModal, setShowPayModal] = useState(false)
   const [editModal, setEditModal] = useState(false)
   const [avatar, setAvatar] = useState(false)
+  const [adminSearch, setAdminSearch] = useState(false)
   const [selectedAvatar, setSelectedAvatar] = useState(null)
+  const [searchMonth, setSearchMonth] = useState('')
+  const [searchYear, setSearchYear] = useState('')
+  const [searchResults, setSearchResults] = useState([])
   const { userInfo } = useContext(ProfileContext)
 
   const handleShowEmployeeRequestModal = () => setShowEmployeeRequestModal(true)
@@ -30,6 +34,8 @@ function NavbarMe() {
   const handleCloseEditModal = () => setEditModal(false)
   const handleOpenAvatar = () => setAvatar(true)
   const handleCloseAvatar = () => setAvatar(false)
+  const handleOpenAdminSearch = () => setAdminSearch(true)
+  const handleCloseAdminSearch = () => setAdminSearch(false)
 
   const handlePatch = async () => {
     if (!selectedAvatar) {
@@ -45,6 +51,10 @@ function NavbarMe() {
     handleCloseAvatar()
   }
 
+  const handleSearch = async () => {
+    await getPaySearch(searchMonth, searchYear).then(data => setSearchResults(data.dati))
+  }
+  
   if (!userInfo) {
     return null
   }
@@ -80,7 +90,7 @@ function NavbarMe() {
                   {userInfo.whoIs.type === 'admin' ? (
                     <>
                       {/* <NavDropdown.Item>Cerca dipendenti per ruolo</NavDropdown.Item> */}
-                      <NavDropdown.Item>Cerca pagamento effettuato</NavDropdown.Item>
+                      <NavDropdown.Item onClick={handleOpenAdminSearch}>Cerca pagamento effettuato</NavDropdown.Item>
                       <NavDropdown.Item onClick={handleShowAdminResModal}>
                         Accetta/Rifiuta richiesta di permesso
                       </NavDropdown.Item>
@@ -175,6 +185,57 @@ function NavbarMe() {
             Aggiorna
           </Button>
           <Button variant="secondary" onClick={handleCloseAvatar}>
+            Chiudi
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={adminSearch} onHide={handleCloseAdminSearch} size="lg">
+        <Modal.Header closeButton>
+          <Modal.Title>Cerca pagamenti</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group controlId="searchMonth">
+              <Form.Label>Mese Pagamento</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Inserisci il mese"
+                value={searchMonth}
+                onChange={(e) => setSearchMonth(e.target.value)} 
+              />
+            </Form.Group>
+            <Form.Group controlId="searchYear" className="mt-3">
+              <Form.Label>Anno Pagamento</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Inserisci l'anno"
+                value={searchYear}
+                onChange={(e) => setSearchYear(e.target.value)} 
+              />
+            </Form.Group>
+          </Form>
+          
+          {searchResults.length > 0 && (
+            <div className="mt-4">
+              <h5>Documenti trovati:</h5>
+              <ul>
+                {searchResults.map((result, index) => (
+                  <li key={index}>
+                    
+                    <strong>ID:</strong> {result._id}, <strong>Nome:</strong> {result.companyData.companyName}, <strong>Importo:</strong> {result.payCheck}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleSearch}>
+            Cerca
+          </Button>
+          <Button variant="secondary" onClick={handleCloseAdminSearch}>
             Chiudi
           </Button>
         </Modal.Footer>
