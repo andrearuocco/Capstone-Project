@@ -278,3 +278,39 @@ export const addPay = async (profileId, employeeId, payForm) => {
         return { error: 'Riprova più tardi.' }
     }
 }
+
+export const deletePayEnvelope = async (employeeId, payEnvelopeId) => {
+
+    const response = await fetch(`http://localhost:5000/api/v1/employee/${employeeId}/payEnvelope/${payEnvelopeId}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+}
+
+export const deleteUser = async (id) => {
+
+    const response = await fetch(`http://localhost:5000/profile/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+}
+
+export const patchProfile = async (id, avatar) => {
+    try {
+
+        const response = await fetch(`http://localhost:5000/profile/${id}/avatar`, {
+            method: 'PATCH',
+            body: avatar,
+        });
+        if (!response.ok) {
+            throw new Error('Hai aggiornato la tua immagine avatar')
+        }
+        /* setRequests(requests.filter(request => request._id !== requestId)); */
+    } catch (error) {
+        console.error('Riprova più tardi:', error)
+    }
+}

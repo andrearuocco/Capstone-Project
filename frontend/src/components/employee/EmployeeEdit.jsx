@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { Container, Row, Col, Form, Button, Image } from 'react-bootstrap'
-import { editEmployee, employeeId, profileId, editWhoIs, deleteEmployee } from '../../data/fetch';
+import { Container, Row, Col, Form, Button, Image, Modal } from 'react-bootstrap'
+import { editEmployee, employeeId, profileId, editWhoIs, deleteEmployee, deleteUser } from '../../data/fetch';
 
 const EmployeeEdit = () => {
     const { id } = useParams()
@@ -9,6 +9,7 @@ const EmployeeEdit = () => {
     const [employee, setEmployee] = useState({})
     const [showForm, setShowForm] = useState(false)
     const [adminForm, setAdminForm] = useState(false)
+    const [deleteProfile, setDeleteProfile] = useState(false)
 
     const [adminData, setAdminData] = useState({
         whoIs: {
@@ -123,6 +124,15 @@ const EmployeeEdit = () => {
         }
     }
 
+    const handleDeleteProfile = async () => {
+        
+        await deleteUser(id)
+        alert("Questa utenza è stata eliminata in modo definitivo.")
+    }
+
+    const handleOpenDeleteProfile = () => setDeleteProfile(true)
+    const handleCloseDeleteProfile = () => setDeleteProfile(false)
+
     return (
         <Container>
             <Row>
@@ -141,7 +151,7 @@ const EmployeeEdit = () => {
                     <Button variant="primary" onClick={() => setShowForm(true)}>
                         Modifica Dati Employee
                     </Button>
-                    <Button variant="primary" /* onClick={() => setShowForm(true)} */>
+                    <Button variant="primary" onClick={handleOpenDeleteProfile} >
                         Elimina Utenza  
                     </Button>
                 </Col>
@@ -241,6 +251,23 @@ const EmployeeEdit = () => {
                     </Col>
                 )}
             </Row>
+
+            <Modal show={deleteProfile} onHide={handleCloseDeleteProfile} size="lg">
+                <Modal.Header closeButton>
+                    Cancellazione Profilo
+                </Modal.Header>
+                <Modal.Body>
+                    Sicuro di voler cancellare questa utenza ?
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleDeleteProfile}>
+                        Cancella Profilo
+                    </Button>
+                    <Button variant="secondary" onClick={handleCloseDeleteProfile}>
+                        Chiudi
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </Container>
     )
 }

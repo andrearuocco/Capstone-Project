@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Row, Col, Container, Button, Form, Table, Modal } from 'react-bootstrap/';
-import { profileId, employeeId, editPay } from "../../data/fetch";
+import { profileId, employeeId, editPay, deletePayEnvelope } from "../../data/fetch";
 import './PayEnvelope.css';
 import AddPayments from "./AddPayments";
 
@@ -13,6 +13,7 @@ function PayEnvelope(/* {profiles} */) {
     const handleOpenAddPay = () => setAddPay(true)
     const handleCloseAddPay = () => setAddPay(false)
     const [employee, setEmployee] = useState({})
+    const [deleteModal, setDeleteModal] = useState(false)
     const [addPay, setAddPay] = useState(false)
     const [showForm, setShowForm] = useState(false)
     const [paymentOne, setPaymentOne] = useState(null) // mi serve uno stato oltre quello per mostrare il form perché devo catturare con icon-pencil il pagamento da modificare
@@ -101,6 +102,23 @@ function PayEnvelope(/* {profiles} */) {
     const handleProfile = async () => {
         await profileId(id).then(data => setProfile(data))
     }
+
+    const handleOpenDeleteModal = (payment) => {
+        setPaymentOne(payment)
+        setDeleteModal(true)
+    }
+    const handleCloseDeleteModal = () => setDeleteModal(false)
+
+    const handleDelete = async () => {
+        if (paymentOne) {
+            console.log(paymentOne)
+            await deletePayEnvelope(employeeDataId, paymentOne._id)
+            handleCloseDeleteModal()
+            handlePayment()
+        } else {
+            console.error("Non è stato possibile cancellare questo documento di pagamento.")
+        }
+    }
     return (<>
         <Container>
             <div className="d-flex justify-content-around mt-3"><h1>Situazione fiscale: {profile.name} {profile.surname}</h1><Button onClick={handleOpenAddPay}>Aggiungi Busta Paga</Button></div>
@@ -151,7 +169,8 @@ function PayEnvelope(/* {profiles} */) {
                             )}
                             {payment.payCheck && <p><strong>Stipendio netto:</strong> {payment.payCheck} €</p>}
                             {payment.notes && <p><strong>Note:</strong> {payment.notes}</p>}
-                            <p><i className="fa-solid fa-pencil font-s" onClick={() => { setShowForm(true); setPaymentOne(payment) }} ></i><i className="fa-solid fa-trash font-s"></i></p>
+                            <p><i className="fa-solid fa-pencil font-s" onClick={() => { setShowForm(true); setPaymentOne(payment) }} ></i>
+                            <i className="fa-solid fa-trash font-s" onClick={() => handleOpenDeleteModal(payment)}></i></p>
                         </div>
                     ))}
                 </Col>
@@ -367,7 +386,25 @@ function PayEnvelope(/* {profiles} */) {
                     Chiudi
                 </Button>
             </Modal.Footer>
-        </Modal></>
+        </Modal>
+
+        <Modal show={deleteModal} onHide={handleCloseDeleteModal} size="lg">
+            <Modal.Header closeButton>
+               Cancellazione Pagamento
+            </Modal.Header>
+            <Modal.Body>
+                Sicuro di voler cancellare questo documento ?
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="secondary" onClick={handleDelete}>
+                    Cancella Pagamento
+                </Button>
+                <Button variant="secondary" onClick={handleCloseDeleteModal}>
+                    Chiudi
+                </Button>
+            </Modal.Footer>
+        </Modal>
+        </>
     );
 }
 
