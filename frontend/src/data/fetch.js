@@ -234,3 +234,25 @@ export const registerProfile = async (formData) => {
         console.error('Riprova più tardi:', error);
     }
 }
+
+export const editProfile = async (id, formData) => {
+    try {
+
+        const res = await fetch(`http://localhost:5000/profile/${id}`, {
+            headers: {
+                "Content-Type": "application/json",
+            },
+            method: 'PUT',
+            body: JSON.stringify(formData)
+        });
+        if (res.ok) {
+            const data = await res.json()
+            return data;
+        } else {
+            const errorData = await res.json()
+            return { error: errorData.message || 'Utenza modificata correttamente.' }
+        }
+    } catch (error) {
+        return { error: 'Riprova più tardi.' }
+    }
+}

@@ -8,11 +8,13 @@ import { Link } from 'react-router-dom'
 import EmployeeRequest from '../request/EmployeeRequest'
 import AdminRes from '../request/AdminRes'
 import SeePayments from '../payEnvelope/SeePayments'
+import EditProfile from '../profile/EditProfile'
 
 function NavbarMe() {
   const [showEmployeeRequestModal, setShowEmployeeRequestModal] = useState(false)
   const [showAdminResModal, setShowAdminResModal] = useState(false)
   const [showPayModal, setShowPayModal] = useState(false)
+  const [editModal, setEditModal] = useState(false)
   const { userInfo } = useContext(ProfileContext)
 
   const handleShowEmployeeRequestModal = () => setShowEmployeeRequestModal(true)
@@ -21,6 +23,8 @@ function NavbarMe() {
   const handleCloseAdminResModal = () => setShowAdminResModal(false)
   const handleOpenShowPayModal = () => setShowPayModal(true)
   const handleCloseShowPayModal = () => setShowPayModal(false)
+  const handleOpenEditModal = () => setEditModal(true)
+  const handleCloseEditModal = () => setEditModal(false)
 
   if (!userInfo) {
     return null
@@ -62,7 +66,7 @@ function NavbarMe() {
                         Accetta/Rifiuta richiesta di permesso
                       </NavDropdown.Item>
                       <NavDropdown.Item>Gestisci ferie</NavDropdown.Item>
-                      <NavDropdown.Item>Modifica profilo</NavDropdown.Item>
+                      <NavDropdown.Item onClick={handleOpenEditModal}>Modifica profilo</NavDropdown.Item>
                     </>
                   ) : (
                     <>
@@ -71,7 +75,7 @@ function NavbarMe() {
                         Invia richiesta di permesso
                       </NavDropdown.Item>
                       <NavDropdown.Item>Gestisci ferie</NavDropdown.Item>
-                      <NavDropdown.Item>Modifica profilo</NavDropdown.Item>
+                      <NavDropdown.Item onClick={handleOpenEditModal}>Modifica profilo</NavDropdown.Item>
                     </>
                   )}
                   <NavDropdown.Divider />
@@ -118,6 +122,20 @@ function NavbarMe() {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseShowPayModal}>
+            Chiudi
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={editModal} onHide={handleCloseEditModal} size="lg">
+        <Modal.Header closeButton>
+          <Modal.Title>Payments</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <EditProfile currentUser={userInfo} />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseEditModal}>
             Chiudi
           </Button>
         </Modal.Footer>
