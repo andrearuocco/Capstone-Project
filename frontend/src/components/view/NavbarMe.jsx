@@ -4,7 +4,7 @@ import Nav from 'react-bootstrap/Nav'
 import { Navbar, NavDropdown } from 'react-bootstrap'
 import './NavbarMe.css'
 import { ProfileContext } from '../context/ProfileContextProvider'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import EmployeeRequest from '../request/EmployeeRequest'
 import AdminRes from '../request/AdminRes'
 import SeePayments from '../payEnvelope/SeePayments'
@@ -22,7 +22,7 @@ function NavbarMe() {
   const [searchMonth, setSearchMonth] = useState('')
   const [searchYear, setSearchYear] = useState('')
   const [searchResults, setSearchResults] = useState([])
-  const { userInfo } = useContext(ProfileContext)
+  const {token, setToken, userInfo, setUserInfo} = useContext(ProfileContext)
 
   const handleShowEmployeeRequestModal = () => setShowEmployeeRequestModal(true)
   const handleCloseEmployeeRequestModal = () => setShowEmployeeRequestModal(false)
@@ -53,6 +53,19 @@ function NavbarMe() {
 
   const handleSearch = async () => {
     await getPaySearch(searchMonth, searchYear).then(data => setSearchResults(data.dati))
+  }
+
+  const navigate = useNavigate()
+  const [showLogoutModal, setShowLogoutModal] = useState(false)
+  const handleShowLogoutModal = () => setShowLogoutModal(true)
+  const handleCloseLogoutModal = () => setShowLogoutModal(false)
+  const handleLogout = () => {
+    setToken(null)
+    setUserInfo(null)
+    localStorage.removeItem('token')
+    handleCloseLogoutModal()
+    alert('Logout effettuato')
+    navigate('/')
   }
   
   if (!userInfo) {
@@ -108,7 +121,7 @@ function NavbarMe() {
                     </>
                   )}
                   <NavDropdown.Divider />
-                  <NavDropdown.Item /* onClick={logout} */>Logout</NavDropdown.Item></div>
+                  <NavDropdown.Item onClick={handleShowLogoutModal}>Logout</NavDropdown.Item></div>
               </NavDropdown>
             </Nav>
           </Navbar.Collapse>
@@ -236,6 +249,20 @@ function NavbarMe() {
             Cerca
           </Button>
           <Button variant="secondary" onClick={handleCloseAdminSearch}>
+            Chiudi
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={showLogoutModal} onHide={handleCloseLogoutModal} size="lg">
+        <Modal.Body>
+          Sei sicuro di voler uscire dal tuo account ?
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleLogout}>
+            Logout
+          </Button>
+          <Button variant="secondary" onClick={handleCloseLogoutModal}>
             Chiudi
           </Button>
         </Modal.Footer>
