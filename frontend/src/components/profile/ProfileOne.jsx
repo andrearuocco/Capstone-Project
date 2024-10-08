@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const offcanvasConfig = {
-    name: 'ProfileDetails',
+    name: 'Profile Details',
     scroll: true,
     backdrop: true,
 };
@@ -16,20 +16,20 @@ function ProfileOne({ profile }) {
     const handleClose = () => setShow(false);
     const toggleShow = () => setShow((s) => !s);
     return (<Col xs={12} sm={6} md={4} lg={3} className="my-3">
-        <Card /* style={{ width: '18rem' }} */ >
+        <Card /* style={{ width: '18rem' }} */ className='card-po' >
             <Card.Img variant="top" src={profile.avatar} style={{ height: '13rem' }} />
-            <Card.Body>
-                <Card.Title className='overF'>{profile.name} {profile.surname} {` - ${profile.whoIs.type}`}</Card.Title>
-                <Card.Text>
+            <Card.Body className='bg-gradient bg-opacity-10 bg-dark'>
+                <Card.Title className='overF card-po-title text-opacity-75 text-danger'>{profile.name} {profile.surname} {` - ${profile.whoIs.type}`}</Card.Title>
+                <Card.Text className='text-black-75 card-po-text'>
                     {profile.whoIs.type === 'admin' && (
                         <ul className='list-unstyled'>
-                            <li>Role: {profile.whoIs.adminData.name}</li>
+                            <li className='overF'>Role: {profile.whoIs.adminData.name}</li>
                             <li className='overF'>Description: {profile.whoIs.adminData.description}</li>
                         </ul>
                     )}
                     {profile.whoIs.type === 'employee' && (
                         <ul className='list-unstyled'>
-                            <li>Role: {profile.whoIs.employeeData.role}</li>
+                            <li className='overF'>Role: {profile.whoIs.employeeData.role}</li>
 
                             <li className='overF'>dailyTask:{profile.whoIs.employeeData.dailyTask.length > 0 && (
                                 <span>
@@ -41,10 +41,10 @@ function ProfileOne({ profile }) {
                     )}
                 </Card.Text>
                 <>
-                    <Button variant="primary" onClick={toggleShow} className="me-2">
+                    <Button onClick={toggleShow} className="bg-opacity-50 bg-success-subtle me-2 button-po text-b-po text-opacity-75 text-black w-50">
                         {offcanvasConfig.name}
                     </Button>
-                    <Offcanvas show={show} onHide={handleClose} scroll={offcanvasConfig.scroll} backdrop={offcanvasConfig.backdrop}>
+                    <Offcanvas show={show} onHide={handleClose} scroll={offcanvasConfig.scroll} backdrop={offcanvasConfig.backdrop} className='bord-canvas'>
                         <Offcanvas.Header closeButton>
                             <Offcanvas.Title>Profile Details</Offcanvas.Title>
                         </Offcanvas.Header>
