@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { Container, Row, Col, Form, Button, Image, Modal } from 'react-bootstrap'
 import { editEmployee, employeeId, profileId, editWhoIs, deleteEmployee, deleteUser } from '../../data/fetch';
+import './EmployeeEdit.css';
 
 const EmployeeEdit = () => {
     const { id } = useParams()
