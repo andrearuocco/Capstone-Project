@@ -180,12 +180,12 @@ function ProfileList() {
       </div>
 
       {token && (
-        <div className={theme === 'light' ? 'bg-gradient bg-opacity-25 bg-success-subtle' : ''}>
+        <div className={theme === 'light' ? 'bg-gradient bg-opacity-25 bg-success-subtle v-100' : 'v-100'}>
 
           <NavbarMe></NavbarMe>
 
-          <Container fluid>
-            <Row>
+          <Container>
+            <Row className='my-4'>
               {profile.map((p) => (
                 <ProfileOne key={p._id} profile={p} />
               ))}
@@ -193,6 +193,9 @@ function ProfileList() {
           </Container>
         </div>
       )} 
+      <footer className='sticky-bottom footer br-40'>
+        <strong className='footer-text'>Nuove soluzioni per la gestione e l'amministrazione della tua impresa.</strong>
+      </footer>
     </>
   );
 }

@@ -206,16 +206,17 @@ function NavbarMe() {
         </Modal.Footer>
       </Modal>
 
-      <Modal show={adminSearch} onHide={handleCloseAdminSearch} size="lg">
+      {/* Cerca un pagamento effettuato dall'azienda secondo il mese e l'anno */}
+      <Modal show={adminSearch} onHide={handleCloseAdminSearch} size="lg" className='modal-search'>
         <Modal.Header closeButton>
           <Modal.Title>Cerca pagamenti</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className='bg-gradient bg-black bg-opacity-10'>
           <Form>
             <Form.Group controlId="searchMonth">
               <Form.Label>Mese Pagamento</Form.Label>
               <Form.Control
-                type="text"
+                type="number"
                 placeholder="Inserisci il mese"
                 value={searchMonth}
                 onChange={(e) => setSearchMonth(e.target.value)} 
@@ -224,7 +225,7 @@ function NavbarMe() {
             <Form.Group controlId="searchYear" className="mt-3">
               <Form.Label>Anno Pagamento</Form.Label>
               <Form.Control
-                type="text"
+                type="number"
                 placeholder="Inserisci l'anno"
                 value={searchYear}
                 onChange={(e) => setSearchYear(e.target.value)} 
@@ -234,12 +235,16 @@ function NavbarMe() {
           
           {searchResults.length > 0 && (
             <div className="mt-4">
-              <h5>Documenti trovati:</h5>
-              <ul>
+              <h5>Documenti trovati: {searchResults.length}</h5>
+              <ul className='list-unstyled'>
                 {searchResults.map((result, index) => (
-                  <li key={index}>
+                  <li key={index} className='d-flex flex-column bg-nvm p-3 br-search mb-2'><span className='text-white text-opacity-50'>Risultato</span>
                     
-                    <strong>ID:</strong> {result._id}, <strong>Nome:</strong> {result.companyData.companyName}, <strong>Importo:</strong> {result.payCheck}
+                    <p className='text-black-50'><strong className='text-white text-opacity-50'>ID:</strong> {result._id} <strong className='text-white text-opacity-50'>Nome:</strong> {result.companyData.companyName}</p>
+                    <p className='text-black-50'><strong className='text-white text-opacity-50'>PIVA:</strong> {result.companyData.vatNumber} <strong className='text-white text-opacity-50'>IBAN:</strong> {result.companyData.IBAN}</p>
+                    <p className='text-black-50'><strong className='text-white text-opacity-50'>gg Lavoro:</strong> {result.payPeriod.worked.days} <strong className='text-white text-opacity-50'>Base Salario:</strong> {result.salary.basicSalary}€</p>
+                    <p className='text-black-50'><strong className='text-white text-opacity-50'>Straordinario:</strong> {result.salary.overtime.total}€ <strong className='text-white text-opacity-50'>Totale Emesso:</strong> {result.payCheck}€</p>
+                    
                   </li>
                 ))}
               </ul>
@@ -248,10 +253,10 @@ function NavbarMe() {
 
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={handleSearch}>
+          <Button className='button-nvm-po' onClick={handleSearch}>
             Cerca
           </Button>
-          <Button variant="secondary" onClick={handleCloseAdminSearch}>
+          <Button className='button-nvm-po' onClick={handleCloseAdminSearch}>
             Chiudi
           </Button>
         </Modal.Footer>

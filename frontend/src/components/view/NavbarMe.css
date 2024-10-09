@@ -67,3 +67,28 @@
     background-color: #7d8386 !important; 
     color: white; 
 }
+
+.modal-search {
+    font-style: oblique !important;
+    font-family: fangsong !important;
+    font-size: 1.3rem !important;
+    font-weight: 600 !important;
+}
+
+.br-search {
+    border-radius: 20px;
+}
+
+.button-nvm-po {
+    border: 0.2px solid #007bff;
+    border-radius: 20px !important;
+    background-color: #e1edf3;
+    color: rgb(5, 4, 4); 
+}
+
+.button-nvm-po:hover {
+    transform: scale(1.05);
+    border: 2px solid #7d8386 !important; 
+    background-color: #7d8386 !important; 
+    color: white; 
+}
