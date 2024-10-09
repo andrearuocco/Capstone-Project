@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
 .overF{
     white-space: nowrap;
     overflow: hidden;
@@ -51,7 +53,101 @@
 .bord-canvas {
     border-top-right-radius: 20px !important;
     border-bottom-right-radius: 20px !important;
-    border-top: 2px solid #409955;
-    border-right: 2px solid #409955;
-    border-bottom: 2px solid #409955;
+    border-top: 5px solid #409955;
+    border-right: 5px solid #409955 !important;
+    border-bottom: 5px solid #409955;
+    background: linear-gradient(135deg, 
+    #66cc99 0%,   
+    #5fc8a4 20%,  
+    #59c3af 40%, 
+    #53bfba 60%, 
+    #4cbacc 80%, 
+    #46b4df 100%);
+    font-family: 'Roboto', sans-serif;
+    font-style: oblique !important;
+    font-weight: 600;
+}
+
+.typing-text {
+    word-wrap: break-word; 
+    overflow-wrap: break-word;
+    display: inline-block;
+    overflow: hidden;
+    white-space: normal;
+    animation: typing 3.5s steps(30, end), blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes blink-caret {
+
+    from,
+    to {
+        border-color: transparent;
+    }
+
+    50% {
+        border-color: #007bff;
+    }
+}
+
+.offc-f {
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+    text-align: center;
+    font-size: 1.7rem;
+    font-style: oblique;
+    font-family: fangsong;
+    color: white;
+    bottom: 2rem;
+}
+
+.bord-canvas.show .offc-f {
+    opacity: 0.3;
+}
+
+.button-blue-po {
+    border: 0.2px solid #007bff;
+    border-radius: 20px !important;
+    margin-right: 25% !important;
+    margin-left: 25% !important;
+    background-color: #e1edf3;
+    color: rgb(5, 4, 4); 
+}
+
+.button-blue-po:hover {
+    transform: scale(1.05);
+    border: 2px solid #7d8386 !important; 
+    background-color: #7d8386 !important; 
+    color: white; 
+}
+
+.offcanvas-body {
+    overflow-x: hidden; 
+} 
+
+.offcanvas-body::-webkit-scrollbar {
+    width: 6px; 
+}
+
+.offcanvas-body::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.2); 
+    border-radius: 5px; 
+}
+
+.offcanvas-body::-webkit-scrollbar-thumb {
+    background: #007bff; 
+    border-radius: 5px;
+}
+
+.offcanvas-body::-webkit-scrollbar-thumb:hover {
+    background: #0056b3;
 }

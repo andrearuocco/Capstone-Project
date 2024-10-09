@@ -1,11 +1,11 @@
 ###
-POST http://localhost:5000/profile/66f260ac3286e2dd15955757/employee/66f7c4ab5c75c16038e8ea49/dailytask
+POST http://localhost:5000/profile/66f260ac3286e2dd15955757/employee/670404dec716ce083a8aba31/dailytask
 Content-Type: application/json
 
 {
   "day": "Mercoledì",
   "when": "Pomeriggio",
-  "description": "Eseguire test numero 2."
+  "description": "Andare a prendere le cose dal magazzino e portare materiale in Via provinciale Pisana."
 }
 
 ###
