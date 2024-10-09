@@ -51,4 +51,7 @@
 .bord-canvas {
     border-top-right-radius: 20px !important;
     border-bottom-right-radius: 20px !important;
+    border-top: 2px solid #409955;
+    border-right: 2px solid #409955;
+    border-bottom: 2px solid #409955;
 }
