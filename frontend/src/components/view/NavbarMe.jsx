@@ -10,6 +10,7 @@ import AdminRes from '../request/AdminRes'
 import SeePayments from '../payEnvelope/SeePayments'
 import EditProfile from '../profile/EditProfile'
 import { getPaySearch, patchProfile } from '../../data/fetch'
+import { ThemeContext } from '../context/ThemeContextProvider'
 
 function NavbarMe() {
   const [showEmployeeRequestModal, setShowEmployeeRequestModal] = useState(false)
@@ -23,6 +24,7 @@ function NavbarMe() {
   const [searchYear, setSearchYear] = useState('')
   const [searchResults, setSearchResults] = useState([])
   const {token, setToken, userInfo, setUserInfo} = useContext(ProfileContext)
+  const {theme, toggleTheme} = useContext (ThemeContext)
 
   const handleShowEmployeeRequestModal = () => setShowEmployeeRequestModal(true)
   const handleCloseEmployeeRequestModal = () => setShowEmployeeRequestModal(false)
@@ -73,24 +75,25 @@ function NavbarMe() {
   }
   return (
     <>
-      <Navbar className='bg-gradient bor-nvm' bg="dark" variant="dark" expand="lg">
+      <Navbar className={theme === 'light' ? 'bg-nvm bor-nvm custom-navbar' : 'bg-gradient bg-black bg-opacity-10 bor-nvm custom-navbar'} expand="lg">
         <Container fluid>
           <Navbar.Toggle aria-controls="navbar-nav" />
-          <Navbar.Collapse id="navbar-nav" className='align-items-baseline'>
+          <Navbar.Collapse id="navbar-nav">
             <Nav className="me-auto">
-              <Navbar.Text className="me-3">
-                <ul className='d-flex list-unstyled'>
-                  <li className='ms-3'>Benvenuto {userInfo.name} {userInfo.surname}</li>
+              <Navbar.Text className="me-3 align-items-center">
+                <ul className='d-flex list-unstyled ul-nvm'>
+                  <li className='ms-3'>Benvenuta/o {userInfo.name} {userInfo.surname}</li>
                   <ul className='d-flex list-unstyled ms-4'>
                     {userInfo.whoIs.type === 'admin' && (<li>Ruolo: {userInfo.whoIs.adminData.name}</li>)}
                     <li className='ms-3'>Birthday: {new Date(userInfo.birthday).toLocaleDateString('it-IT')}</li>
-                    <li><Button onClick={handleOpenAvatar}>Aggiorna Avatar</Button></li>
+                    <li><Button onClick={handleOpenAvatar} className='ms-3 button-nvm-po'>Aggiorna Avatar</Button></li>
+                    <li><Button onClick={() => {toggleTheme()}} className='ms-3 button-nvm-po'>Set Theme</Button></li>
                   </ul>
                 </ul>
               </Navbar.Text>
             </Nav>
 
-            <Nav className="ms-3">
+            <Nav className="ul-nvm">
               <NavDropdown
                 title={
                   <span>
@@ -99,7 +102,7 @@ function NavbarMe() {
                 }
                 id="user-dropdown"
                 align="end"
-              ><div className='bg-gradient bg-opacity-25 bg-success-subtle border-succss'>
+              ><div className='border-succss'>
                   {userInfo.whoIs.type === 'admin' ? (
                     <>
                       {/* <NavDropdown.Item>Cerca dipendenti per ruolo</NavDropdown.Item> */}

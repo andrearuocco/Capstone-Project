@@ -5,6 +5,7 @@ import ProfileContextProvider from './components/context/ProfileContextProvider'
 import EmployeeEdit from './components/employee/EmployeeEdit';
 import PayEnvelope from './components/payEnvelope/PayEnvelope';
 import { fetchGetProfiles } from './data/fetch';
+import { ThemeContextProvider } from './components/context/ThemeContextProvider';
 
 function App() {
   /*   const [profile, setProfile] = useState([])
@@ -12,7 +13,7 @@ function App() {
     fetchGetProfiles().then(data => setProfile(data))
   }, []) */
   return (
-    <ProfileContextProvider>
+    <ThemeContextProvider><ProfileContextProvider>
       <Router>
 
         <Routes>
@@ -22,7 +23,7 @@ function App() {
         </Routes>
 
       </Router>
-    </ProfileContextProvider>
+    </ProfileContextProvider></ThemeContextProvider>
   );
 }
 

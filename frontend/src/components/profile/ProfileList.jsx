@@ -10,6 +10,7 @@ import businessImage from '../view/business-concept-with-team-close-up.jpg'
 import brandImage from '../view/brand.jpg'
 import './ProfileList.css'
 import RegisterForm from '../view/RegisterForm'
+import { ThemeContext } from '../context/ThemeContextProvider'
 
 function ProfileList() {
   const [profile, setProfile] = useState([])
@@ -19,6 +20,7 @@ function ProfileList() {
   const { token, setToken, userInfo, setUserInfo } = useContext(ProfileContext)
   const handleClose = () => setShowForm(false)
   const handleShow = () => setShowForm(true)
+  const {theme} = useContext (ThemeContext)
   const showRegisterForm = () => {
     setShowForm(!showForm)
   }
@@ -178,18 +180,18 @@ function ProfileList() {
       </div>
 
       {token && (
-        <>
+        <div className={theme === 'light' ? 'bg-gradient bg-opacity-25 bg-success-subtle' : ''}>
 
           <NavbarMe></NavbarMe>
 
-          <Container>
+          <Container fluid>
             <Row>
               {profile.map((p) => (
                 <ProfileOne key={p._id} profile={p} />
               ))}
             </Row>
           </Container>
-        </>
+        </div>
       )} 
     </>
   );

@@ -5,8 +5,14 @@
 }
 
 .dropdown-menu-end {
-    border: 3px solid rgb(124, 173, 119);
-    background-color: #d1e7dd;
+    border: 3px solid #66cc99;
+    background: linear-gradient(135deg, 
+    #66cc99 0%,   
+    #5fc8a4 20%,  
+    #59c3af 40%, 
+    #53bfba 60%, 
+    #4cbacc 80%, 
+    #46b4df 100%);
     font-style: oblique;
     font-family: fangsong;
     font-size: 1.2rem;
@@ -16,4 +22,48 @@
     border-radius: 10px;
 }
 
+.custom-navbar {
+    padding: 0.5rem 1rem; 
+}
+
+.custom-navbar .nav-link {
+    padding: 0.5rem 1rem;
+}
+
+.custom-navbar .navbar-text {
+    padding: 0; 
+}
+
+.bg-nvm {
+    background: linear-gradient(360deg, 
+    #66cc99 0%,   
+    #5fc8a4 20%,  
+    #59c3af 40%, 
+    #53bfba 60%, 
+    #4cbacc 80%, 
+    #46b4df 100%);
+}
   
+.ul-nvm {
+    font-style: oblique;
+    font-family: fangsong;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.button-nvm-po {
+    border: 0.2px solid #007bff;
+    border-radius: 20px !important;
+    background-color: #e1edf3;
+    color: rgb(5, 4, 4); 
+    font-style: oblique;
+    font-family: fangsong;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.button-nvm-po:hover {
+    border: 0.2px solid #7d8386 !important; 
+    background-color: #7d8386 !important; 
+    color: white; 
+}
