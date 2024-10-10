@@ -152,7 +152,7 @@ function NavbarMe() {
         </Modal.Footer>
       </Modal>
 
-      <Modal show={showPayModal} onHide={handleCloseShowPayModal} size="lg">
+      <Modal show={showPayModal} onHide={handleCloseShowPayModal} size="lg" className="modal-search">
         <Modal.Header closeButton>
           <Modal.Title>Payments</Modal.Title>
         </Modal.Header>
@@ -160,7 +160,7 @@ function NavbarMe() {
           <SeePayments />
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseShowPayModal}>
+          <Button className='button-nvm-po' onClick={handleCloseShowPayModal}>
             Chiudi
           </Button>
         </Modal.Footer>
@@ -168,33 +168,33 @@ function NavbarMe() {
 
       <Modal show={editModal} onHide={handleCloseEditModal} size="lg">
         <Modal.Header closeButton>
-          <Modal.Title>Payments</Modal.Title>
+          <Modal.Title>{userInfo.name} {userInfo.surname}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <EditProfile currentUser={userInfo} />
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseEditModal}>
+          <Button className='button-nvm-po' onClick={handleCloseEditModal}>
             Chiudi
           </Button>
         </Modal.Footer>
       </Modal>
 
-      <Modal show={avatar} onHide={handleCloseAvatar} size="lg">
+      <Modal show={avatar} onHide={handleCloseAvatar} size="lg" className='modal-search'>
         <Modal.Header closeButton>
           <Modal.Title>Modifica Avatar</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form.Group controlId="formFile" className="mb-3">
-            <Form.Label>Default file input example</Form.Label>
+            <Form.Label>Inserisci un file per caricare un nuovo avatar</Form.Label>
             <Form.Control type="file" onChange={(e) => setSelectedAvatar(e.target.files[0])} />
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handlePatch}>
+          <Button className='button-nvm-po' onClick={handlePatch}>
             Aggiorna
           </Button>
-          <Button variant="secondary" onClick={handleCloseAvatar}>
+          <Button className='button-nvm-po' onClick={handleCloseAvatar}>
             Chiudi
           </Button>
         </Modal.Footer>

@@ -11,7 +11,7 @@ const EmployeeRequest = ({ showModal, setShowModal }) => {
     const [endDate, setEndDate] = useState("");
     const [showAlert, setShowAlert] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
-    const [alertVariant, setAlertVariant] = useState("success"); // per gestire il tipo di alert
+    const [alertVariant, setAlertVariant] = useState("warning"); // per gestire il tipo di alert
 
     const { userInfo } = useContext(ProfileContext);
     const { name, surname } = userInfo;
@@ -64,7 +64,7 @@ const EmployeeRequest = ({ showModal, setShowModal }) => {
         try {
             await employeeRequest(userInfo.whoIs.employeeData, request)
             setAlertMessage("Richiesta inviata con successo all'amministrazione!")
-            setAlertVariant("success")
+            setAlertVariant("warning")
             setShowAlert(true)
         } catch (error) {
             setAlertMessage("La richiesta non è stata inoltrata.")

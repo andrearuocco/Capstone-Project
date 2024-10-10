@@ -1,3 +1,89 @@
 .bor-table {
     border-radius: 6px !important;
 }
+
+.container-seep {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table-seep {
+    margin-top: 20px;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+.table-seep tbody tr {
+    transition: background-color 0.3s ease;
+}
+
+.table-seep tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.table-seep td, .table th {
+    padding: 12px;
+    text-align: left;
+    vertical-align: middle;
+    border-top: 1px solid #dee2e6;
+}
+
+.form-control {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-label {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+textarea.form-control {
+    resize: none;
+    min-height: 100px;
+}
+
+button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+    .table-seep {
+        font-size: 14px;
+    }
+
+    .table-seep td, .table th {
+        padding: 8px;
+    }
+
+    .form-control {
+        font-size: 14px;
+    }
+
+    .form-label {
+        font-size: 14px;
+    }
+}

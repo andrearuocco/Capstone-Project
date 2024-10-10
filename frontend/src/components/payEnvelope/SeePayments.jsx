@@ -30,7 +30,7 @@ function SeePayments() {
     }, [userInfo])
     return (<>
         {payments && payments.length > 0 ? payments.map((payment, index) => (
-            <Table striped bordered hover key={index} >
+            <><p>Pagamento {index}</p><Table striped bordered hover key={index} className="table-seep">
                 <tbody>
                     <tr>
                         <td colSpan="6">
@@ -205,7 +205,7 @@ function SeePayments() {
                         </td>
                     </tr>
                 </tbody>
-            </Table> )) : <p>Loading...</p>
+            </Table></> )) : <p>Loading...</p>
         }
     </>)
 

@@ -1,0 +1,42 @@
+.font-edit {
+    font-style: oblique;
+    font-family: fangsong;
+    font-size: 1.2rem;
+    color: #0d6efd; 
+}
+
+.bo-ra-edit {
+    border-radius: 20px;
+    background-color: #f8f9fa; 
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.flex-sm-row .btn {
+    --bs-btn-padding-x: 0rem !important;
+    --bs-btn-padding-y: 0rem !important;
+    padding-left: .5rem !important;
+    padding-right: .5rem !important;
+    border-radius: 6px !important;
+}
+
+.font-submit {
+    font-size: 1.3rem;
+}
+
+.custom-form-label {
+    font-weight: 600;
+    color: #495057;
+}
+
+.form-control {
+    border-radius: 8px;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
