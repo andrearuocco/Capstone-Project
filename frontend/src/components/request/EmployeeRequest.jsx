@@ -67,7 +67,7 @@ const EmployeeRequest = ({ showModal, setShowModal }) => {
             setAlertVariant("success")
             setShowAlert(true)
         } catch (error) {
-            setAlertMessage("La richiesta non è stata inoltrata.");
+            setAlertMessage("La richiesta non è stata inoltrata.")
             setAlertVariant("danger")
             setShowAlert(true)
         }
