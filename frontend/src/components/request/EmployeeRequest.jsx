@@ -3,21 +3,25 @@ import { Form, Modal, Button } from 'react-bootstrap'
 import { employeeRequest } from '../../data/fetch'
 import { ProfileContext } from '../context/ProfileContextProvider'
 
-const EmployeeRequest = () => {
-    const [showModal, setShowModal] = useState(false);
+const EmployeeRequest = ({showModal, setShowModal}) => {
+    /* const [showModal, setShowModal] = useState(false); */
     const [leaveType, setLeaveType] = useState("paid");
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
 
-    const handleOpenModal = () => setShowModal(true);
+    /* const handleOpenModal = () => setShowModal(true); */
     const handleCloseModal = () => setShowModal(false);
 
     const { userInfo } = useContext(ProfileContext)
     console.log(userInfo.whoIs.employeeData)
+    const {name, surname} = userInfo
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const request = {
+            // recupero name e surname da userInfo in modo che sia rintracciato e visibile lato admin chi ha inviato la richiesta 
+            name,
+            surname,
             type: leaveType,
             startDate,
             endDate
@@ -28,8 +32,8 @@ const EmployeeRequest = () => {
 
     return (
         <div>
-            <h1>Dashboard Dipendente</h1>
-            <button onClick={handleOpenModal}>Richiedi Permesso/Ferie</button>
+{/*         <h1>Dashboard Dipendente</h1>
+            <button onClick={handleOpenModal}>Richiedi Permesso/Ferie</button> */}
 
             {showModal && <Modal show={showModal} onHide={handleCloseModal}>
                 <Modal.Header closeButton>

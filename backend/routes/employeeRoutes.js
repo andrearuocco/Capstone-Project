@@ -2,6 +2,7 @@ import express from 'express'
 import { addEmployee, getAllEmployee, getSingleEmployee, editEmployee, deleteEmployee } from '../controllers/employee.controller.js';
 import Request from '../models/requestSchema.js';
 import Employee from '../models/employeeSchema.js';
+/* import authorization from '../middleware/authorization.js' */
 
 const employeeRouter = express.Router()
 
@@ -18,11 +19,11 @@ employeeRouter.put('/employee/:id', editEmployee)
 
 employeeRouter.delete('/profile/:profileId/employee/:employeeId', deleteEmployee)
 
-employeeRouter.post('/api/v1/employee/:id/requests', async (req, res) => {
-    const { type, startDate, endDate } = req.body
+employeeRouter.post('/api/v1/employee/:id/requests',/*  authorization, */ async (req, res) => {
+    const { name, surname, type, startDate, endDate } = req.body
     const { id } = req.params
     try {
-        const request = new Request({ employee: id, type, startDate, endDate })
+        const request = new Request({ employee: id, name, surname, type, startDate, endDate })
         await request.save()
         await Employee.findByIdAndUpdate(id, { $push: { requests: request._id } }, { new: true })
         res.status(201).json(request)
@@ -91,7 +92,18 @@ employeeRouter.get('/requests', async (req,res) => {
             model: 'Employee',
         })
 
-        res.send(requests);
+        const requestsWithNames = requests.map(req => ({
+            _id: req._id,
+            type: req.type,
+            startDate: req.startDate,
+            endDate: req.endDate,
+            status: req.status,
+            employee: req.employee, 
+            name: req.name, 
+            surname: req.surname  
+        }))
+
+        res.send(requestsWithNames);
     } catch(err) {
         res.status(404).send();
     }

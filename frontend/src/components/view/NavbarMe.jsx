@@ -13,7 +13,7 @@ import { getPaySearch, patchProfile } from '../../data/fetch'
 import { ThemeContext } from '../context/ThemeContextProvider'
 
 function NavbarMe() {
-  const [showEmployeeRequestModal, setShowEmployeeRequestModal] = useState(false)
+  /* const [showEmployeeRequestModal, setShowEmployeeRequestModal] = useState(false) */
   const [showAdminResModal, setShowAdminResModal] = useState(false)
   const [showPayModal, setShowPayModal] = useState(false)
   const [editModal, setEditModal] = useState(false)
@@ -25,9 +25,10 @@ function NavbarMe() {
   const [searchResults, setSearchResults] = useState([])
   const {token, setToken, userInfo, setUserInfo} = useContext(ProfileContext)
   const {theme, toggleTheme} = useContext (ThemeContext)
+  const [showModal, setShowModal] = useState(false)
 
-  const handleShowEmployeeRequestModal = () => setShowEmployeeRequestModal(true)
-  const handleCloseEmployeeRequestModal = () => setShowEmployeeRequestModal(false)
+/*const handleShowEmployeeRequestModal = () => setShowEmployeeRequestModal(true)
+  const handleCloseEmployeeRequestModal = () => setShowEmployeeRequestModal(false) */
   const handleShowAdminResModal = () => setShowAdminResModal(true)
   const handleCloseAdminResModal = () => setShowAdminResModal(false)
   const handleOpenShowPayModal = () => setShowPayModal(true)
@@ -38,6 +39,8 @@ function NavbarMe() {
   const handleCloseAvatar = () => setAvatar(false)
   const handleOpenAdminSearch = () => setAdminSearch(true)
   const handleCloseAdminSearch = () => setAdminSearch(false)
+
+  const handleOpenModal = () => setShowModal(true)
 
   const handlePatch = async () => {
     if (!selectedAvatar) {
@@ -116,7 +119,7 @@ function NavbarMe() {
                   ) : (
                     <>
                       <NavDropdown.Item onClick={handleOpenShowPayModal}>Visualizza pagamenti ricevuti</NavDropdown.Item>
-                      <NavDropdown.Item onClick={handleShowEmployeeRequestModal}>
+                      <NavDropdown.Item onClick={handleOpenModal}>
                         Invia richiesta di permesso
                       </NavDropdown.Item>
                       {/* <NavDropdown.Item>Gestisci ferie</NavDropdown.Item> */}
@@ -130,20 +133,11 @@ function NavbarMe() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-
-      <Modal show={showEmployeeRequestModal} onHide={handleCloseEmployeeRequestModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Richiesta Permesso/Ferie</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <EmployeeRequest />
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseEmployeeRequestModal}>
-            Chiudi
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      
+      {/* modale per invio richiesta gg di permesso - ferie lato dipendente */}
+      {showModal && 
+        <EmployeeRequest setShowModal={setShowModal} showModal={showModal} />
+      }
       <Modal show={showAdminResModal} onHide={handleCloseAdminResModal} size="lg">
         <Modal.Header closeButton>
           <Modal.Title>Gestione Richieste Dipendenti</Modal.Title>

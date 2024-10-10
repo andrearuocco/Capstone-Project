@@ -191,13 +191,14 @@ function ProfileList() {
               ))}
             </Row>
           </Container>
+
+          <footer className='position-absolute footer br-40'>
+            <strong className='footer-text'>Nuove soluzioni per la gestione e l'amministrazione della tua impresa.</strong>
+          </footer>
         </div>
       )} 
-      <footer className='sticky-bottom footer br-40'>
-        <strong className='footer-text'>Nuove soluzioni per la gestione e l'amministrazione della tua impresa.</strong>
-      </footer>
+ 
     </>
-  );
-}
+  )}
 
 export default ProfileList

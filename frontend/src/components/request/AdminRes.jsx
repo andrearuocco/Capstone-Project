@@ -17,7 +17,8 @@ const AdminRes = () => {
     <Table striped bordered hover>
       <thead>
         <tr>
-          <th>Dipendente</th>
+          <th>Nome e Cognome</th>
+          {/* <th>Dipendente</th> */}
           <th>Tipo di Richiesta</th>
           <th>Data Inizio</th>
           <th>Data Fine</th>
@@ -27,7 +28,8 @@ const AdminRes = () => {
       <tbody>
         {requests.map(request => (
           <tr key={request._id}>
-            <td>{request.employee.role}</td>
+            <td>{request.name} {request.surname}</td>
+            {/* <td>{request.employee.role}</td> */}
             <td>{request.type}</td>
             <td>{new Date(request.startDate).toLocaleDateString()}</td>
             <td>{new Date(request.endDate).toLocaleDateString()}</td>
