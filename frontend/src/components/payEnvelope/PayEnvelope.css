@@ -62,3 +62,7 @@
         grid-template-columns: 1fr; 
     }
 }
+
+.pay-envelope.selected {
+    border-color: #007bff;
+}

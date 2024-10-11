@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Button, Table } from 'react-bootstrap'
 import { loadRequest, patchRequest } from '../../data/fetch'
+import './AdminRes.css';
 
 const AdminRes = () => {
   const [requests, setRequests] = useState([]);
@@ -14,7 +15,7 @@ const AdminRes = () => {
   }, []);
 
   return (
-    <Table striped bordered hover>
+    <Table striped bordered hover className="admin-res-table modal-table">
       <thead>
         <tr>
           <th>Nome e Cognome</th>
@@ -33,9 +34,9 @@ const AdminRes = () => {
             <td>{request.type}</td>
             <td>{new Date(request.startDate).toLocaleDateString()}</td>
             <td>{new Date(request.endDate).toLocaleDateString()}</td>
-            <td>
-              <Button variant="success" onClick={() => handleAction(request.employee._id, request._id, 'approved')}>Accetta</Button>
-              <Button variant="danger" onClick={() => handleAction(request.employee._id, request._id, 'rejected')}>Rifiuta</Button>
+            <td className='d-flex'>
+              <Button className='button-nvm-po me-2' onClick={() => handleAction(request.employee._id, request._id, 'approved')}>Accetta</Button>
+              <Button className='button-admin' onClick={() => handleAction(request.employee._id, request._id, 'rejected')}>Rifiuta</Button>
             </td>
           </tr>
         ))}

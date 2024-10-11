@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import { Row, Col, Container, Button, Form, Table, Modal } from 'react-bootstrap/';
 import { profileId, employeeId, editPay, deletePayEnvelope } from "../../data/fetch";
 import './PayEnvelope.css';
@@ -16,7 +16,7 @@ function PayEnvelope(/* {profiles} */) {
     const [deleteModal, setDeleteModal] = useState(false)
     const [addPay, setAddPay] = useState(false)
     const [showForm, setShowForm] = useState(false)
-    const [paymentOne, setPaymentOne] = useState(null) // mi serve uno stato oltre quello per mostrare il form perché devo catturare con icon-pencil il pagamento da modificare
+    const [paymentOne, setPaymentOne] = useState([]) // mi serve uno stato oltre quello per mostrare il form perché devo catturare con icon-pencil il pagamento da modificare
     const [formData, setFormData] = useState({
         companyData: {
             companyName: '',
@@ -58,6 +58,16 @@ function PayEnvelope(/* {profiles} */) {
         payCheck: '',
         notes: ''
     })
+    /* 
+    const selectedPayRef = useRef(paymentOne); // Creare una referenza
+
+    // Scroll automatico alla busta paga selezionata
+    useEffect(() => {
+      if (selectedPayRef.current) {
+        selectedPayRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }, [paymentOne]); // Esegui l'azione quando paymentOne cambia
+    */
     const handlePayment = async () => {
         const EMPLOYEE = await employeeId(employeeDataId)
         setEmployee(EMPLOYEE)

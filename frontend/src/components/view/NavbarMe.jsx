@@ -140,13 +140,13 @@ function NavbarMe() {
       }
       <Modal show={showAdminResModal} onHide={handleCloseAdminResModal} size="lg">
         <Modal.Header closeButton>
-          <Modal.Title>Gestione Richieste Dipendenti</Modal.Title>
+          <Modal.Title className='modal-search'>Gestione Richieste Dipendenti</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <AdminRes />
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseAdminResModal}>
+          <Button className='button-nvm-po' onClick={handleCloseAdminResModal}>
             Chiudi
           </Button>
         </Modal.Footer>
@@ -168,7 +168,7 @@ function NavbarMe() {
 
       <Modal show={editModal} onHide={handleCloseEditModal} size="lg">
         <Modal.Header closeButton>
-          <Modal.Title>{userInfo.name} {userInfo.surname}</Modal.Title>
+          <Modal.Title className='modal-search'>{userInfo.name} {userInfo.surname}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <EditProfile currentUser={userInfo} />

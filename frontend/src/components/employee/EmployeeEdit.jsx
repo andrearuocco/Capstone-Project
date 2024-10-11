@@ -162,7 +162,7 @@ const EmployeeEdit = () => {
     const handleCloseDeleteProfile = () => setDeleteProfile(false)
 
     return (<>
-        <Container className={theme === 'light' ? 'bg-nvm br-eme vh-100' : 'br-eme bg-gradient bg-dark bg-opacity-10 vh-100'}>
+        <Container className={theme === 'light' ? 'bg-nvm br-eme' : 'br-eme bg-gradient bg-dark bg-opacity-10'}>
             {showAlert && (
                 <Alert variant={alertVariant} onClose={() => setShowAlert(false)} dismissible>
                     {alertMessage}
@@ -323,7 +323,7 @@ const EmployeeEdit = () => {
                 </Modal.Footer>
             </Modal>
         </Container>
-        <footer className='footer-eme br-40 position-absolute d-flex justify-content-around align-items-center bg-success-subtle'>
+        <footer className='footer-eme br-40 sticky-bottom d-flex justify-content-around align-items-center bg-success-subtle'>
             <strong className='footer-text'>
                 Nuove soluzioni per la gestione e l'amministrazione della tua impresa.
             </strong>
