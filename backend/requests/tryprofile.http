@@ -3,21 +3,17 @@ POST http://localhost:5000/profile
 Content-Type: application/json
 
 {
-    "name": "Mirko",
+    "name": "Petro",
     "surname": "Epicode",
-    "email": "mirkoepicode@gmail.com",
-    "password": "mirkoepicode",
+    "email": "petroepicode@gmail.com",
+    "password": "petroepicode",
     "birthday": 774032800000,
-    "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSenGp7lTTFNhTFmsc0JEbsnGhEg6OsIKYlxA&s",
+    "avatar": "https://st3.depositphotos.com/3369547/13825/v/450/depositphotos_138254506-stock-illustration-faceless-businessman-icon-image.jpg",
     "IBAN": "IT60X0542811101000000123456",
-    "TIN": "MKERTE44G12E435F",
+    "TIN": "MNPTRE44G12E435F",
     "country": "Italy",
     "whoIs": {
-        "type": "admin",
-        "adminData": {
-            "name": "Amministratore Delegato",
-            "description": "Web Developer - Backend Developer"
-        }
+        "type": "employee"
     }
 }
 

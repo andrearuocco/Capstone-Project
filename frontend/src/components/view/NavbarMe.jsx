@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { Container, Image, Modal, Button, Form } from 'react-bootstrap'
+import { Container, Image, Modal, Button, Form, Alert } from 'react-bootstrap'
 import Nav from 'react-bootstrap/Nav'
 import { Navbar, NavDropdown } from 'react-bootstrap'
 import './NavbarMe.css'
@@ -26,6 +26,8 @@ function NavbarMe() {
   const {token, setToken, userInfo, setUserInfo} = useContext(ProfileContext)
   const {theme, toggleTheme} = useContext (ThemeContext)
   const [showModal, setShowModal] = useState(false)
+  const [alertMessage, setAlertMessage] = useState('')
+  const [showAlert, setShowAlert] = useState(false)
 
 /*const handleShowEmployeeRequestModal = () => setShowEmployeeRequestModal(true)
   const handleCloseEmployeeRequestModal = () => setShowEmployeeRequestModal(false) */
@@ -44,7 +46,8 @@ function NavbarMe() {
 
   const handlePatch = async () => {
     if (!selectedAvatar) {
-      alert("Inserisci un nuovo file per procedere.")
+      setAlertMessage("Inserisci un nuovo file per procedere.")
+      setShowAlert(true)
       return
     }
 
@@ -52,7 +55,8 @@ function NavbarMe() {
     formData.append('avatar', selectedAvatar)
 
     const response = await patchProfile(userInfo._id, formData)
-    alert("Avatar aggiornato!")
+    setAlertMessage("Avatar aggiornato con successo!")
+    setShowAlert(true)
     handleCloseAvatar()
   }
 
@@ -69,7 +73,6 @@ function NavbarMe() {
     setUserInfo(null)
     localStorage.removeItem('token')
     handleCloseLogoutModal()
-    alert('Logout effettuato')
     navigate('/')
   }
   
@@ -181,8 +184,13 @@ function NavbarMe() {
       </Modal>
 
       <Modal show={avatar} onHide={handleCloseAvatar} size="lg" className='modal-search'>
-        <Modal.Header closeButton>
-          <Modal.Title>Modifica Avatar</Modal.Title>
+        <Modal.Header closeButton className='d-flex'>
+          <Modal.Title className='me-2'>Modifica Avatar</Modal.Title>
+          {showAlert && (
+            <Alert variant="info" onClose={() => setShowAlert(false)} dismissible>
+              {alertMessage}
+            </Alert>
+          )}
         </Modal.Header>
         <Modal.Body>
           <Form.Group controlId="formFile" className="mb-3">
@@ -257,14 +265,14 @@ function NavbarMe() {
       </Modal>
 
       <Modal show={showLogoutModal} onHide={handleCloseLogoutModal} size="lg">
-        <Modal.Body>
+        <Modal.Body className='modal-search'>
           Sei sicuro di voler uscire dal tuo account ?
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleLogout}>
+          <Button className='button-nvm-po' onClick={handleLogout}>
             Logout
           </Button>
-          <Button variant="secondary" onClick={handleCloseLogoutModal}>
+          <Button className='button-nvm-po' onClick={handleCloseLogoutModal}>
             Chiudi
           </Button>
         </Modal.Footer>
