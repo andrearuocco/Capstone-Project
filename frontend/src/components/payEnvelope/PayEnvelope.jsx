@@ -120,7 +120,7 @@ function PayEnvelope(/* {profiles} */) {
         }
     }
     return (<>
-        <Container>
+        <Container className="modal-search">
             <div className="d-flex justify-content-around mt-3"><h1>Situazione fiscale: {profile.name} {profile.surname}</h1><Button onClick={handleOpenAddPay}>Aggiungi Busta Paga</Button></div>
             <Row>
                 <Col sm={5}>
@@ -128,55 +128,64 @@ function PayEnvelope(/* {profiles} */) {
                     {employee.payments && employee.payments.map((payment, index) => (
                         <div key={index} className="pay-envelope mb-4">
                             <h4>Busta paga #{index + 1}</h4>
-                            {payment.companyData?.companyName && <p><strong>Azienda:</strong> {payment.companyData.companyName}</p>}
-                            {payment.companyData?.vatNumber && <p><strong>P. IVA:</strong> {payment.companyData.vatNumber}</p>}
-                            {payment.companyData?.address && (
-                                <p><strong>Indirizzo:</strong>
-                                    {payment.companyData.address.street || 'N/A'}, {/* valore per proprietà non obbligatorie che potrebbero riguardare dati non inseriti */}
-                                    {payment.companyData.address.city || 'N/A'},
-                                    {payment.companyData.address.postalCode || 'N/A'},
-                                    {payment.companyData.address.province || 'N/A'},
-                                    {payment.companyData.address.country || 'N/A'}
-                                </p>
-                            )}
-                            {payment.payPeriod?.month && payment.payPeriod?.year && (
-                                <p><strong>Mese di lavoro:</strong> {payment.payPeriod.month}/{payment.payPeriod.year}</p>
-                            )}
-                            {payment.payPeriod?.worked && (
-                                <>
-                                    <p><strong>Giorni lavorati:</strong> {payment.payPeriod.worked.days || 'N/A'}</p>
-                                    <p><strong>Ore lavorate:</strong> {payment.payPeriod.worked.hours || 'N/A'}</p>
-                                </>
-                            )}
-                            {payment.salary?.basicSalary && <p><strong>Salario Base:</strong> {payment.salary.basicSalary} €</p>}
-                            {payment.salary?.overtime && (
-                                <>
-                                    <p><strong>Ore di straordinario:</strong> {payment.salary.overtime.hours || '0'}</p>
-                                    <p><strong>Tariffa oraria straordinario:</strong> {payment.salary.overtime.hourlyRate || 'N/A'} €</p>
-                                    <p><strong>Totale straordinari:</strong> {payment.salary.overtime.total || 'N/A'} €</p>
-                                </>
-                            )}
-                            {payment.salary?.bonus && <p><strong>Bonus:</strong> {payment.salary.bonus || 'N/A'} €</p>}
-                            {payment.salary?.otherFees && <p><strong>Altri compensi:</strong> {payment.salary.otherFees || 'N/A'} €</p>}
-                            {payment.salary?.total && <p><strong>Totale compensi:</strong> {payment.salary.total} €</p>}
-                            {payment.deductions && (
-                                <>
-                                    <p><strong>Imposte:</strong> {payment.deductions.taxes || 'N/A'} €</p>
-                                    <p><strong>Contributi sociali:</strong> {payment.deductions.socialContributions || 'N/A'} €</p>
-                                    {payment.deductions.otherDeductions && <p><strong>Altre detrazioni:</strong> {payment.deductions.otherDeductions || 'N/A'} €</p>}
-                                    <p><strong>Totale detrazioni:</strong> {payment.deductions.totalDeductions || 'N/A'} €</p>
-                                </>
-                            )}
-                            {payment.payCheck && <p><strong>Stipendio netto:</strong> {payment.payCheck} €</p>}
-                            {payment.notes && <p><strong>Note:</strong> {payment.notes}</p>}
-                            <p><i className="fa-solid fa-pencil font-s" onClick={() => { setShowForm(true); setPaymentOne(payment) }} ></i>
-                            <i className="fa-solid fa-trash font-s" onClick={() => handleOpenDeleteModal(payment)}></i></p>
+                            <div className="pay-envelope-grid">
+                                {payment.companyData?.companyName && <p className="overF"><strong>Azienda:</strong> {payment.companyData.companyName}</p>}
+                                {payment.companyData?.vatNumber && <p className="overF"><strong>P. IVA:</strong> {payment.companyData.vatNumber}</p>}
+
+                                {payment.companyData?.address && (
+                                    <p className="overF"><strong>Indirizzo:</strong>
+                                        {payment.companyData.address.street || 'N/A'},
+                                        {payment.companyData.address.city || 'N/A'},
+                                        {payment.companyData.address.postalCode || 'N/A'},
+                                        {payment.companyData.address.province || 'N/A'},
+                                        {payment.companyData.address.country || 'N/A'}
+                                    </p>
+                                )}
+
+                                {payment.payPeriod?.month && payment.payPeriod?.year && (
+                                    <p className="overF"><strong>Mese di lavoro:</strong> {payment.payPeriod.month}/{payment.payPeriod.year}</p>
+                                )}
+                                {payment.payPeriod?.worked && (
+                                    <>
+                                        <p className="overF"><strong>Giorni lavorati:</strong> {payment.payPeriod.worked.days || 'N/A'}</p>
+                                        <p className="overF"><strong>Ore lavorate:</strong> {payment.payPeriod.worked.hours || 'N/A'}</p>
+                                    </>
+                                )}
+
+                                {payment.salary?.basicSalary && <p><strong>Salario Base:</strong> {payment.salary.basicSalary} €</p>}
+                                {payment.salary?.overtime && (
+                                    <>
+                                        <p className="overF"><strong>Ore di straordinario:</strong> {payment.salary.overtime.hours || '0'}</p>
+                                        <p className="overF"><strong>Tariffa oraria straordinario:</strong> {payment.salary.overtime.hourlyRate || 'N/A'} €</p>
+                                        <p className="overF"><strong>Totale straordinari:</strong> {payment.salary.overtime.total || 'N/A'} €</p>
+                                    </>
+                                )}
+                                {payment.salary?.bonus && <p className="overF"><strong>Bonus:</strong> {payment.salary.bonus || 'N/A'} €</p>}
+                                {payment.salary?.otherFees && <p className="overF"><strong>Altri compensi:</strong> {payment.salary.otherFees || 'N/A'} €</p>}
+                                {payment.salary?.total && <p className="overF"><strong>Totale compensi:</strong> {payment.salary.total} €</p>}
+
+                                {payment.deductions && (
+                                    <>
+                                        <p className="overF"><strong>Imposte:</strong> {payment.deductions.taxes || 'N/A'} €</p>
+                                        <p className="overF"><strong>Contributi sociali:</strong> {payment.deductions.socialContributions || 'N/A'} €</p>
+                                        {payment.deductions.otherDeductions && <p className="overF"><strong>Altre detrazioni:</strong> {payment.deductions.otherDeductions || 'N/A'} €</p>}
+                                        <p className="overF"><strong>Totale detrazioni:</strong> {payment.deductions.totalDeductions || 'N/A'} €</p>
+                                    </>
+                                )}
+                                {payment.payCheck && <p className="overF"><strong>Stipendio netto:</strong> {payment.payCheck} €</p>}
+                                {payment.notes && <p className="overF"><strong>Note:</strong> {payment.notes}</p>}
+                            </div>
+
+                            <p className="mt-3">
+                                <i className="me-3 fa-solid fa-pencil font-s" onClick={() => { setShowForm(true); setPaymentOne(payment) }} ></i>
+                                <i className="fa-solid fa-trash font-s" onClick={() => handleOpenDeleteModal(payment)}></i>
+                            </p>
                         </div>
                     ))}
                 </Col>
                 <Col sm={7}>
                     {showForm && paymentOne && (
-                        <Form>
+                        <Form className="sticky-top">
                             <h4>Modifica Busta Paga</h4>
 
                             <Table striped bordered hover>

@@ -1,3 +1,64 @@
+.pay-envelope {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #fafafa;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+.pay-envelope:hover {
+    transform: translateY(-5px);
+}
+
+.pay-envelope h4 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.pay-envelope p {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.pay-envelope strong {
+    font-weight: bold;
+    color: #007bff;
+}
+
 .font-s {
-    font-size: 2rem;
+    cursor: pointer;
+    color: #007bff;
+    font-size: 1.2rem;
+    margin-right: 15px;
+    transition: color 0.3s;
+}
+
+.font-s:hover {
+    color: #0056b3;
+}
+
+.fa-pencil, .fa-trash {
+    margin-right: 10px;
+}
+
+.pay-envelope-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 20px; 
+}
+
+.pay-envelope-grid p {
+    margin: 0; 
+}
+
+@media (max-width: 992px) {
+    .pay-envelope-grid {
+        grid-template-columns: 1fr; 
+    }
 }

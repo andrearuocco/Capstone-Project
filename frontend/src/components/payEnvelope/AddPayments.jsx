@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Table, Form, Button } from 'react-bootstrap';
+import { Table, Form, Button, Alert } from 'react-bootstrap';
 import { addPay } from '../../data/fetch';
 
 const AddPayments = ({ profile, employee }) => {
+    const [errorMessages, setErrorMessages] = useState([])
     const [formData, setFormData] = useState({
         companyData: {
             companyName: '',
@@ -45,6 +46,25 @@ const AddPayments = ({ profile, employee }) => {
         notes: ''
     })
 
+    const validateForm = () => {
+        const errors = []
+
+        if (!formData.companyData.companyName) errors.push("Il nome dell'azienda è obbligatorio.")
+        if (!formData.companyData.vatNumber) errors.push("La Partita IVA è obbligatoria.")
+        if (!formData.companyData.IBAN) errors.push("L'IBAN è obbligatorio.")
+        if (!formData.payPeriod.month) errors.push("Il mese è obbligatorio.")
+        if (!formData.payPeriod.year) errors.push("L'anno è obbligatorio.")
+        if (!formData.payPeriod.worked.days) errors.push("I giorni lavorati sono obbligatori.")
+        if (!formData.payPeriod.worked.hours) errors.push("Le ore lavorate sono obbligatorie.")
+        if (!formData.salary.basicSalary) errors.push("Il salario base è obbligatorio.")
+        if (!formData.deductions.taxes) errors.push("Le tasse sono obbligatorie.")
+        if (!formData.deductions.socialContributions) errors.push("I contributi sociali sono obbligatori.")
+        if (!formData.deductions.totalDeductions) errors.push("Il totale delle detrazioni è obbligatorio.")
+        if (!formData.payCheck) errors.push("Lo stipendio netto è obbligatorio.")
+
+        return errors
+    }
+
     const handleInputChange = (e) => {
         const { name, value } = e.target
         const keys = name.split('.')
@@ -77,17 +97,31 @@ const AddPayments = ({ profile, employee }) => {
     }
 
     const onSubmit = async () => {
+        const errors = validateForm()
+        if (errors.length > 0) {
+            setErrorMessages(errors)
+            return
+        }
         await addPay(profile, employee, formData)
+        setErrorMessages(["Pagamento aggiunto con successo."])
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
         onSubmit()
-        alert("Pagamento aggiunto con successo.")
     }
 
     return (
         <Form onSubmit={handleSubmit}>
+            {errorMessages.length > 0 && (
+                <Alert variant={errorMessages[0] === "Pagamento aggiunto con successo." ? "success" : "danger"}>
+                    <ul>
+                        {errorMessages.map((msg, idx) => (
+                            <li key={idx}>{msg}</li>
+                        ))}
+                    </ul>
+                </Alert>
+            )}
             <Table striped bordered hover>
                 <tbody>
 

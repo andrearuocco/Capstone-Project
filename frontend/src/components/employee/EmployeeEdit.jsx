@@ -116,6 +116,7 @@ const EmployeeEdit = () => {
             setAlertMessage("Modifiche effettuate con successo!")
             setAlertVariant("warning")
             setShowAlert(true)
+            navigate('/')
         } catch (error) {
             setAlertMessage("Riprova più tardi.")
             setAlertVariant("danger")
@@ -141,7 +142,7 @@ const EmployeeEdit = () => {
             setAlertMessage("Modifiche effettuate con successo!")
             setAlertVariant("warning")
             setShowAlert(true)
-            
+            navigate('/')
         } catch (error) {
             setAlertMessage("Riprova più tardi.")
             setAlertVariant("danger")
@@ -160,7 +161,7 @@ const EmployeeEdit = () => {
     const handleOpenDeleteProfile = () => setDeleteProfile(true)
     const handleCloseDeleteProfile = () => setDeleteProfile(false)
 
-    return (
+    return (<>
         <Container className={theme === 'light' ? 'bg-nvm br-eme vh-100' : 'br-eme bg-gradient bg-dark bg-opacity-10 vh-100'}>
             {showAlert && (
                 <Alert variant={alertVariant} onClose={() => setShowAlert(false)} dismissible>
@@ -181,7 +182,7 @@ const EmployeeEdit = () => {
                             <p><strong>Dati fiscali (TIN):</strong> {profile.TIN}</p>
                             <p><strong>Posizione Lavorativa Attuale:</strong> {employee.role}</p>
                         </div>
-                        <Image src={profile.avatar} className="image-id rounded-circle mb-4" alt="User avatar" />
+                        <Image src={profile.avatar} className="image-id mb-4" />
                         <div className="d-flex justify-content-between">
                             <Button
                                 variant="primary"
@@ -202,7 +203,7 @@ const EmployeeEdit = () => {
                 </Col>
 
                 {showForm && (
-                    <Col sm={7} className='mt-4 animate__animated animate__fadeInRight'>
+                    <Col sm={7} className='mt-4 animate__animated animate__fadeInRight modal-search'>
                         <h2>Modifica Posizione Lavorativa</h2>
                         <Form onSubmit={handleSubmit}>
                             <div className="container">
@@ -255,10 +256,10 @@ const EmployeeEdit = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <Button type="submit" className="btn btn-primary">Salva Modifiche</Button>
-                                <Button variant="primary" onClick={() => setAdminForm(true)}>
-                                    Promuovere ad Admin
-                                </Button>
+                                <div className='d-flex'><Button type="submit" className="button-nvm-po me-2">Salva Modifiche</Button>
+                                    <Button className="button-nvm-po" onClick={() => setAdminForm(true)}>
+                                        Promuovere ad Admin
+                                    </Button></div>
                             </div>
                         </Form>
                         {adminForm && <Form onSubmit={handleSubmitAdmin}>
@@ -322,6 +323,12 @@ const EmployeeEdit = () => {
                 </Modal.Footer>
             </Modal>
         </Container>
+        <footer className='footer-eme br-40 position-absolute d-flex justify-content-around align-items-center bg-success-subtle'>
+            <strong className='footer-text'>
+                Nuove soluzioni per la gestione e l'amministrazione della tua impresa.
+            </strong>
+            <Button onClick={() => {toggleTheme()}} className='ms-3 button-nvm-po'>Set Theme</Button>
+        </footer></>
     )
 }
 
