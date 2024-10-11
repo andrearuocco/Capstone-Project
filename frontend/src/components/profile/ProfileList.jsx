@@ -1,6 +1,6 @@
 import ProfileOne from './ProfileOne'
 import { useEffect, useState, useContext } from 'react'
-import { Container, Row, Form, Button, Col, Modal } from 'react-bootstrap/'
+import { Container, Row, Form, Button, Col, Modal, Alert } from 'react-bootstrap/'
 import { fetchGetProfiles, login } from '../../data/fetch'
 import { ProfileContext } from '../context/ProfileContextProvider'
 import NavbarMe from '../view/NavbarMe'
@@ -13,6 +13,8 @@ import RegisterForm from '../view/RegisterForm'
 import { ThemeContext } from '../context/ThemeContextProvider'
 
 function ProfileList() {
+  const [errorMessage, setErrorMessage] = useState('')
+  const [successMessage, setSuccessMessage] = useState('')
   const [profile, setProfile] = useState([])
   const [showForm, setShowForm] = useState(false)
   let [searchParams, setSearchParams] = useSearchParams()
@@ -44,13 +46,13 @@ function ProfileList() {
         localStorage.setItem('token', tokenObj.token); // salviamo il token nel localStorage
         setToken(tokenObj.token); // aggiorniamo il token nello stato del contesto
 
-        alert('Login effettuato');
+        setSuccessMessage('Login effettuato con successo.')
       } else {
-        alert("Credenziali errate");
+        setErrorMessage('Credenziali errate. Riprova.')
       }
     } catch (error) {
-      console.log(error);
-      alert('Errore, riprova più tardi: ' + error);
+      console.log(error)
+      setErrorMessage('Riprova più tardi.')
     }
   };
 
@@ -99,6 +101,17 @@ function ProfileList() {
                 <Row className="justify-content-center align-items-center">
                   
                   <Col md={6}>
+                    {errorMessage && (
+                      <Alert variant="danger" onClose={() => setErrorMessage('')} dismissible>
+                        {errorMessage}
+                      </Alert>
+                    )}
+
+                    {successMessage && (
+                      <Alert variant="success" onClose={() => setSuccessMessage('')} dismissible>
+                        {successMessage}
+                      </Alert>
+                    )}
                     <Form onSubmit={handleLogin} className="login-form">
                       <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>
@@ -180,7 +193,7 @@ function ProfileList() {
       </div>
 
       {token && (
-        <div className={theme === 'light' ? 'bg-gradient bg-opacity-25 bg-success-subtle v-100' : 'v-100'}>
+        <div className={theme === 'light' ? 'bg-gradient bg-opacity-25 bg-success-subtle' : ''}>
 
           <NavbarMe></NavbarMe>
 
@@ -192,7 +205,7 @@ function ProfileList() {
             </Row>
           </Container>
 
-          <footer className='position-absolute footer br-40'>
+          <footer className='footer br-40'>
             <strong className='footer-text'>Nuove soluzioni per la gestione e l'amministrazione della tua impresa.</strong>
           </footer>
         </div>

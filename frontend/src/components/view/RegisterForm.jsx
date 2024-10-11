@@ -6,6 +6,8 @@ import { registerProfile } from "../../data/fetch";
 import './RegisterForm.css';
 
 function RegisterForm({ showForm, setShowForm }) {
+    const [errorMessage, setErrorMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
     
     // stato per gestire i dati di registrazione
     const [registerFormData, setRegisterFormData] = useState({
@@ -65,20 +67,44 @@ function RegisterForm({ showForm, setShowForm }) {
 
     // funzione per creare il nuovo utente
     const createNewProfile = async function () {
-        if (licenseKey !== "licenzaAndrea") { // verifica se la chiave di rilascio dell'applicazione è corretta
-            setLicenseError(true) // licenza key non valida
+        setErrorMessage('')
+        setSuccessMessage('')
+
+        if (!licenseKey || !registerFormData.email || !registerFormData.password || !registerFormData.name || !registerFormData.surname || !registerFormData.whoIs.adminData.name) { // verifica se la chiave di rilascio dell'applicazione è corretta
+            setErrorMessage('Tutti i campi devono essere compilati per la registrazione.') // licenza key non valida
             return
         }
-        console.log(registerFormData)
-        const createdProfile = await registerProfile(registerFormData)
-        alert('Registrazione avvenuta con successo.')
-        showLoginForm()
+
+        if (licenseKey !== "licenzaAndrea") {
+            setLicenseError(true) 
+            setErrorMessage('Chiave di licenza non valida.')
+            return
+        }
+        
+        try {
+            const createdProfile = await registerProfile(registerFormData)
+            setSuccessMessage('Registrazione avvenuta con successo.')
+            showLoginForm()
+        } catch (error) {
+            setErrorMessage('Riprova più tardi.')
+        }
     }
 
     return (
         <div className="bg-gradient bg-success-subtle bo-ra-register">
             <div className="font-register m-1">
                 <h1>Register Form</h1>
+                {errorMessage && (
+                    <div className="alert alert-danger" role="alert">
+                        {errorMessage}
+                    </div>
+                )}
+
+                {successMessage && (
+                    <div className="alert alert-success" role="alert">
+                        {successMessage}
+                    </div>
+                )}
                 <Form>
 
                     <Form.Group className="mb-3">

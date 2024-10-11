@@ -1,5 +1,33 @@
-.image-id {
-    width: 300px !important;
-    height: 300px !important;
-    border-radius: 50% !important;
+.card-emplo-edit {
+    border-radius: 10px;
+    background-color: #fff;
+    transition: transform 0.3s ease-in-out;
 }
+
+.card-emplo-edit:hover {
+    transform: translateY(-5px);
+}
+
+.user-info p {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+.image-id {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border: 2px solid #007bff;
+    padding: 5px;
+}
+
+.animate__fadeInRight {
+    --animate-duration: 0.8s;
+}
+
+.br-eme {
+    border-radius: 20px;
+    padding: 15px;
+}
+

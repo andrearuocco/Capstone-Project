@@ -1,8 +1,11 @@
-import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useState, useEffect, useContext } from 'react'
+import { useNavigate, useParams } from 'react-router-dom';
 import { Container, Row, Col, Form, Button, Image, Modal } from 'react-bootstrap'
 import { editEmployee, employeeId, profileId, editWhoIs, deleteEmployee, deleteUser } from '../../data/fetch';
 import './EmployeeEdit.css';
+import { Alert } from 'react-bootstrap';
+import 'animate.css';
+import { ThemeContext } from '../context/ThemeContextProvider';
 
 const EmployeeEdit = () => {
     const { id } = useParams()
@@ -11,6 +14,7 @@ const EmployeeEdit = () => {
     const [showForm, setShowForm] = useState(false)
     const [adminForm, setAdminForm] = useState(false)
     const [deleteProfile, setDeleteProfile] = useState(false)
+    const {theme, toggleTheme} = useContext (ThemeContext)
 
     const [adminData, setAdminData] = useState({
         whoIs: {
@@ -28,6 +32,11 @@ const EmployeeEdit = () => {
         unpaidLeave: 0,
         holidaysYear: 20
     })
+
+    const [alertMessage, setAlertMessage] = useState('')
+    const [alertVariant, setAlertVariant] = useState('')
+    const [showAlert, setShowAlert] = useState(false)
+    const navigate = useNavigate()
 
     const handleFetch = async () => {
         try {
@@ -73,20 +82,20 @@ const EmployeeEdit = () => {
     }
 
     const handleAdmin = (e) => {
-        const { name, value } = e.target
+        const { name, value } = e.target;
         setAdminData((prevData) => ({
             whoIs: {
                 ...prevData.whoIs,
                 adminData: {
                     ...prevData.whoIs.adminData,
-                    [name]: value,
+                    [name]: value,  
                 }
             }
         }))
     }
 
     const handleSubmitAdmin = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
         try {
             const adminForm = {
                 whoIs: {
@@ -96,69 +105,104 @@ const EmployeeEdit = () => {
                         description: adminData.whoIs.adminData.description || ''
                     }
                 }
-            }
-            await editWhoIs(profile._id, adminForm)
+            };
+            const EDITWI = await editWhoIs(profile._id, adminForm)
             await deleteEmployee(employee._id)
 
-            alert("Modifiche effettuate con successo!")
+            if (!EDITWI || EDITWI.error) {
+                throw new Error('Profilo non modificato.')
+            }
+
+            setAlertMessage("Modifiche effettuate con successo!")
+            setAlertVariant("warning")
+            setShowAlert(true)
         } catch (error) {
-            alert("Riprova più tardi.")
+            setAlertMessage("Riprova più tardi.")
+            setAlertVariant("danger")
+            setShowAlert(true)
         }
     }
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
         try {
-            
             const employeeForm = {
                 role: formData.role,
                 paidLeave: formData.paidLeave,
                 unpaidLeave: formData.unpaidLeave,
                 holidaysYear: formData.holidaysYear,
+            };
+            const EDITE = await editEmployee(employee._id, employeeForm)
+
+            if (!EDITE || EDITE.error) {
+                throw new Error('Profilo non modificato.')
             }
-            await editEmployee(employee._id, employeeForm)
-
-            alert("Modifiche effettuate con successo!")
-
+    
+            setAlertMessage("Modifiche effettuate con successo!")
+            setAlertVariant("warning")
+            setShowAlert(true)
+            
         } catch (error) {
-            alert("Riprova più tardi.")
+            setAlertMessage("Riprova più tardi.")
+            setAlertVariant("danger")
+            setShowAlert(true)
         }
     }
 
     const handleDeleteProfile = async () => {
-        
         await deleteUser(id)
-        alert("Questa utenza è stata eliminata in modo definitivo.")
+        setAlertMessage("Questa utenza è stata eliminata in modo definitivo.")
+        setAlertVariant("warning")
+        setShowAlert(true)
+        navigate('/')
     }
 
     const handleOpenDeleteProfile = () => setDeleteProfile(true)
     const handleCloseDeleteProfile = () => setDeleteProfile(false)
 
     return (
-        <Container>
+        <Container className={theme === 'light' ? 'bg-nvm br-eme vh-100' : 'br-eme bg-gradient bg-dark bg-opacity-10 vh-100'}>
+            {showAlert && (
+                <Alert variant={alertVariant} onClose={() => setShowAlert(false)} dismissible>
+                    {alertMessage}
+                </Alert>
+            )}
             <Row>
-                <Col sm={5} className='mt-4'>
-                    <h2>Dati Utente</h2>
-                    <p>Nome: {profile.name}</p>
-                    <p>Cognome: {profile.surname}</p>
-                    <p>Email: {profile.email}</p>
-                    <p>Data di nascita: {profile.birthday}</p>
-                    <p>Luogo di nascita: {profile.country}</p>
-                    <p>Dati fiscali: {profile.IBAN}</p>
-                    <p>Dati fiscali: {profile.TIN}</p>
-                    <p>Posizione Lavorativa Attuale: {employee.role}</p>
-                    <p><Image src={profile.avatar} className='image-id'></Image></p>
-
-                    <Button variant="primary" onClick={() => setShowForm(true)}>
-                        Modifica Dati Employee
-                    </Button>
-                    <Button variant="primary" onClick={handleOpenDeleteProfile} >
-                        Elimina Utenza  
-                    </Button>
+                <Col sm={5} className="mt-4 modal-search">
+                    <div className="card-emplo-edit shadow-sm p-4">
+                        <h2 className="mb-4 text-primary">Dati Utente</h2>
+                        <div className="user-info mb-4">
+                            <p><strong>Nome:</strong> {profile.name}</p>
+                            <p><strong>Cognome:</strong> {profile.surname}</p>
+                            <p><strong>Email:</strong> {profile.email}</p>
+                            <p><strong>Data di nascita:</strong> {profile.birthday}</p>
+                            <p><strong>Luogo di nascita:</strong> {profile.country}</p>
+                            <p><strong>Dati fiscali (IBAN):</strong> {profile.IBAN}</p>
+                            <p><strong>Dati fiscali (TIN):</strong> {profile.TIN}</p>
+                            <p><strong>Posizione Lavorativa Attuale:</strong> {employee.role}</p>
+                        </div>
+                        <Image src={profile.avatar} className="image-id rounded-circle mb-4" alt="User avatar" />
+                        <div className="d-flex justify-content-between">
+                            <Button
+                                variant="primary"
+                                className="button-nvm-po shadow-sm"
+                                onClick={() => setShowForm(true)}
+                            >
+                                Modifica Dati Employee
+                            </Button>
+                            <Button
+                                variant="danger"
+                                className="button-nvm-po shadow-sm"
+                                onClick={handleOpenDeleteProfile}
+                            >
+                                Elimina Utenza
+                            </Button>
+                        </div>
+                    </div>
                 </Col>
 
                 {showForm && (
-                    <Col sm={7} className='mt-4'>
+                    <Col sm={7} className='mt-4 animate__animated animate__fadeInRight'>
                         <h2>Modifica Posizione Lavorativa</h2>
                         <Form onSubmit={handleSubmit}>
                             <div className="container">
@@ -218,20 +262,28 @@ const EmployeeEdit = () => {
                             </div>
                         </Form>
                         {adminForm && <Form onSubmit={handleSubmitAdmin}>
-                            <div className="container">
+                            <div className="container animate__animated animate__fadeInRight">
                                 <div className="row">
                                     <div className="col-md-6">
                                         <div className="mb-3">
                                             <label htmlFor="name" className="form-label">Ruolo nell'Azienda</label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
+                                            <Form.Select
                                                 id="name"
                                                 name="name"
                                                 value={adminData.whoIs.adminData.name}
                                                 onChange={handleAdmin}
                                                 required
-                                            />
+                                            >
+                                                <option value="">Seleziona il nuovo ruolo</option>
+                                                <option value="Socio">Socio</option>
+                                                <option value="Amministratore Delegato">Amministratore Delegato</option>
+                                                <option value="Direttore Tecnico">Direttore Tecnico</option>
+                                                <option value="Direttore Finanziario">Direttore Finanziario</option>
+                                                <option value="Responsabile">Responsabile</option>
+                                                <option value="Direttore Operativo">Direttore Operativo</option>
+                                                <option value="Responsabile Risorse Umane">Responsabile Risorse Umane</option>
+                                                <option value="Responsabile Vendite">Responsabile Vendite</option>
+                                            </Form.Select>
                                         </div>
                                         <div className="mb-3">
                                             <label htmlFor="description" className="form-label">Descrizione del Ruolo</label>
@@ -246,7 +298,7 @@ const EmployeeEdit = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <Button type="submit" className="btn btn-primary">Trasforma in Admin</Button>
+                                <Button type="submit" className="button-nvm-po">Trasforma in Admin</Button>
                             </div>
                         </Form>}
                     </Col>
