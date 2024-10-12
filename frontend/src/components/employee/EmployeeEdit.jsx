@@ -161,8 +161,8 @@ const EmployeeEdit = () => {
     const handleOpenDeleteProfile = () => setDeleteProfile(true)
     const handleCloseDeleteProfile = () => setDeleteProfile(false)
 
-    return (<>
-        <Container className={theme === 'light' ? 'bg-nvm br-eme' : 'br-eme bg-gradient bg-dark bg-opacity-10'}>
+    return (<div>
+        <Container className={theme === 'light' ? 'bg-nvm br-eme fullscreen-container' : 'br-eme bg-gradient bg-dark bg-opacity-10 fullscreen-container'}>
             {showAlert && (
                 <Alert variant={alertVariant} onClose={() => setShowAlert(false)} dismissible>
                     {alertMessage}
@@ -186,14 +186,14 @@ const EmployeeEdit = () => {
                         <div className="d-flex justify-content-between">
                             <Button
                                 variant="primary"
-                                className="button-nvm-po shadow-sm"
+                                className="button-nvm-po shadow-sm me-2 me-lg-0"
                                 onClick={() => setShowForm(true)}
                             >
                                 Modifica Dati Employee
                             </Button>
                             <Button
                                 variant="danger"
-                                className="button-nvm-po shadow-sm"
+                                className="button-nvm-po shadow-sm me-3 me-lg-0"
                                 onClick={handleOpenDeleteProfile}
                             >
                                 Elimina Utenza
@@ -322,13 +322,17 @@ const EmployeeEdit = () => {
                     </Button>
                 </Modal.Footer>
             </Modal>
+
         </Container>
-        <footer className='footer-eme br-40 sticky-bottom d-flex justify-content-around align-items-center bg-success-subtle'>
-            <strong className='footer-text'>
+        <footer className='d-flex justify-content-around align-items-center sticky-bottom footer-eme modal-envelope bg-success-subtle'>   
+            <strong className='footer-text text-black-50'>
                 Nuove soluzioni per la gestione e l'amministrazione della tua impresa.
             </strong>
-            <Button onClick={() => {toggleTheme()}} className='ms-3 button-nvm-po'>Set Theme</Button>
-        </footer></>
+            <Button onClick={() => { toggleTheme() }} className='ms-3 button-nvm-po'>
+                Set Theme
+            </Button>
+        </footer>
+    </div>
     )
 }
 

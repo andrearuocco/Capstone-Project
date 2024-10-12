@@ -66,3 +66,12 @@
 .pay-envelope.selected {
     border-color: #007bff;
 }
+
+.col-pe {
+    color: #007bff;
+}
+
+.modal-envelope {
+    font-weight: bold;
+    font-family: 'Arial', sans-serif;
+}

@@ -1,0 +1,9 @@
+.button-po-t {
+    border: 0.2px solid #409955;
+    border-radius: 20px;
+}
+
+.button-po-t:hover {
+    transform: scale(1.05);
+    border: 2px solid #429955 !important;
+}

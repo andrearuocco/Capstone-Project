@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Table, Form, Button, Alert } from 'react-bootstrap';
 import { addPay } from '../../data/fetch';
+import './AddPayments.css';
 
 const AddPayments = ({ profile, employee }) => {
     const [errorMessages, setErrorMessages] = useState([])
@@ -122,7 +123,7 @@ const AddPayments = ({ profile, employee }) => {
                     </ul>
                 </Alert>
             )}
-            <Table striped bordered hover>
+            <Table striped bordered hover className="table-seep bor-table">
                 <tbody>
 
                     <tr>
@@ -304,7 +305,7 @@ const AddPayments = ({ profile, employee }) => {
 
                 </tbody>
             </Table>
-            <Button variant="primary" type="submit">
+            <Button className='button-po-t' type="submit">
                 Aggiungi Busta Paga
             </Button>
         </Form>

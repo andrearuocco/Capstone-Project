@@ -1,9 +1,10 @@
 import { useParams } from "react-router-dom";
-import { useRef, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Row, Col, Container, Button, Form, Table, Modal } from 'react-bootstrap/';
 import { profileId, employeeId, editPay, deletePayEnvelope } from "../../data/fetch";
 import './PayEnvelope.css';
 import AddPayments from "./AddPayments";
+import { ThemeContext } from '../context/ThemeContextProvider';
 
 function PayEnvelope(/* {profiles} */) {
     const { employeeDataId } = useParams()
@@ -17,6 +18,9 @@ function PayEnvelope(/* {profiles} */) {
     const [addPay, setAddPay] = useState(false)
     const [showForm, setShowForm] = useState(false)
     const [paymentOne, setPaymentOne] = useState([]) // mi serve uno stato oltre quello per mostrare il form perché devo catturare con icon-pencil il pagamento da modificare
+    const [currentPage, setCurrentPage] = useState(1)
+    const itemsPerPage = 3 // elementi payments da mostrare per pagina
+    const {theme, toggleTheme} = useContext (ThemeContext)
     const [formData, setFormData] = useState({
         companyData: {
             companyName: '',
@@ -58,16 +62,6 @@ function PayEnvelope(/* {profiles} */) {
         payCheck: '',
         notes: ''
     })
-    /* 
-    const selectedPayRef = useRef(paymentOne); // Creare una referenza
-
-    // Scroll automatico alla busta paga selezionata
-    useEffect(() => {
-      if (selectedPayRef.current) {
-        selectedPayRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-    }, [paymentOne]); // Esegui l'azione quando paymentOne cambia
-    */
     const handlePayment = async () => {
         const EMPLOYEE = await employeeId(employeeDataId)
         setEmployee(EMPLOYEE)
@@ -129,15 +123,35 @@ function PayEnvelope(/* {profiles} */) {
             console.error("Non è stato possibile cancellare questo documento di pagamento.")
         }
     }
-    return (<>
-        <Container className="modal-search">
-            <div className="d-flex justify-content-around mt-3"><h1>Situazione fiscale: {profile.name} {profile.surname}</h1><Button onClick={handleOpenAddPay}>Aggiungi Busta Paga</Button></div>
+
+    // imposta i pagamenti della pagina corrente
+    const indexOfLastPayment = currentPage * itemsPerPage
+    const indexOfFirstPayment = indexOfLastPayment - itemsPerPage
+    const currentPayments = employee.payments?.slice(indexOfFirstPayment, indexOfLastPayment) || []
+
+    const paginate = (pageNumber) => setCurrentPage(pageNumber) // funzione per cambiare pagina 
+    
+    const totalPayments = employee.payments?.length || 0
+    const pageNumbers = [] // crea array di numeri di pagina
+
+    for (let i = 1; i <= Math.ceil(totalPayments / itemsPerPage); i++) {
+        pageNumbers.push(i)
+    }
+
+    return (<div>
+        <nav className='d-flex justify-content-around align-items-center sticky-top footer-eme bg-success-subtle modal-envelope'>
+            <h1 className="text-black-50">Situazione fiscale: {profile.name} {profile.surname}</h1><div className="d-flex"><Button className='button-nvm-po' onClick={handleOpenAddPay}>Aggiungi Busta Paga</Button>
+                <Button onClick={() => { toggleTheme() }} className='ms-3 button-nvm-po'>
+                    Set Theme
+                </Button></div>
+        </nav>
+        <Container className={theme === 'light' ? 'bg-nvm br-eme modal-search' : 'modal-search br-eme bg-gradient bg-dark bg-opacity-10'}>
             <Row>
                 <Col sm={5}>
                     {/* l'operatore ?. consente di accertare la presenza dell'oggetto employee prima di accedere ai suoi campi (chaining) */}
-                    {employee.payments && employee.payments.map((payment, index) => (
+                    {currentPayments.map((payment, index) => (
                         <div key={index} className="pay-envelope mb-4">
-                            <h4>Busta paga #{index + 1}</h4>
+                            <h4>Busta paga #{indexOfFirstPayment + index + 1}</h4>
                             <div className="pay-envelope-grid">
                                 {payment.companyData?.companyName && <p className="overF"><strong>Azienda:</strong> {payment.companyData.companyName}</p>}
                                 {payment.companyData?.vatNumber && <p className="overF"><strong>P. IVA:</strong> {payment.companyData.vatNumber}</p>}
@@ -192,13 +206,24 @@ function PayEnvelope(/* {profiles} */) {
                             </p>
                         </div>
                     ))}
+                    <nav>
+                        <ul className="pagination">
+                            {pageNumbers.map(number => (
+                                <li key={number} className={`page-item ${currentPage === number ? 'active' : ''}`}>
+                                    <a onClick={() => paginate(number)} className="page-link" href="#!">
+                                        {number}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    </nav>
                 </Col>
                 <Col sm={7}>
                     {showForm && paymentOne && (
-                        <Form className="sticky-top">
-                            <h4>Modifica Busta Paga</h4>
+                        <Form className="animate__animated animate__fadeInRight">
+                            <h4 className="col-pe">Modifica Busta Paga</h4>
 
-                            <Table striped bordered hover>
+                            <Table striped bordered hover className="table-seep bor-table">
                                 <tbody>
                                     <tr>
                                         <td colSpan="6">
@@ -299,7 +324,7 @@ function PayEnvelope(/* {profiles} */) {
                                         </td>
                                         <td colSpan="3">
                                             <Form.Group>
-                                                <Form.Label>Ore di Straordinario</Form.Label>
+                                                <Form.Label>h Straordinario</Form.Label>
                                                 <Form.Control type="number" value={formData.salary?.overtime?.hours || ''} onChange={handleInputChange} name="salary.overtime.hours" />
                                             </Form.Group>
                                         </td>
@@ -311,7 +336,7 @@ function PayEnvelope(/* {profiles} */) {
                                         </td>
                                         <td colSpan="3">
                                             <Form.Group>
-                                                <Form.Label>Totale straordinario</Form.Label>
+                                                <Form.Label>Tot Extra</Form.Label>
                                                 <Form.Control type="text" value={formData.salary?.overtime?.total || ''} onChange={handleInputChange} name="salary.overtime.total" />
                                             </Form.Group>
                                         </td>
@@ -385,23 +410,23 @@ function PayEnvelope(/* {profiles} */) {
                                 </tbody>
                             </Table>
 
-                            <Button variant="primary" onClick={handleFormSubmit}>Salva Modifiche</Button>
-                            <Button variant="secondary" onClick={() => setShowForm(false)} className="ml-2">Annulla</Button>
+                            <Button className="button-nvm-po me-2" onClick={handleFormSubmit}>Salva Modifiche</Button>
+                            <Button className="button-nvm-po" onClick={() => setShowForm(false)} >Annulla</Button>
                         </Form>
                     )}
                 </Col>
             </Row>
         </Container>
 
-        <Modal show={addPay} onHide={handleCloseAddPay} size="lg">
+        <Modal show={addPay} onHide={handleCloseAddPay} size="lg" className="modal-search">
             <Modal.Header closeButton>
                 <Modal.Title>Add Payments</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <AddPayments profile={id} employee={employeeDataId} /> 
+                <AddPayments profile={id} employee={employeeDataId} />
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" onClick={handleCloseAddPay}>
+                <Button className="button-nvm-po" onClick={handleCloseAddPay}>
                     Chiudi
                 </Button>
             </Modal.Footer>
@@ -409,21 +434,21 @@ function PayEnvelope(/* {profiles} */) {
 
         <Modal show={deleteModal} onHide={handleCloseDeleteModal} size="lg">
             <Modal.Header closeButton>
-               Cancellazione Pagamento
+                Cancellazione Pagamento
             </Modal.Header>
             <Modal.Body>
                 Sicuro di voler cancellare questo documento ?
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" onClick={handleDelete}>
+                <Button className="button-nvm-po" onClick={handleDelete}>
                     Cancella Pagamento
                 </Button>
-                <Button variant="secondary" onClick={handleCloseDeleteModal}>
+                <Button className="button-nvm-po" onClick={handleCloseDeleteModal}>
                     Chiudi
                 </Button>
             </Modal.Footer>
         </Modal>
-        </>
+    </div>
     );
 }
 

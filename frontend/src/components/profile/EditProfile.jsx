@@ -166,7 +166,7 @@ const EditProfile = ({ currentUser }) => {
                 </Form.Group>
 
                 <div className="d-flex justify-content-between flex-column flex-sm-row">
-                    <Button className="bg-white submit text-primary mb-2 ms-2" type="submit">
+                    <Button className="submit button-po-t mb-2" type="submit">
                         <span className="font-submit">Salva modifiche</span>
                     </Button>
                 </div>
