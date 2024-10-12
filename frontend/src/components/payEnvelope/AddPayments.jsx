@@ -221,7 +221,7 @@ const AddPayments = ({ profile, employee }) => {
                         </td>
                         <td colSpan="3">
                             <Form.Group>
-                                <Form.Label>Ore di Straordinario</Form.Label>
+                                <Form.Label>h Straordinario</Form.Label>
                                 <Form.Control type="number" value={formData.salary.overtime.hours} onChange={handleInputChange} name="salary.overtime.hours" />
                             </Form.Group>
                         </td>
@@ -233,7 +233,7 @@ const AddPayments = ({ profile, employee }) => {
                         </td>
                         <td colSpan="3">
                             <Form.Group>
-                                <Form.Label>Totale straordinario</Form.Label>
+                                <Form.Label>Tot Extra</Form.Label>
                                 <Form.Control type="text" value={formData.salary.overtime.total} onChange={handleInputChange} name="salary.overtime.total" />
                             </Form.Group>
                         </td>

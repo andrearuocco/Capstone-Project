@@ -90,7 +90,7 @@ employeeRouter.patch('/api/v1/employee/:employeeId/requests/:requestId', async (
             to: profile.email, 
             subject: subject, 
             text: text, 
-            html: `<p>Ciao ${employee.name},</p><p>La tua richiesta di <strong>${request.type === 'paid' ? 'ferie pagate' : request.type === 'unpaid' ? 'ferie non pagate' : 'vacanza'}</strong> dal <strong>${request.startDate.toLocaleDateString()}</strong> al <strong>${request.endDate.toLocaleDateString()}</strong> è stata <strong>${status === 'approved' ? 'approvata' : 'rifiutata'}</strong>.</p><p>Cordiali saluti,<br>Il Team</p>` // Corpo HTML dell'email
+            html: `<p>Ciao ${profile.name},</p><p>La tua richiesta di <strong>${request.type === 'paid' ? 'ferie pagate' : request.type === 'unpaid' ? 'ferie non pagate' : 'vacanza'}</strong> dal <strong>${request.startDate.toLocaleDateString()}</strong> al <strong>${request.endDate.toLocaleDateString()}</strong> è stata <strong>${status === 'approved' ? 'approvata' : 'rifiutata'}</strong>.</p><p>Cordiali saluti,<br>Il Team</p>` 
         })
 
         return res.json({ message: `Richiesta ${status}`, employee });

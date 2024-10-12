@@ -6,8 +6,10 @@ import './EmployeeEdit.css';
 import { Alert } from 'react-bootstrap';
 import 'animate.css';
 import { ThemeContext } from '../context/ThemeContextProvider';
+import { ProfileContext } from "../context/ProfileContextProvider";
 
 const EmployeeEdit = () => {
+    const {token, setToken, userInfo, setUserInfo} = useContext(ProfileContext)
     const { id } = useParams()
     const [profile, setProfile] = useState({})
     const [employee, setEmployee] = useState({})
@@ -155,6 +157,13 @@ const EmployeeEdit = () => {
         setAlertMessage("Questa utenza è stata eliminata in modo definitivo.")
         setAlertVariant("warning")
         setShowAlert(true)
+        navigate('/')
+    }
+
+    const handleLogout = () => {
+        setToken(null)
+        setUserInfo(null)
+        localStorage.removeItem('token')
         navigate('/')
     }
 
@@ -331,6 +340,7 @@ const EmployeeEdit = () => {
             <Button onClick={() => { toggleTheme() }} className='ms-3 button-nvm-po'>
                 Set Theme
             </Button>
+            <i class="fa-solid fa-person-through-window ms-3" onClick={() => { handleLogout() }}></i>
         </footer>
     </div>
     )

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 import { editProfile } from '../../data/fetch';
-import './EditProfile.css'; // Import the CSS file for EditProfile
+import './EditProfile.css'; 
 
 const EditProfile = ({ currentUser }) => {
     const [formData, setFormData] = useState({
@@ -52,7 +52,7 @@ const EditProfile = ({ currentUser }) => {
     };
 
     return (
-        <div className="bo-ra-edit"> {/* Wrapper with border-radius */}
+        <div className="bo-ra-edit"> 
             <div className="font-edit mb-4">
                 <h1>Modifica Profilo</h1>
             </div>

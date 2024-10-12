@@ -106,7 +106,7 @@ export const editEmployee = async (id, employeeForm) => {
     } catch (error) {
         return { error: 'Riprova più tardi' }
     }
-};
+}
 
 export const editWhoIs = async (id, whoIsForm) => {
     try {

@@ -1,7 +1,8 @@
 import { Card, Col, Button, Offcanvas } from 'react-bootstrap/'
 import './ProfileOne.css'
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { ProfileContext } from '../context/ProfileContextProvider';
 
 const offcanvasConfig = {
     name: 'Profile Details',
@@ -10,8 +11,15 @@ const offcanvasConfig = {
 };
 
 function ProfileOne({ profile }) {
-    console.log(profile)
+    const { token, setToken, userInfo, setUserInfo } = useContext(ProfileContext);
+    const [whoIsEmAd, setWhoIsEmAd] = useState(true);
     const [show, setShow] = useState(false);
+
+    const handleWIemad = () => {
+        if(userInfo?.whoIs.type === 'employee') setWhoIsEmAd(false)
+    }
+
+    useEffect(()=>{handleWIemad()}, [userInfo])
 
     const handleClose = () => setShow(false);
     const toggleShow = () => setShow((s) => !s);
@@ -76,8 +84,8 @@ function ProfileOne({ profile }) {
                                         </div>)}
                                     </>
                                 )}
-                             
-                                {profile.whoIs.employeeData && profile.whoIs.employeeData._id && (<>
+
+                                {whoIsEmAd && profile.whoIs.employeeData && profile.whoIs.employeeData._id && (<>
                                     <Button as={Link} to={`/${profile._id}`} className='mt-4 mb-4 button-blue-po w-50'>Posizione Lavorativa</Button>
                                     <Button as={Link} to={`/${profile._id}/payments/${profile.whoIs.employeeData._id}`} className='mb-4 button-blue-po w-50'>
                                         Aggiungi Pagamento

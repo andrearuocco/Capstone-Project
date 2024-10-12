@@ -237,7 +237,7 @@ function RegisterForm({ showForm, setShowForm }) {
             </div>
         </div>
 
-    );
+    )
 }
 
-export default RegisterForm;
+export default RegisterForm

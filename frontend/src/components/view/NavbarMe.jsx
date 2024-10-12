@@ -111,12 +111,10 @@ function NavbarMe() {
               ><div className='border-succss'>
                   {userInfo.whoIs.type === 'admin' ? (
                     <>
-                      {/* <NavDropdown.Item>Cerca dipendenti per ruolo</NavDropdown.Item> */}
                       <NavDropdown.Item onClick={handleOpenAdminSearch}>Cerca pagamento effettuato</NavDropdown.Item>
                       <NavDropdown.Item onClick={handleShowAdminResModal}>
                         Accetta/Rifiuta richiesta di permesso
                       </NavDropdown.Item>
-                      {/* <NavDropdown.Item>Gestisci ferie</NavDropdown.Item> */}
                       <NavDropdown.Item onClick={handleOpenEditModal}>Modifica profilo</NavDropdown.Item>
                     </>
                   ) : (
@@ -125,7 +123,6 @@ function NavbarMe() {
                       <NavDropdown.Item onClick={handleOpenModal}>
                         Invia richiesta di permesso
                       </NavDropdown.Item>
-                      {/* <NavDropdown.Item>Gestisci ferie</NavDropdown.Item> */}
                       <NavDropdown.Item onClick={handleOpenEditModal}>Modifica profilo</NavDropdown.Item>
                     </>
                   )}
@@ -278,8 +275,8 @@ function NavbarMe() {
         </Modal.Footer>
       </Modal>
     </>
-  );
+  )
 }
 
 
-export default NavbarMe;
+export default NavbarMe

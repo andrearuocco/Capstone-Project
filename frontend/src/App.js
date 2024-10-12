@@ -8,10 +8,7 @@ import { fetchGetProfiles } from './data/fetch';
 import { ThemeContextProvider } from './components/context/ThemeContextProvider';
 
 function App() {
-  /*   const [profile, setProfile] = useState([])
-  useEffect(() => {
-    fetchGetProfiles().then(data => setProfile(data))
-  }, []) */
+
   return (
     <ThemeContextProvider><ProfileContextProvider>
       <Router>
@@ -19,13 +16,13 @@ function App() {
         <Routes>
           <Route path="/" element={<ProfileList />} />
           <Route path="/:id" element={<EmployeeEdit />} />
-          <Route path="/:id/payments/:employeeDataId" element={<PayEnvelope /* profiles={profile} *//>} />
+          <Route path="/:id/payments/:employeeDataId" element={<PayEnvelope />} />
         </Routes>
 
       </Router>
     </ProfileContextProvider></ThemeContextProvider>
-  );
+  )
 }
 
-export default App;
+export default App
 

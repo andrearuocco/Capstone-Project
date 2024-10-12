@@ -1,12 +1,14 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { Row, Col, Container, Button, Form, Table, Modal } from 'react-bootstrap/';
 import { profileId, employeeId, editPay, deletePayEnvelope } from "../../data/fetch";
 import './PayEnvelope.css';
 import AddPayments from "./AddPayments";
 import { ThemeContext } from '../context/ThemeContextProvider';
+import { ProfileContext } from "../context/ProfileContextProvider";
 
 function PayEnvelope(/* {profiles} */) {
+    const {token, setToken, userInfo, setUserInfo} = useContext(ProfileContext)
     const { employeeDataId } = useParams()
     const { id } = useParams()
     console.log(employeeDataId)
@@ -21,6 +23,7 @@ function PayEnvelope(/* {profiles} */) {
     const [currentPage, setCurrentPage] = useState(1)
     const itemsPerPage = 3 // elementi payments da mostrare per pagina
     const {theme, toggleTheme} = useContext (ThemeContext)
+    const navigate = useNavigate()
     const [formData, setFormData] = useState({
         companyData: {
             companyName: '',
@@ -124,6 +127,13 @@ function PayEnvelope(/* {profiles} */) {
         }
     }
 
+    const handleLogout = () => {
+        setToken(null)
+        setUserInfo(null)
+        localStorage.removeItem('token')
+        navigate('/')
+    }
+
     // imposta i pagamenti della pagina corrente
     const indexOfLastPayment = currentPage * itemsPerPage
     const indexOfFirstPayment = indexOfLastPayment - itemsPerPage
@@ -140,10 +150,11 @@ function PayEnvelope(/* {profiles} */) {
 
     return (<div>
         <nav className='d-flex justify-content-around align-items-center sticky-top footer-eme bg-success-subtle modal-envelope'>
-            <h1 className="text-black-50">Situazione fiscale: {profile.name} {profile.surname}</h1><div className="d-flex"><Button className='button-nvm-po' onClick={handleOpenAddPay}>Aggiungi Busta Paga</Button>
+            <h1 className="text-black-50">Situazione fiscale: {profile.name} {profile.surname}</h1><div className="d-flex align-items-center"><Button className='button-nvm-po' onClick={handleOpenAddPay}>Aggiungi Busta Paga</Button>
                 <Button onClick={() => { toggleTheme() }} className='ms-3 button-nvm-po'>
                     Set Theme
-                </Button></div>
+                </Button>
+                <i class="fa-solid fa-person-through-window ms-3" onClick={() => { handleLogout() }}></i></div>
         </nav>
         <Container className={theme === 'light' ? 'bg-nvm br-eme modal-search' : 'modal-search br-eme bg-gradient bg-dark bg-opacity-10'}>
             <Row>
@@ -179,9 +190,9 @@ function PayEnvelope(/* {profiles} */) {
                                 {payment.salary?.basicSalary && <p><strong>Salario Base:</strong> {payment.salary.basicSalary} €</p>}
                                 {payment.salary?.overtime && (
                                     <>
-                                        <p className="overF"><strong>Ore di straordinario:</strong> {payment.salary.overtime.hours || '0'}</p>
-                                        <p className="overF"><strong>Tariffa oraria straordinario:</strong> {payment.salary.overtime.hourlyRate || 'N/A'} €</p>
-                                        <p className="overF"><strong>Totale straordinari:</strong> {payment.salary.overtime.total || 'N/A'} €</p>
+                                        <p className="overF"><strong>h straordinario:</strong> {payment.salary.overtime.hours || '0'}</p>
+                                        <p className="overF"><strong>€/h straordinario:</strong> {payment.salary.overtime.hourlyRate || 'N/A'} €</p>
+                                        <p className="overF"><strong>Tot Extra:</strong> {payment.salary.overtime.total || 'N/A'} €</p>
                                     </>
                                 )}
                                 {payment.salary?.bonus && <p className="overF"><strong>Bonus:</strong> {payment.salary.bonus || 'N/A'} €</p>}
@@ -324,7 +335,7 @@ function PayEnvelope(/* {profiles} */) {
                                         </td>
                                         <td colSpan="3">
                                             <Form.Group>
-                                                <Form.Label>h Straordinario</Form.Label>
+                                                <Form.Label>h straordinario</Form.Label>
                                                 <Form.Control type="number" value={formData.salary?.overtime?.hours || ''} onChange={handleInputChange} name="salary.overtime.hours" />
                                             </Form.Group>
                                         </td>
@@ -432,11 +443,11 @@ function PayEnvelope(/* {profiles} */) {
             </Modal.Footer>
         </Modal>
 
-        <Modal show={deleteModal} onHide={handleCloseDeleteModal} size="lg">
+        <Modal show={deleteModal} onHide={handleCloseDeleteModal} size="lg" className="modal-search">
             <Modal.Header closeButton>
                 Cancellazione Pagamento
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body className="bg-success-subtle">
                 Sicuro di voler cancellare questo documento ?
             </Modal.Body>
             <Modal.Footer>
@@ -449,7 +460,7 @@ function PayEnvelope(/* {profiles} */) {
             </Modal.Footer>
         </Modal>
     </div>
-    );
+    )
 }
 
 export default PayEnvelope
