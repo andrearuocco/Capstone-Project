@@ -2,7 +2,8 @@ import express from 'express'
 import { addEmployee, getAllEmployee, getSingleEmployee, editEmployee, deleteEmployee } from '../controllers/employee.controller.js';
 import Request from '../models/requestSchema.js';
 import Employee from '../models/employeeSchema.js';
-/* import authorization from '../middleware/authorization.js' */
+import transport from '../services/serviceMail.js';
+import Profile from '../models/profileSchema.js';
 
 const employeeRouter = express.Router()
 
@@ -77,7 +78,22 @@ employeeRouter.patch('/api/v1/employee/:employeeId/requests/:requestId', async (
         // cancella la richiesta dal database
         await Request.findByIdAndDelete(requestId)
 
-        return res.json({ message: `Richiesta ${status}`, employee })
+        const profile = await Profile.findOne({ "whoIs.employeeData": employeeId }) // cerca il profile che come employeeData ha employeeId
+
+        // prepara il contenuto dell'email
+        const subject = `La tua richiesta è stata ${status === 'approved' ? 'approvata' : 'rifiutata'}`;
+        const text = `Ciao ${profile.name},\n\nLa tua richiesta di ${request.type === 'paid' ? 'ferie pagate' : request.type === 'unpaid' ? 'ferie non pagate' : 'vacanza'} dal ${request.startDate.toLocaleDateString()} al ${request.endDate.toLocaleDateString()} è stata ${status === 'approved' ? 'approvata' : 'rifiutata'}.\n\nCordiali saluti,\nIl Team`;
+
+        // invia l'email con messaggio personalizzato
+        await transport.sendMail({
+            from: 'noreply@azienda.com', 
+            to: profile.email, 
+            subject: subject, 
+            text: text, 
+            html: `<p>Ciao ${employee.name},</p><p>La tua richiesta di <strong>${request.type === 'paid' ? 'ferie pagate' : request.type === 'unpaid' ? 'ferie non pagate' : 'vacanza'}</strong> dal <strong>${request.startDate.toLocaleDateString()}</strong> al <strong>${request.endDate.toLocaleDateString()}</strong> è stata <strong>${status === 'approved' ? 'approvata' : 'rifiutata'}</strong>.</p><p>Cordiali saluti,<br>Il Team</p>` // Corpo HTML dell'email
+        })
+
+        return res.json({ message: `Richiesta ${status}`, employee });
     } catch (error) {
         console.error(error)
         return res.status(500).json({ message: 'Gestione della richesta non riuscita' })

@@ -11,7 +11,6 @@ import passport from 'passport'
 import employeeRouter from './routes/employeeRoutes.js'
 import payEnvelopeRouter from './routes/payenvelopeRoutes.js'
 import dailytaskRouter from './routes/dailytaskRoutes.js'
-import authorization from './middleware/authorization.js'
 /* import authorization from './middleware/authorization.js' */
 
 const port = process.env.PORT || 5000
