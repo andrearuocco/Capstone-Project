@@ -25,16 +25,12 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:5000/profile/66fd3c91366c4c37aaad3ce3
+PUT http://localhost:5000/profile/670ab5b159b9dcbcfd3efec0
 Content-Type: application/json
 
 {
   "whoIs": {
-    "type": "admin",
-    "adminData": {
-      "name": "Direttore Tecnico",  
-      "description": "Responsabile del reparto tecnico"  
-    }
+    "type": "employee"
   }
 }
 

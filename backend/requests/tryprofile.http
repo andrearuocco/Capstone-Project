@@ -3,15 +3,14 @@ POST http://localhost:5000/profile
 Content-Type: application/json
 
 {
-    "name": "Petro",
+    "name": "Martina",
     "surname": "Epicode",
-    "email": "petroepicode@gmail.com",
-    "password": "petroepicode",
-    "birthday": 774032800000,
-    "avatar": "https://st3.depositphotos.com/3369547/13825/v/450/depositphotos_138254506-stock-illustration-faceless-businessman-icon-image.jpg",
-    "IBAN": "IT60X0542811101000000123456",
-    "TIN": "MNPTRE44G12E435F",
-    "country": "Italy",
+    "email": "martinaepicode@gmail.com",
+    "password": "martinaepicode",
+    "birthday": 323752800110,
+    "IBAN": "PL88109024023547416218395271",
+    "TIN": "MRTCSS94G12E467F",
+    "country": "Italia",
     "whoIs": {
         "type": "employee"
     }

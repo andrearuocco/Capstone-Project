@@ -141,7 +141,7 @@ function SeePayments() {
                                         </td>
                                         <td colSpan="3">
                                             <Form.Group>
-                                                <Form.Label>Tariffa h Over</Form.Label>
+                                                <Form.Label>€ - h Over</Form.Label>
                                                 <Form.Control type="text" value={payment.salary?.overtime?.hourlyRate || ''} readOnly />
                                             </Form.Group>
                                         </td>
@@ -161,13 +161,13 @@ function SeePayments() {
                                         </td>
                                         <td colSpan="4">
                                             <Form.Group>
-                                                <Form.Label>Altri compensi</Form.Label>
+                                                <Form.Label>Altro</Form.Label>
                                                 <Form.Control type="text" value={payment.salary?.otherFees || ''} readOnly />
                                             </Form.Group>
                                         </td>
                                         <td colSpan="4">
                                             <Form.Group>
-                                                <Form.Label>Totale compensi</Form.Label>
+                                                <Form.Label>Tot compensi</Form.Label>
                                                 <Form.Control type="text" value={payment.salary?.total || ''} readOnly />
                                             </Form.Group>
                                         </td>
@@ -195,7 +195,7 @@ function SeePayments() {
                                         </td>
                                         <td colSpan="4">
                                             <Form.Group>
-                                                <Form.Label>Totale Detrazioni</Form.Label>
+                                                <Form.Label>Tot Detraz.</Form.Label>
                                                 <Form.Control type="text" value={payment.deductions?.totalDeductions || ''} readOnly />
                                             </Form.Group>
                                         </td>

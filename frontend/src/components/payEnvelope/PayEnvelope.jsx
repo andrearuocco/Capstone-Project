@@ -149,7 +149,7 @@ function PayEnvelope(/* {profiles} */) {
     }
 
     return (<div>
-        <nav className='d-flex justify-content-around align-items-center sticky-top footer-eme bg-success-subtle modal-envelope'>
+        <nav className='d-flex flex-column flex-md-row justify-content-around align-items-center sticky-top footer-eme bg-success-subtle modal-envelope'>
             <h1 className="text-black-50">Situazione fiscale: {profile.name} {profile.surname}</h1><div className="d-flex align-items-center"><Button className='button-nvm-po' onClick={handleOpenAddPay}>Aggiungi Busta Paga</Button>
                 <Button onClick={() => { toggleTheme() }} className='ms-3 button-nvm-po'>
                     Set Theme
@@ -204,7 +204,7 @@ function PayEnvelope(/* {profiles} */) {
                                         <p className="overF"><strong>Imposte:</strong> {payment.deductions.taxes || 'N/A'} €</p>
                                         <p className="overF"><strong>Contributi sociali:</strong> {payment.deductions.socialContributions || 'N/A'} €</p>
                                         {payment.deductions.otherDeductions && <p className="overF"><strong>Altre detrazioni:</strong> {payment.deductions.otherDeductions || 'N/A'} €</p>}
-                                        <p className="overF"><strong>Totale detrazioni:</strong> {payment.deductions.totalDeductions || 'N/A'} €</p>
+                                        <p className="overF"><strong>Tot detraz.:</strong> {payment.deductions.totalDeductions || 'N/A'} €</p>
                                     </>
                                 )}
                                 {payment.payCheck && <p className="overF"><strong>Stipendio netto:</strong> {payment.payCheck} €</p>}
@@ -341,7 +341,7 @@ function PayEnvelope(/* {profiles} */) {
                                         </td>
                                         <td colSpan="3">
                                             <Form.Group>
-                                                <Form.Label>Tariffa h Over</Form.Label>
+                                                <Form.Label>€ - h Over</Form.Label>
                                                 <Form.Control type="text" value={formData.salary?.overtime?.hourlyRate || ''} onChange={handleInputChange} name="salary.overtime.hourlyRate" />
                                             </Form.Group>
                                         </td>
@@ -362,13 +362,13 @@ function PayEnvelope(/* {profiles} */) {
                                         </td>
                                         <td colSpan="4">
                                             <Form.Group>
-                                                <Form.Label>Altri compensi</Form.Label>
+                                                <Form.Label>Altro</Form.Label>
                                                 <Form.Control type="text" value={formData.salary?.otherFees || ''} onChange={handleInputChange} name="salary.otherFees" />
                                             </Form.Group>
                                         </td>
                                         <td colSpan="4">
                                             <Form.Group>
-                                                <Form.Label>Totale compensi</Form.Label>
+                                                <Form.Label>Tot compensi</Form.Label>
                                                 <Form.Control type="text" value={formData.salary?.total || ''} onChange={handleInputChange} name="salary.total" />
                                             </Form.Group>
                                         </td>
@@ -398,7 +398,7 @@ function PayEnvelope(/* {profiles} */) {
                                         </td>
                                         <td colSpan="4">
                                             <Form.Group>
-                                                <Form.Label>Totale Detrazioni</Form.Label>
+                                                <Form.Label>Tot Detrazioni</Form.Label>
                                                 <Form.Control type="text" value={formData.deductions?.totalDeductions || ''} onChange={handleInputChange} name="deductions.totalDeductions" />
                                             </Form.Group>
                                         </td>

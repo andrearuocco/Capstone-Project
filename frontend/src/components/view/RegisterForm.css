@@ -8,7 +8,7 @@
     border-radius: 20px;
 }
 
-.flex-sm-row .btn {
+.class-change .btn {
     --bs-btn-padding-x: 0rem !important;
     --bs-btn-padding-y: 0rem !important;
     padding-left: .5rem !important;

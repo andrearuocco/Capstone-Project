@@ -223,7 +223,7 @@ function RegisterForm({ showForm, setShowForm }) {
                             onChange={handleFormChange}
                         />
                     </Form.Group>
-                    <div className="d-flex justify-content-between flex-column flex-sm-row">
+                    <div className="d-flex justify-content-between flex-column flex-sm-row class-change">
                         <Button className="bg-white submit text-primary mb-2 ms-2" onClick={createNewProfile}>
                             <span className="font-submit">Submit</span>
                         </Button>

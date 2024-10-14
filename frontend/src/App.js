@@ -6,6 +6,7 @@ import EmployeeEdit from './components/employee/EmployeeEdit';
 import PayEnvelope from './components/payEnvelope/PayEnvelope';
 import { fetchGetProfiles } from './data/fetch';
 import { ThemeContextProvider } from './components/context/ThemeContextProvider';
+import './App.css';
 
 function App() {
 
@@ -15,8 +16,8 @@ function App() {
 
         <Routes>
           <Route path="/" element={<ProfileList />} />
-          <Route path="/:id" element={<EmployeeEdit />} />
-          <Route path="/:id/payments/:employeeDataId" element={<PayEnvelope />} />
+          <Route path="/:id" element={<div className="fade-in-appjs"><EmployeeEdit /></div>} />
+          <Route path="/:id/payments/:employeeDataId" element={<div className="fade-in-appjs"><PayEnvelope /></div>} />
         </Routes>
 
       </Router>

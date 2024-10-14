@@ -227,7 +227,7 @@ const AddPayments = ({ profile, employee }) => {
                         </td>
                         <td colSpan="3">
                             <Form.Group>
-                                <Form.Label>Tariffa h Over</Form.Label>
+                                <Form.Label>€ - h Over</Form.Label>
                                 <Form.Control type="text" value={formData.salary.overtime.hourlyRate} onChange={handleInputChange} name="salary.overtime.hourlyRate" />
                             </Form.Group>
                         </td>
@@ -247,13 +247,13 @@ const AddPayments = ({ profile, employee }) => {
                         </td>
                         <td colSpan="4">
                             <Form.Group>
-                                <Form.Label>Altri compensi</Form.Label>
+                                <Form.Label>Altro</Form.Label>
                                 <Form.Control type="text" value={formData.salary.otherFees} onChange={handleInputChange} name="salary.otherFees" />
                             </Form.Group>
                         </td>
                         <td colSpan="4">
                             <Form.Group>
-                                <Form.Label>Totale compensi</Form.Label>
+                                <Form.Label>Tot compensi</Form.Label>
                                 <Form.Control type="text" value={formData.salary.total} onChange={handleInputChange} name="salary.total" />
                             </Form.Group>
                         </td>
@@ -282,7 +282,7 @@ const AddPayments = ({ profile, employee }) => {
                         </td>
                         <td colSpan="4">
                             <Form.Group>
-                                <Form.Label>Totale Detrazioni</Form.Label>
+                                <Form.Label>Tot Detraz.</Form.Label>
                                 <Form.Control type="text" value={formData.deductions.totalDeductions} onChange={handleInputChange} name="deductions.totalDeductions" />
                             </Form.Group>
                         </td>

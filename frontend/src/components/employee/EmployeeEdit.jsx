@@ -185,24 +185,24 @@ const EmployeeEdit = () => {
                             <p><strong>Nome:</strong> {profile.name}</p>
                             <p><strong>Cognome:</strong> {profile.surname}</p>
                             <p><strong>Email:</strong> {profile.email}</p>
-                            <p><strong>Data di nascita:</strong> {profile.birthday}</p>
+                            <p><strong>Data di nascita:</strong> {new Date(profile.birthday).toLocaleDateString('it-IT')}</p>
                             <p><strong>Luogo di nascita:</strong> {profile.country}</p>
                             <p><strong>Dati fiscali (IBAN):</strong> {profile.IBAN}</p>
                             <p><strong>Dati fiscali (TIN):</strong> {profile.TIN}</p>
                             <p><strong>Posizione Lavorativa Attuale:</strong> {employee.role}</p>
                         </div>
                         <Image src={profile.avatar} className="image-id mb-4" />
-                        <div className="d-flex justify-content-between">
+                        <div className="d-flex flex-column flex-md-row justify-content-between">
                             <Button
                                 variant="primary"
-                                className="button-nvm-po shadow-sm me-2 me-lg-0"
+                                className="button-nvm-po shadow-sm me-2 me-lg-0 mb-2 mb-md-0"
                                 onClick={() => setShowForm(true)}
                             >
                                 Modifica Dati Employee
                             </Button>
                             <Button
                                 variant="danger"
-                                className="button-nvm-po shadow-sm me-3 me-lg-0"
+                                className="button-nvm-po shadow-sm me-2 me-lg-0 mb-2 mb-md-0"
                                 onClick={handleOpenDeleteProfile}
                             >
                                 Elimina Utenza
@@ -315,18 +315,18 @@ const EmployeeEdit = () => {
                 )}
             </Row>
 
-            <Modal show={deleteProfile} onHide={handleCloseDeleteProfile} size="lg">
+            <Modal show={deleteProfile} onHide={handleCloseDeleteProfile} size="lg" className="modal-search">
                 <Modal.Header closeButton>
                     Cancellazione Profilo
                 </Modal.Header>
-                <Modal.Body>
+                <Modal.Body className="bg-success-subtle">
                     Sicuro di voler cancellare questa utenza ?
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleDeleteProfile}>
+                    <Button className='button-nvm-po' onClick={handleDeleteProfile}>
                         Cancella Profilo
                     </Button>
-                    <Button variant="secondary" onClick={handleCloseDeleteProfile}>
+                    <Button className='button-nvm-po' onClick={handleCloseDeleteProfile}>
                         Chiudi
                     </Button>
                 </Modal.Footer>
@@ -337,10 +337,10 @@ const EmployeeEdit = () => {
             <strong className='footer-text text-black-50'>
                 Nuove soluzioni per la gestione e l'amministrazione della tua impresa.
             </strong>
-            <Button onClick={() => { toggleTheme() }} className='ms-3 button-nvm-po'>
+            <div className='d-flex'><Button onClick={() => { toggleTheme() }} className='ms-3 button-nvm-po'>
                 Set Theme
             </Button>
-            <i class="fa-solid fa-person-through-window ms-3" onClick={() => { handleLogout() }}></i>
+            <i class="fa-solid fa-person-through-window ms-3" onClick={() => { handleLogout() }}></i></div>
         </footer>
     </div>
     )

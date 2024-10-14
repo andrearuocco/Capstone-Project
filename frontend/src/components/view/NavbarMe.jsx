@@ -89,7 +89,7 @@ function NavbarMe() {
               <Navbar.Text className="me-3 align-items-center">
                 <ul className='d-flex list-unstyled ul-nvm'>
                   <li className='ms-3'>Benvenuta/o {userInfo.name} {userInfo.surname}</li>
-                  <ul className='d-flex list-unstyled ms-4'>
+                  <ul className='d-flex flex-column flex-sm-row list-unstyled ms-0 ms-sm-4'>
                     {userInfo.whoIs.type === 'admin' && (<li>Ruolo: {userInfo.whoIs.adminData.name}</li>)}
                     <li className='ms-3'>Birthday: {new Date(userInfo.birthday).toLocaleDateString('it-IT')}</li>
                     <li><Button onClick={handleOpenAvatar} className='ms-3 button-nvm-po'>Aggiorna Avatar</Button></li>

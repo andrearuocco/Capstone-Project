@@ -12,7 +12,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.flex-sm-row .btn {
+.class-change .btn {
     --bs-btn-padding-x: 0rem !important;
     --bs-btn-padding-y: 0rem !important;
     padding-left: .5rem !important;
