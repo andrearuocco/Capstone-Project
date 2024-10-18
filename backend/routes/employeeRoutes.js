@@ -4,6 +4,8 @@ import Request from '../models/requestSchema.js';
 import Employee from '../models/employeeSchema.js';
 import transport from '../services/serviceMail.js';
 import Profile from '../models/profileSchema.js';
+/* import adminAuthor from '../middleware/adminAuthor.js';
+import authorization from '../middleware/authorization.js'; */
 
 const employeeRouter = express.Router()
 
@@ -16,7 +18,7 @@ employeeRouter.get('/employee', getAllEmployee) // questa rotta servirà per ave
 
 employeeRouter.get('/employee/:id', getSingleEmployee) // questa rotta servirà per ricercare un dipendente attraverso il proprio id e in virtù della referenza saranno visibili anche le sue buste paga 
 
-employeeRouter.put('/employee/:id', editEmployee) 
+employeeRouter.put('/employee/:id', /* authorization, adminAuthor, */ editEmployee) 
 
 employeeRouter.delete('/profile/:profileId/employee/:employeeId', deleteEmployee)
 

@@ -228,3 +228,18 @@
     }
     
 }
+
+.emoji-icon {
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.emoji-icon:hover {
+    transform: scale(1.2);
+    transition: transform 0.3s ease;
+}
+
+.table-seep {
+    margin-top: 10px;
+}

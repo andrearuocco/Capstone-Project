@@ -17,11 +17,11 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:5000/profile/66f261ac57b6ca66285d5d01
+PUT http://localhost:5000/profile/670abf9b59b9dcbcfd3eff7e
 Content-Type: application/json
 
 {
-  "password": "vincenzoepicode"
+  "password": "mauroepicode"
 }
 
 ###

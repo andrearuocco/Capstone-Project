@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { Container, Image, Modal, Button, Form, Alert } from 'react-bootstrap'
+import { Container, Image, Modal, Button, Form, Alert, Table } from 'react-bootstrap'
 import Nav from 'react-bootstrap/Nav'
 import { Navbar, NavDropdown } from 'react-bootstrap'
 import './NavbarMe.css'
@@ -43,6 +43,12 @@ function NavbarMe() {
   const handleCloseAdminSearch = () => setAdminSearch(false)
 
   const handleOpenModal = () => setShowModal(true)
+
+  const [activeIndex, setActiveIndex] = useState(null)
+
+  const handleToggle = (index) => {
+    setActiveIndex(activeIndex === index ? null : index)
+  }
 
   const handlePatch = async () => {
     if (!selectedAvatar) {
@@ -243,7 +249,188 @@ function NavbarMe() {
                     <p className='text-black-50'><strong className='text-white text-opacity-50'>PIVA:</strong> {result.companyData.vatNumber} <strong className='text-white text-opacity-50'>IBAN:</strong> {result.companyData.IBAN}</p>
                     <p className='text-black-50'><strong className='text-white text-opacity-50'>gg Lavoro:</strong> {result.payPeriod.worked.days} <strong className='text-white text-opacity-50'>Base Salario:</strong> {result.salary.basicSalary}€</p>
                     <p className='text-black-50'><strong className='text-white text-opacity-50'>Straordinario:</strong> {result.salary.overtime.total}€ <strong className='text-white text-opacity-50'>Totale Emesso:</strong> {result.payCheck}€</p>
-                    
+                    <span className="emoji-icon" onClick={() => handleToggle(index)}>
+                      {activeIndex === index ? '📜' : '📁'}
+                    </span>
+
+                    {activeIndex === index && (
+                      <Table striped bordered hover className="table-seep">
+                        <tbody>
+                          <tr>
+                            <td colSpan="6">
+                              <Form.Group>
+                                <Form.Label>Azienda</Form.Label>
+                                <Form.Control type="text" value={result.companyData?.companyName || ''} readOnly />
+                              </Form.Group>
+                            </td>
+                            <td colSpan="6">
+                              <Form.Group>
+                                <Form.Label>P. IVA</Form.Label>
+                                <Form.Control type="text" value={result.companyData?.vatNumber || ''} readOnly />
+                              </Form.Group>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td colSpan="6">
+                              <Form.Group>
+                                <Form.Label>Indirizzo</Form.Label>
+                                <Form.Control type="text" value={result.companyData?.address?.street || ''} readOnly />
+                              </Form.Group>
+                            </td>
+                            <td colSpan="6">
+                              <Form.Group>
+                                <Form.Label>Città</Form.Label>
+                                <Form.Control type="text" value={result.companyData?.address?.city || ''} readOnly />
+                              </Form.Group>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td colSpan="6">
+                              <Form.Group>
+                                <Form.Label>CAP</Form.Label>
+                                <Form.Control type="text" value={result.companyData?.address?.postalCode || ''} readOnly />
+                              </Form.Group>
+                            </td>
+                            <td colSpan="6">
+                              <Form.Group>
+                                <Form.Label>Provincia</Form.Label>
+                                <Form.Control type="text" value={result.companyData?.address?.province || ''} readOnly />
+                              </Form.Group>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td colSpan="6">
+                              <Form.Group>
+                                <Form.Label>Paese</Form.Label>
+                                <Form.Control type="text" value={result.companyData?.address?.country || ''} readOnly />
+                              </Form.Group>
+                            </td>
+                            <td colSpan="6">
+                              <Form.Group>
+                                <Form.Label>IBAN</Form.Label>
+                                <Form.Control type="text" value={result.companyData?.IBAN || ''} readOnly />
+                              </Form.Group>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td colSpan="6">
+                              <Form.Group>
+                                <Form.Label>Mese</Form.Label>
+                                <Form.Control type="number" value={result.payPeriod?.month || ''} readOnly />
+                              </Form.Group>
+                            </td>
+                            <td colSpan="6">
+                              <Form.Group>
+                                <Form.Label>Anno</Form.Label>
+                                <Form.Control type="number" value={result.payPeriod?.year || ''} readOnly />
+                              </Form.Group>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td colSpan="6">
+                              <Form.Group>
+                                <Form.Label>Giorni Lavorati</Form.Label>
+                                <Form.Control type="number" value={result.payPeriod?.worked?.days || ''} readOnly />
+                              </Form.Group>
+                            </td>
+                            <td colSpan="6">
+                              <Form.Group>
+                                <Form.Label>Ore Lavorate</Form.Label>
+                                <Form.Control type="number" value={result.payPeriod?.worked?.hours || ''} readOnly />
+                              </Form.Group>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td colSpan="3">
+                              <Form.Group>
+                                <Form.Label>Salario Base</Form.Label>
+                                <Form.Control type="text" value={result.salary?.basicSalary || ''} readOnly />
+                              </Form.Group>
+                            </td>
+                            <td colSpan="3">
+                              <Form.Group>
+                                <Form.Label>h Straordinario</Form.Label>
+                                <Form.Control type="number" value={result.salary?.overtime?.hours || ''} readOnly />
+                              </Form.Group>
+                            </td>
+                            <td colSpan="3">
+                              <Form.Group>
+                                <Form.Label>€ - h Over</Form.Label>
+                                <Form.Control type="text" value={result.salary?.overtime?.hourlyRate || ''} readOnly />
+                              </Form.Group>
+                            </td>
+                            <td colSpan="3">
+                              <Form.Group>
+                                <Form.Label>Tot Extra</Form.Label>
+                                <Form.Control type="text" value={result.salary?.overtime?.total || ''} readOnly />
+                              </Form.Group>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td colSpan="4">
+                              <Form.Group>
+                                <Form.Label>Bonus</Form.Label>
+                                <Form.Control type="text" value={result.salary?.bonus || ''} readOnly />
+                              </Form.Group>
+                            </td>
+                            <td colSpan="4">
+                              <Form.Group>
+                                <Form.Label>Altro</Form.Label>
+                                <Form.Control type="text" value={result.salary?.otherFees || ''} readOnly />
+                              </Form.Group>
+                            </td>
+                            <td colSpan="4">
+                              <Form.Group>
+                                <Form.Label>Tot compensi</Form.Label>
+                                <Form.Control type="text" value={result.salary?.total || ''} readOnly />
+                              </Form.Group>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td colSpan="6">
+                              <Form.Group>
+                                <Form.Label>Tasse</Form.Label>
+                                <Form.Control type="text" value={result.deductions?.taxes || ''} readOnly />
+                              </Form.Group>
+                            </td>
+                            <td colSpan="6">
+                              <Form.Group>
+                                <Form.Label>Contributi Sociali</Form.Label>
+                                <Form.Control type="text" value={result.deductions?.socialContributions || ''} readOnly />
+                              </Form.Group>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td colSpan="4">
+                              <Form.Group>
+                                <Form.Label>Altre Detrazioni</Form.Label>
+                                <Form.Control type="text" value={result.deductions?.otherDeductions || ''} readOnly />
+                              </Form.Group>
+                            </td>
+                            <td colSpan="4">
+                              <Form.Group>
+                                <Form.Label>Tot Detraz.</Form.Label>
+                                <Form.Control type="text" value={result.deductions?.totalDeductions || ''} readOnly />
+                              </Form.Group>
+                            </td>
+                            <td colSpan="4">
+                              <Form.Group>
+                                <Form.Label>Stipendio Netto</Form.Label>
+                                <Form.Control type="text" value={result.payCheck || ''} readOnly />
+                              </Form.Group>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td colSpan="12">
+                              <Form.Group>
+                                <Form.Label>Note</Form.Label>
+                                <Form.Control as="textarea" value={result.notes || ''} readOnly />
+                              </Form.Group>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </Table>
+                    )}
                   </li>
                 ))}
               </ul>
