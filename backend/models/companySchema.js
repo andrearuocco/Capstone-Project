@@ -11,12 +11,13 @@ const companySchema = new Schema({
         province: { type: String },
         country: { type: String }
     },
-    IBAN: { type: String, required: true },
+    logo: { type: String, required: true },
+    IBAN: { type: String, required: true }/* ,
     profiles: [{
         type: Schema.Types.ObjectId,
         ref: "Profile", 
         required: true
-    }]
+    }] */
 }, { collection: 'companies' });
 
 const company = model('Company', companySchema);

@@ -22,6 +22,8 @@ employeeRouter.put('/employee/:id', /* authorization, adminAuthor, */ editEmploy
 
 employeeRouter.delete('/employee/:id', deleteEmployee)
 
+/* requests */
+
 employeeRouter.post('/api/v1/employee/:id/requests',/*  authorization, */ async (req, res) => {
     const { name, surname, type, startDate, endDate } = req.body
     const { id } = req.params
@@ -126,5 +128,7 @@ employeeRouter.get('/requests', async (req,res) => {
         res.status(404).send();
     }
 })
+
+/* requests */
 
 export default employeeRouter

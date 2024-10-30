@@ -1,0 +1,34 @@
+###
+GET http://localhost:5000/companies
+
+###
+GET http://localhost:5000/companies/6722527021509ef666031284
+
+###
+PUT http://localhost:5000/companies/6722527021509ef666031284
+Content-Type: application/json
+
+{
+  "companyName": "Epicode School"
+}
+
+###
+POST http://localhost:5000/companies
+Content-Type: application/json
+
+{
+  "companyName": "Epicoders S.p.A.",
+  "vatNumber": "IT12345678901",
+  "address": {
+    "street": "Via Roma, 123",
+    "city": "Milano",
+    "postalCode": "20100",
+    "province": "MI",
+    "country": "Italia"
+  },
+  "logo": "https://example.com/path/to/logo.jpg",
+  "IBAN": "IT60X0542811101000000123456"
+}
+
+###
+DELETE http://localhost:5000/companies/6722648714155766a02c429e

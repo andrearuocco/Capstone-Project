@@ -1,10 +1,17 @@
 import Profile from '../models/profileSchema.js'
 import bcrypt from "bcrypt"
 import transport from '../services/serviceMail.js'
+import Company from '../models/companySchema.js'
 
 export const registerProfile = async (req, res) => {
+    const { companyId } = req.params;
     let newProfile
     try {
+        const company = await Company.findById(companyId);
+        if (!company) {
+            return res.status(404).json({ message: 'Company non trovata' });
+        }
+
         // verificare che la mail sia già utilizzata
         const profile = await Profile.findOne({ email: req.body.email })
         if (profile) {
@@ -22,6 +29,7 @@ export const registerProfile = async (req, res) => {
             country: req.body.country,
             IBAN: req.body.IBAN,
             TIN: req.body.TIN,
+            company: companyId,
             verifictedAct: new Date()
         })
 

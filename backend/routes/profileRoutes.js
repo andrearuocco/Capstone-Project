@@ -6,16 +6,16 @@ import authorization from '../middleware/authorization.js'; */
 
 const profileRouter = express.Router()
 
-profileRouter.post('/', registerProfile)
+profileRouter.post('/companies/:companyId/profile', registerProfile)
 
-profileRouter.get('/', getAllProfile)
+profileRouter.get('/profile', getAllProfile)
 
-profileRouter.get('/:id', getSingleProfile)
+profileRouter.get('/profile/:id', getSingleProfile)
 
-profileRouter.put('/:id', editProfile)
+profileRouter.put('/profile/:id', editProfile)
 
-profileRouter.delete('/:id', /* authorization, adminAuthor, */ deleteProfile)
+profileRouter.delete('/profile/:id', /* authorization, adminAuthor, */ deleteProfile)
 
-profileRouter.patch('/:id/avatar', uploadCloudinary.single('avatar'), patchProfile)
+profileRouter.patch('/profile/:id/avatar', uploadCloudinary.single('avatar'), patchProfile)
 
 export default profileRouter

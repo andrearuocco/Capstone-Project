@@ -11,6 +11,7 @@ import passport from 'passport'
 import employeeRouter from './routes/employeeRoutes.js'
 import payEnvelopeRouter from './routes/payenvelopeRoutes.js'
 import dailytaskRouter from './routes/dailytaskRoutes.js'
+import companyRouter from './routes/companyRoutes.js'
 /* import authorization from './middleware/authorization.js' */
 
 const port = process.env.PORT || 5000
@@ -25,10 +26,11 @@ server.use(morgan("dev")) // middleware che mostra i log delle richieste http
 server.use(helmet()) // modulo che aiuta a proteggere le applicazioni
 
 server.use('/api/v1/auth', authRouter)
-server.use('/profile', profileRoutes)
+server.use('/', profileRoutes)
 server.use('/', employeeRouter)
 server.use('/api/v1', /* authorization, */ payEnvelopeRouter)
 server.use('/profile', dailytaskRouter)
+server.use('/', companyRouter)
 
 await mongoose.connect(process.env.MONGODB_URL)
     .then(() => console.log('Connessione al database...'))

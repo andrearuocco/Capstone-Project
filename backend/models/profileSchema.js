@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-/* import Employee from './employeeSchema.js'; */
+import Company from './companySchema.js'; 
 
 /* 
 const adminSchema = new Schema({
@@ -47,6 +47,11 @@ const profileSchema = new Schema({
     },
     TIN: {
         type: String,
+    },
+    company: {  
+        type: Schema.Types.ObjectId,
+        ref: "Company",
+        required: true,
     }
 /*  
     whoIs: {
