@@ -1,0 +1,24 @@
+### REQUESTS ###
+
+###
+PATCH http://localhost:5000/api/v1/employee/6701296374a18dafd4ce3f3c/requests/6701297c74a18dafd4ce3f47
+Content-Type: application/json
+
+{
+    "status": "approved"
+}
+
+###
+POST http://localhost:5000/api/v1/employee/670404dec716ce083a8aba33/requests
+Content-Type: application/json 
+
+{
+    "startDate": 774032800000,
+    "endDate": 774032800001,
+    "type": "paid"
+}
+
+###
+GET http://localhost:5000/requests
+
+### REQUESTS ###

@@ -2,14 +2,14 @@
 GET http://localhost:5000/companies
 
 ###
-GET http://localhost:5000/companies/6722527021509ef666031284
+GET http://localhost:5000/companies/672290a213f0823fa4b48065
 
 ###
-PUT http://localhost:5000/companies/6722527021509ef666031284
+PUT http://localhost:5000/companies/672290a213f0823fa4b48065
 Content-Type: application/json
 
 {
-  "companyName": "Epicode School"
+  "companyName": "Epicode N.Two"
 }
 
 ###
@@ -17,7 +17,7 @@ POST http://localhost:5000/companies
 Content-Type: application/json
 
 {
-  "companyName": "Epicoders S.p.A.",
+  "companyName": "Epicode School",
   "vatNumber": "IT12345678901",
   "address": {
     "street": "Via Roma, 123",
@@ -31,4 +31,4 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:5000/companies/6722648714155766a02c429e
+DELETE http://localhost:5000/companies/672290a213f0823fa4b48065
