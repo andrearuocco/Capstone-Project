@@ -12,7 +12,9 @@ import employeeRouter from './routes/employeeRoutes.js'
 import payEnvelopeRouter from './routes/payenvelopeRoutes.js'
 import dailytaskRouter from './routes/dailytaskRoutes.js'
 import companyRouter from './routes/companyRoutes.js'
+import adminRouter from './routes/adminRoutes.js'
 /* import authorization from './middleware/authorization.js' */
+
 
 const port = process.env.PORT || 5000
 const host = process.env.HOST || 'http://localhost'
@@ -28,6 +30,7 @@ server.use(helmet()) // modulo che aiuta a proteggere le applicazioni
 server.use('/api/v1/auth', authRouter)
 server.use('/', profileRoutes)
 server.use('/', employeeRouter)
+server.use('/', adminRouter)
 server.use('/api/v1', /* authorization, */ payEnvelopeRouter)
 server.use('/profile', dailytaskRouter)
 server.use('/', companyRouter)

@@ -11,4 +11,6 @@ companyRouter.delete('/companies/:id', deleteCompany);
 
 companyRouter.get('/companies/:companyId/profile', getProfilesByCompany);
 
+// patch per il logo aziendale TODO
+
 export default companyRouter

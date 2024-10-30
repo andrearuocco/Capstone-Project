@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import Profile from './profileSchema';
+import Profile from './profileSchema.js';
 
 const adminSchema = new Schema({
     name: {
