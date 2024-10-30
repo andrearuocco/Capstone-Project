@@ -3,35 +3,14 @@ POST http://localhost:5000/profile
 Content-Type: application/json
 
 {
-    "name": "Martina",
+    "name": "Andrea",
     "surname": "Epicode",
-    "email": "martinaepicode@gmail.com",
-    "password": "martinaepicode",
+    "email": "andreaepicode@gmail.com",
+    "password": "andreaepicode",
     "birthday": 323752800110,
-    "IBAN": "PL88109024023547416218395271",
-    "TIN": "MRTCSS94G12E467F",
-    "country": "Italia",
-    "whoIs": {
-        "type": "employee"
-    }
-}
-
-###
-POST http://localhost:5000/profile
-Content-Type: application/json
-
-{
-    "name": "Vincenzo",
-    "surname": "Epicode",
-    "email": "vincenzoepicode@gmail.com",
-    "password": "vincenzoaepicode",
-    "birthday": 774032800000,
-    "avatar": "",
-    "IBAN": "FR60X0542811101000000123456",
-    "country": "Italy",
-    "whoIs": {
-        "type": "employee"
-    }
+    "IBAN": "IT20Q0300203280561121424713",
+    "TIN": "RCCNDR96H17E625S",
+    "country": "Italia"
 }
 
 ###
@@ -45,7 +24,8 @@ Content-Type: application/json
 
 ###
 GET http://localhost:5000/api/v1/auth/me
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9maWxlSWQiOiI2NzAwZjZhNDkxODU3ZTdhYzUzY2E0MzQiLCJpYXQiOjE3MjgxMTg1MzUsImV4cCI6MTcyODEyMjEzNX0.MCMtPnR1Y390uN6sUUrHUUBJThGO-1QGiC6UT7J20Fc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9maWxlSWQiOiI2NzIwZmIwOWI5NjY1NTkxNTVkMzQ2MjIiLCJpYXQiOjE3MzAyMTUzNjksImV4cCI6MTczMDIxODk2OX0.Tdb3sCOTPk-FWPO8xIo2ivJp6abW7YhlOuBnJGoDEog
+
 
 ###
 PATCH http://localhost:5000/api/v1/employee/6701296374a18dafd4ce3f3c/requests/6701297c74a18dafd4ce3f47

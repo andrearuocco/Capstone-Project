@@ -1,6 +1,7 @@
 import { Schema, model } from 'mongoose';
-import Employee from './employeeSchema.js';
+/* import Employee from './employeeSchema.js'; */
 
+/* 
 const adminSchema = new Schema({
     name: {
         type: String,
@@ -8,7 +9,8 @@ const adminSchema = new Schema({
         required: true,
     },
     description: String,
-}); // lo schema sarà embeddato in quello generale dei profili delle utenze 
+}); // lo schema sarà embeddato in quello generale dei profili delle utenze  
+*/
 
 const profileSchema = new Schema({ 
     name: {
@@ -45,7 +47,8 @@ const profileSchema = new Schema({
     },
     TIN: {
         type: String,
-    },
+    }
+/*  
     whoIs: {
         type: {
             type: String,
@@ -66,7 +69,8 @@ const profileSchema = new Schema({
             // l'assegnazione del doc. corrente da parte di mongoose 
             required: function() { return this.whoIs.type === 'employee'; } 
         }
-    }
+    } 
+*/
 }, { collection: "profiles" });  
 
 const Profile = model('Profile', profileSchema);

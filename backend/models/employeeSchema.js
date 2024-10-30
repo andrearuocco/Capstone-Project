@@ -1,11 +1,11 @@
 import { Schema, model } from 'mongoose';
 import Comment from './commentSchema.js';
 import payEnvolope from './payenvelopeSchema.js';
+import Profile from './profileSchema.js';
 
 const tasksSchema = new Schema({
     day: {
-        type: String,
-        enum: ["Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì"],
+        type: Date,
         required: true,
     },
     when: {
@@ -32,14 +32,14 @@ const employeeSchema = new Schema({
         maximum: 5,
         multipleOf: 0.1,
     },
-    // ?? come rotta sarà necessaria una richiesta di permesso poi da poter approvare 
+    /* // ?? come rotta sarà necessaria una richiesta di permesso poi da poter approvare */ 
     paidLeave: {
         type: Number,
     },
     unpaidLeave: {
         type: Number,
     },
-    // come rotta sarà necessaria una richiesta di permesso poi da poter approvare ??
+    /* // come rotta sarà necessaria una richiesta di permesso poi da poter approvare ?? */
     holidaysYear: {
         type: Number,
         minimum: 20,
@@ -52,7 +52,12 @@ const employeeSchema = new Schema({
     requests: [{
         type: Schema.Types.ObjectId,
         ref: 'Request',
-    }]
+    }],
+    profile: {
+        type: Schema.Types.ObjectId,
+        ref: "Profile", 
+        required: true
+    }
 }, { collection: "employees" }); 
 
 const Employee = model('Employee', employeeSchema);

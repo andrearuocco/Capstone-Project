@@ -3,7 +3,7 @@ import Profile from '../models/profileSchema.js'
 
 export const addEmployee = async (req, res) => {
     const { profileId } = req.params;  
-    const employeeData = req.body;  
+    const employeeData = { ...req.body, profile: profileId };
 
     try {
         
@@ -11,14 +11,7 @@ export const addEmployee = async (req, res) => {
 
         await employee.save();
 
-        const updatedProfile = await Profile.findByIdAndUpdate(
-            profileId,
-            {
-                "whoIs.type": "employee",  
-                "whoIs.employeeData": employee._id  // referenzia il profilo con l'ID del dipendente creato
-            },
-            { new: true }  
-        );
+        const updatedProfile = await Employee.findById(employee._id).populate('profile');
 
         return res.status(201).send({ updatedProfile });
 
@@ -40,6 +33,10 @@ export const getAllEmployee = async (req,res) => {
             .populate({
                 path: 'payments',  
                 model: 'payEnvelope',
+            })
+            .populate({
+                path: 'profile', 
+                model: 'Profile',
             });
 
         const totalResults = await Employee.countDocuments(); // conta tutti i documenti employee nella collection 
@@ -63,6 +60,10 @@ export const getSingleEmployee = async (req,res)=>{
             path: 'payments',  
             model: 'payEnvelope',
         })
+        .populate({
+            path: 'profile', 
+            model: 'Profile',
+        });
         res.send(employee) 
     } catch (error) {
         res.status(404).send({message: 'Not Found'})
@@ -81,26 +82,21 @@ export const editEmployee = async (req, res)=>{
 }
 
 export const deleteEmployee = async (req, res) => {
-    const { profileId, employeeId } = req.params;
+    const { id } = req.params;
 
     try {
-        
-        const employee = await Employee.findByIdAndDelete(employeeId);
+        // verifica che il dipendente esista
+        const employee = await Employee.findById(id);
+
         if (!employee) {
-            return res.status(404).send({ message: `Dipendente con ID n.${employeeId} non esiste nel DB` });
+            return res.status(404).send({ message: 'Employee non trovato' });
         }
 
-        const updatedProfile = await Profile.findByIdAndUpdate(
-            profileId,
-            {
-                "whoIs.employeeData": null, // svuota la proprietà whoIs dal documento profile trovato attraverso l'ID
-            },
-            { new: true }
-        );
+        // elimina employee
+        await Employee.findByIdAndDelete(id);
 
-        res.send({ message: `Ecco il profilo dopo aver rimosso ${employeeId}`, updatedProfile });
-
+        res.status(200).send({ message: 'Employee eliminato con successo' });
     } catch (error) {
-        res.status(500).send({ message: "Errore nella cancellazione del ruolo dipendente", error });
+        res.status(500).send({ message: 'Errore del server', error: error.message });
     }
-}
+};

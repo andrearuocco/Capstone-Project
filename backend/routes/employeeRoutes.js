@@ -20,7 +20,7 @@ employeeRouter.get('/employee/:id', getSingleEmployee) // questa rotta servirà 
 
 employeeRouter.put('/employee/:id', /* authorization, adminAuthor, */ editEmployee) 
 
-employeeRouter.delete('/profile/:profileId/employee/:employeeId', deleteEmployee)
+employeeRouter.delete('/employee/:id', deleteEmployee)
 
 employeeRouter.post('/api/v1/employee/:id/requests',/*  authorization, */ async (req, res) => {
     const { name, surname, type, startDate, endDate } = req.body

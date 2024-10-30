@@ -1,17 +1,10 @@
 import { Schema, model } from 'mongoose';
+import Company from './companySchema.js';
 
 const payEnvelopeSchema = new Schema({
     companyData: {
-        companyName: { type: String, required: true },
-        vatNumber: { type: String, required: true },
-        address: {
-            street: { type: String },
-            city: { type: String },
-            postalCode: { type: String },
-            province: { type: String },
-            country: { type: String }
-        },
-        IBAN: { type: String, required: true }
+        type: Schema.Types.ObjectId,
+        ref: "Company"
     },
     payPeriod: {
         month: { type: Number, required: true },

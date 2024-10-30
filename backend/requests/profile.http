@@ -2,37 +2,23 @@
 GET http://localhost:5000/profile
 
 ###
-GET http://localhost:5000/profile/66f7c4ab5c75c16038e8ea4b
+GET http://localhost:5000/profile/6720fb09b966559155d34622
 
 ###
-PUT http://localhost:5000/profile/66f260ac3286e2dd15955757
+PUT http://localhost:5000/profile/6720fb09b966559155d34622
 Content-Type: application/json
 
 {
-  "name": "Enrico",
-  "surname": "Ruocco",
-  "email": "ruoccoenrico@gmail.com",
-  "birthday": 551334800000,
-  "avatar": ""
+  "surname": "Ruock"
 }
 
 ###
-PUT http://localhost:5000/profile/670abf9b59b9dcbcfd3eff7e
+PUT http://localhost:5000/profile/6720fb09b966559155d34622
 Content-Type: application/json
 
 {
-  "password": "mauroepicode"
+  "password": "andrearuock"
 }
 
 ###
-PUT http://localhost:5000/profile/670ab5b159b9dcbcfd3efec0
-Content-Type: application/json
-
-{
-  "whoIs": {
-    "type": "employee"
-  }
-}
-
-###
-DELETE http://localhost:5000/profile/66f268497b7921980f3ec943
+DELETE http://localhost:5000/profile/672203515d48da76212b88eb

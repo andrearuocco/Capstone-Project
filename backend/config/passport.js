@@ -1,7 +1,7 @@
 import GoogleStrategy from 'passport-google-oauth20';
 import jwt from 'jsonwebtoken';
 import Profiles from '../models/profileSchema.js';
-import Employees from '../models/employeeSchema.js'; // importa il modello Employee
+/* import Employees from '../models/employeeSchema.js'; */ // importa il modello Employee
 
 const googleStrategy = new GoogleStrategy({
     clientID: process.env.GOOGLE_ID,
@@ -16,12 +16,6 @@ const googleStrategy = new GoogleStrategy({
         if (!myProfile) {
             console.log('Creo nuovo profilo.');
 
-            // crea un nuovo documento Employee
-            const newEmployee = new Employees({
-                role: "Carpentiere"
-            });
-            const saveEmployee = await newEmployee.save();
-
             // crea il profilo riferito al nuovo Employee
             const newProfile = new Profiles({
                 name,
@@ -29,11 +23,9 @@ const googleStrategy = new GoogleStrategy({
                 email,
                 googleId,
                 avatar,
-                whoIs: {
-                    type: 'employee',
-                    employeeData: saveEmployee._id // referenzia l'ID dell'employee appena creato
-                },
-                IBAN: "0000000000000000"
+                IBAN: "000000000000000000000000000",
+                TIN: "0000000000000000",
+                country: "Italia"
             });
 
             myProfile = await newProfile.save();
