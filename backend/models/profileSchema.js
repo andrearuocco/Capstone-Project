@@ -1,17 +1,6 @@
 import { Schema, model } from 'mongoose';
 import Company from './companySchema.js'; 
 
-/* 
-const adminSchema = new Schema({
-    name: {
-        type: String,
-        enum: ["Socio", "Amministratore Delegato", "Direttore Tecnico", "Direttore Finanziario", "Direttore Operativo", "Responsabile", "Responsabile Risorse Umane", "Responsabile Vendite"],
-        required: true,
-    },
-    description: String,
-}); // lo schema sarà embeddato in quello generale dei profili delle utenze  
-*/
-
 const profileSchema = new Schema({ 
     name: {
         type: String,
@@ -53,30 +42,7 @@ const profileSchema = new Schema({
         ref: "Company",
         required: true,
     }
-/*  
-    whoIs: {
-        type: {
-            type: String,
-            enum: ['admin', 'employee'], // è un admin o un employee
-            required: true,
-        },
-        // se l'utente è un admin, usa lo schema embeddato
-        adminData: {
-            type: adminSchema,
-            // con il this si accede al campo whoIs dell'oggetto corrente, in particolare a type
-            required: function() { return this.whoIs.type === 'admin'; }
-        },
-        // se l'utente è un employee, usa un ObjectId per referenziare uno schema esterno
-        employeeData: {
-            type: Schema.Types.ObjectId,
-            ref: 'Employee',  // fa riferimento al modello Employee
-            // l'uso di required assegnato a una funzione e l'utilizzo del this determina
-            // l'assegnazione del doc. corrente da parte di mongoose 
-            required: function() { return this.whoIs.type === 'employee'; } 
-        }
-    } 
-*/
 }, { collection: "profiles" });  
 
-const Profile = model('Profile', profileSchema);
-export default Profile;
+const Profile = model('Profile', profileSchema)
+export default Profile

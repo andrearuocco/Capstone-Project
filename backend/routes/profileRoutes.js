@@ -1,8 +1,6 @@
 import express from 'express'
-import { registerProfile, getAllProfile, getSingleProfile, editProfile, deleteProfile, patchProfile } from '../controllers/profile.controller.js';
-import uploadCloudinary from '../middleware/uploadCloudinary.js'; 
-/* import adminAuthor from '../middleware/adminAuthor.js';
-import authorization from '../middleware/authorization.js'; */
+import { registerProfile, getAllProfile, getSingleProfile, editProfile, deleteProfile, patchProfile } from '../controllers/profile.controller.js'
+import uploadCloudinary from '../middleware/uploadCloudinary.js'
 
 const profileRouter = express.Router()
 
@@ -14,7 +12,7 @@ profileRouter.get('/profile/:id', getSingleProfile)
 
 profileRouter.put('/profile/:id', editProfile)
 
-profileRouter.delete('/profile/:id', /* authorization, adminAuthor, */ deleteProfile)
+profileRouter.delete('/profile/:id', deleteProfile)
 
 profileRouter.patch('/profile/:id/avatar', uploadCloudinary.single('avatar'), patchProfile)
 

@@ -1,22 +1,21 @@
 import Employee from '../models/employeeSchema.js'
-import Profile from '../models/profileSchema.js'
 
 export const addEmployee = async (req, res) => {
-    const { profileId } = req.params;  
-    const employeeData = { ...req.body, profile: profileId };
+    const { profileId } = req.params
+    const employeeData = { ...req.body, profile: profileId }
 
     try {
         
-        const employee = new Employee(employeeData); // crea un nuovo documento employee con i dati del corpo della richiesta
+        const employee = new Employee(employeeData) // crea un nuovo documento employee con i dati del corpo della richiesta
 
-        await employee.save();
+        await employee.save()
 
-        const updatedProfile = await Employee.findById(employee._id).populate('profile');
+        const updatedProfile = await Employee.findById(employee._id).populate('profile')
 
-        return res.status(201).send({ updatedProfile });
+        return res.status(201).send({ updatedProfile })
 
     } catch (error) {
-        return res.status(400).send({ message: "Utenza profilo esistente non aggiornata con i dati dipendente", error });
+        return res.status(400).send({ message: "Utenza profilo esistente non aggiornata con i dati dipendente", error })
     }
 }
 
@@ -47,9 +46,9 @@ export const getAllEmployee = async (req,res) => {
             totalPages,
             totalResults,
             page,
-        });
+        })
     } catch(err) {
-        res.status(404).send();
+        res.status(404).send()
     }
 }
 
@@ -74,7 +73,7 @@ export const editEmployee = async (req, res)=>{
     const {id} =req.params
     try {
         const employee = await Employee.findByIdAndUpdate(id, req.body, { new: true }) // trovo il dipendente attraverso il proprio id pescato dalla richiesta e modifico i campi secondo il suo corpo
-        await employee.save(); // salvo le modifiche sul DB
+        await employee.save() // salvo le modifiche sul DB
         res.send(employee)
     } catch (err) {
         res.status(400).send(err)
@@ -82,21 +81,21 @@ export const editEmployee = async (req, res)=>{
 }
 
 export const deleteEmployee = async (req, res) => {
-    const { id } = req.params;
+    const { id } = req.params
 
     try {
         // verifica che il dipendente esista
-        const employee = await Employee.findById(id);
+        const employee = await Employee.findById(id)
 
         if (!employee) {
-            return res.status(404).send({ message: 'Employee non trovato' });
+            return res.status(404).send({ message: 'Employee non trovato' })
         }
 
         // elimina employee
-        await Employee.findByIdAndDelete(id);
+        await Employee.findByIdAndDelete(id)
 
-        res.status(200).send({ message: 'Employee eliminato con successo' });
+        res.status(200).send({ message: 'Employee eliminato con successo' })
     } catch (error) {
-        res.status(500).send({ message: 'Errore del server', error: error.message });
+        res.status(500).send({ message: 'Riprova più tardi.', error: error.message })
     }
-};
+}

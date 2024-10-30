@@ -1,7 +1,6 @@
 import GoogleStrategy from 'passport-google-oauth20';
 import jwt from 'jsonwebtoken';
 import Profiles from '../models/profileSchema.js';
-/* import Employees from '../models/employeeSchema.js'; */ // importa il modello Employee
 
 const googleStrategy = new GoogleStrategy({
     clientID: process.env.GOOGLE_ID,

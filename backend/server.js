@@ -13,8 +13,7 @@ import payEnvelopeRouter from './routes/payenvelopeRoutes.js'
 import dailytaskRouter from './routes/dailytaskRoutes.js'
 import companyRouter from './routes/companyRoutes.js'
 import adminRouter from './routes/adminRoutes.js'
-/* import authorization from './middleware/authorization.js' */
-
+import requestsRouter from './routes/requestRoutes.js'
 
 const port = process.env.PORT || 5000
 const host = process.env.HOST || 'http://localhost'
@@ -28,12 +27,16 @@ server.use(morgan("dev")) // middleware che mostra i log delle richieste http
 server.use(helmet()) // modulo che aiuta a proteggere le applicazioni
 
 server.use('/api/v1/auth', authRouter)
-server.use('/', profileRoutes)
-server.use('/', employeeRouter)
-server.use('/', adminRouter)
-server.use('/api/v1', /* authorization, */ payEnvelopeRouter)
-server.use('/profile', dailytaskRouter)
 server.use('/', companyRouter)
+server.use('/', profileRoutes)
+server.use('/', adminRouter)
+server.use('/', employeeRouter)
+
+
+server.use('/api/v1', payEnvelopeRouter)
+server.use('/profile', dailytaskRouter)
+server.use('/profile', requestsRouter)
+
 
 await mongoose.connect(process.env.MONGODB_URL)
     .then(() => console.log('Connessione al database...'))

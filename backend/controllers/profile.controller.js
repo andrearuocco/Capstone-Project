@@ -81,9 +81,9 @@ export const getAllProfile = async (req,res) => {
             totalResults,
             page,
         } */
-        );
+        )
     } catch(err) {
-        res.status(404).send();
+        res.status(404).send()
     }
 }
 
@@ -106,7 +106,7 @@ export const editProfile = async (req, res) => {
         const profile = await Profile.findById(id);
 
         if (!profile) {
-            return res.status(404).send({ message: 'Profilo non trovato.' });
+            return res.status(404).send({ message: 'Profilo non trovato.' })
         }
 
         // gestisci l'aggiornamento della password 
@@ -117,12 +117,12 @@ export const editProfile = async (req, res) => {
         }
 
         // esegui l'aggiornamento del profilo
-        const updatedProfile = await Profile.findByIdAndUpdate(id, req.body, { new: true });
+        const updatedProfile = await Profile.findByIdAndUpdate(id, req.body, { new: true })
 
-        res.send(updatedProfile);
+        res.send(updatedProfile)
     } catch (err) {
-        console.error('Errore durante aggiornamento profilo:', err);
-        res.status(400).send({ error: 'Errore durante aggiornamento profilo' });
+        console.error('Errore durante aggiornamento profilo:', err)
+        res.status(400).send({ error: 'Errore durante aggiornamento profilo' })
     }
 }
 
@@ -133,7 +133,7 @@ export const deleteProfile = async (req, res) => {
         
         res.send(`Successfully deleted profile with id ${id}.`)
     } catch (error) {
-        res.status(404).send({ message: `ID ${id} not found` })
+        res.status(404).send({ message: `Profile ${id} not found` })
     }
 }
 

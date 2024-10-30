@@ -2,8 +2,6 @@ import express from 'express'
 import passport from 'passport'
 import { loginUser, getUserData, callbackGoogle } from '../controllers/authentication.controller.js'
 import authorization from '../middleware/authorization.js'
-import adminAuthor from '../middleware/adminAuthor.js'
-import employeeAuthor from '../middleware/employeeAuthor.js'
 
 const authRouter = express.Router()
 

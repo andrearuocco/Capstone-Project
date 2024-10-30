@@ -32,14 +32,12 @@ const employeeSchema = new Schema({
         maximum: 5,
         multipleOf: 0.1,
     },
-    /* // ?? come rotta sarà necessaria una richiesta di permesso poi da poter approvare */ 
     paidLeave: {
         type: Number,
     },
     unpaidLeave: {
         type: Number,
     },
-    /* // come rotta sarà necessaria una richiesta di permesso poi da poter approvare ?? */
     holidaysYear: {
         type: Number,
         minimum: 20,
@@ -60,5 +58,5 @@ const employeeSchema = new Schema({
     }
 }, { collection: "employees" }); 
 
-const Employee = model('Employee', employeeSchema);
-export default Employee;
+const Employee = model('Employee', employeeSchema)
+export default Employee

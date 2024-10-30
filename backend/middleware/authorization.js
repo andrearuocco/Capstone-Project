@@ -1,5 +1,5 @@
-import jwt from 'jsonwebtoken';
-import Profiles from '../models/profileSchema.js';
+import jwt from 'jsonwebtoken'
+import Profiles from '../models/profileSchema.js'
 
 export default (req, res, next) => {
     // verifacere se c'è l'header Authorization e se è di tipo Bearer
@@ -28,5 +28,5 @@ export default (req, res, next) => {
 
         // chiamiamo il prossimo middlaware
         next();
-    });
-};
+    })
+}

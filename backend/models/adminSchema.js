@@ -15,5 +15,5 @@ const adminSchema = new Schema({
     }
 }, { collection: "admin" });
 
-const Admin = model('Admin', adminSchema);
-export default Admin;
+const Admin = model('Admin', adminSchema)
+export default Admin

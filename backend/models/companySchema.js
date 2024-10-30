@@ -12,13 +12,8 @@ const companySchema = new Schema({
         country: { type: String }
     },
     logo: { type: String, required: true },
-    IBAN: { type: String, required: true }/* ,
-    profiles: [{
-        type: Schema.Types.ObjectId,
-        ref: "Profile", 
-        required: true
-    }] */
+    IBAN: { type: String, required: true }
 }, { collection: 'companies' });
 
-const company = model('Company', companySchema);
-export default company;
+const company = model('Company', companySchema)
+export default company

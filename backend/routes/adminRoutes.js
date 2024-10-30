@@ -1,20 +1,17 @@
 import express from 'express'
-import { addAdmin, getAllAdmin, getSingleAdmin, editAdmin, deleteAdmin } from '../controllers/admin.controller.js';
-/* import adminAuthor from '../middleware/adminAuthor.js';
-import authorization from '../middleware/authorization.js'; */
+import { addAdmin, getAllAdmin, getSingleAdmin, editAdmin, deleteAdmin } from '../controllers/admin.controller.js'
 
 const adminRouter = express.Router()
 
 // le rotte che modificano la posizione lavorativa saranno prerogativa solo degli admin 
-// per cui sarà necessario proteggere queste rotte con un autorizzazione 
 
-adminRouter.post('/profile/:profileId/admin', addAdmin) // questa va a modificare anche un profilo utente specifico nel suo collegamento con la referenza employee (whoIs)
+adminRouter.post('/profile/:profileId/admin', addAdmin) // va ad aggiungere ad un profilo utente la posizione lavorativa come admin 
 
-adminRouter.get('/admin', getAllAdmin) // questa rotta servirà per avere una lista di tutte le posizioni lavorative occupate nell'azienda (con paginazione) e per ricercare una singola posizione lavorativa occupata 
+adminRouter.get('/admin', getAllAdmin) // questa rotta servirà per avere una lista di tutte le posizioni lavorative occupate nell'azienda (con paginazione) 
 
-adminRouter.get('/admin/:id', getSingleAdmin) // questa rotta servirà per ricercare un dipendente attraverso il proprio id e in virtù della referenza saranno visibili anche le sue buste paga 
+adminRouter.get('/admin/:id', getSingleAdmin) // questa rotta servirà per ricercare un admin attraverso il proprio id  
 
-adminRouter.put('/admin/:id', /* authorization, adminAuthor, */ editAdmin) 
+adminRouter.put('/admin/:id', editAdmin) 
 
 adminRouter.delete('/admin/:id', deleteAdmin)
 
