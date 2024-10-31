@@ -9,17 +9,16 @@ export const createOne = async (req, res) => {
     try {
         const profile = await Profile.findById(profileId) // trova chi sta scrivendo il commento 
 
-        const employeeProfile = await Profile.findOne({ 'whoIs.employeeData': employeeId }).populate('whoIs.employeeData')
-        if (!employeeProfile) {
-            return res.status(404).send({ message: 'Utenza non trovata o non associata correttamente ad identificativo dipendenete corrispondente' })
+        if (!profile) {
+            return res.status(404).json({ message: 'Profilo non trovato' })
         }
 
-        const employee = employeeProfile.whoIs.employeeData;
-        const task = employee.dailyTask.id(dailytaskId);
+        const employee = await Employee.findById(employeeId)
+        const task = employee.dailyTask.id(dailytaskId)
      
         const comment = new Comment({
             content,
-            profile: profileId  // crea un nuovo commento legato alla ricerca di riga 9 (prima istruzione try)
+            profile: profileId  // crea un nuovo commento legato alla ricerca di riga 10 (prima istruzione try)
         })
 
         task.comments.push(comment) // aggiungi il commento nell'array dailyTask dello Schema Employee
@@ -27,9 +26,9 @@ export const createOne = async (req, res) => {
         await comment.save()
         await employee.save()
 
-        res.status(201).send({ message: `Commento inserito per il task n.${dailytaskId}`, comment });
+        res.status(201).send({ message: `Commento inserito per il task n.${dailytaskId}`, comment })
     } catch (error) {
-        res.status(500).send({ error: 'Errore interno del server' });
+        res.status(500).send({ error: 'Errore del server' })
     }
 }
 
@@ -37,34 +36,22 @@ export const getAll = async (req, res) => {
     const { employeeId, dailytaskId } = req.params;
 
     try {
-        const employeeProfile = await Profile.findOne({ 'whoIs.employeeData': employeeId })
-            .populate({
-                path: 'whoIs.employeeData',
-                populate: {
-                    path: 'dailyTask',
-                    populate: {
-                        path: 'comments',
-                        model: 'Comment',
-                        populate: {
-                            path: 'profile',
-                            select: 'name surname' 
-                        }
-                    }
-                }
-            });
+        const employeeProfile = await Employee.findById(employeeId).populate({
+            path: 'dailyTask.comments',
+            populate: { path: 'profile', select: 'name surname' },
+        })
         if (!employeeProfile) {
-            return res.status(404).send({ message: 'Questo dipendente non esiste' });
+            return res.status(404).send({ message: 'Questo dipendente non esiste' })
         }
 
-        const employee = employeeProfile.whoIs.employeeData;
-        const task = employee.dailyTask.id(dailytaskId);
+        const task = employeeProfile.dailyTask.id(dailytaskId)
         if (!task) {
-            return res.status(404).send({ message: 'Task non trovato' });
+            return res.status(404).send({ message: 'Task non trovato' })
         }
 
         res.status(200).send({ comments: task.comments })
     } catch (error) {
-        res.status(500).send({ error: 'Errore interno del server' })
+        res.status(500).send({ error: 'Errore del server' })
     }
 }
 
@@ -72,76 +59,81 @@ export const getComment = async (req, res) => {
     const { employeeId, dailytaskId, commentId } = req.params;
 
     try {
-        const employeeProfile = await Profile.findOne({ 'whoIs.employeeData': employeeId })
-            .populate({
-                path: 'whoIs.employeeData', 
-                select: 'dailyTask' 
-            });
+        const employeeProfile = await Employee.findById(employeeId).populate({
+            path: 'dailyTask.comments',
+            match: { _id: commentId },
+            populate: { path: 'profile', select: 'name surname' },
+        })
+
         if (!employeeProfile) {
-            return res.status(404).send({ message: 'Questo dipendente non esiste' });
+            return res.status(404).send({ message: 'Questo dipendente non esiste' })
         }
 
-        const employee = employeeProfile.whoIs.employeeData;
-        const task = employee.dailyTask.id(dailytaskId);
+        const task = employeeProfile.dailyTask.id(dailytaskId)
         if (!task) {
-            return res.status(404).send({ message: 'Task non trovato' });
+            return res.status(404).send({ message: 'Task non trovato' })
         }
 
-        const comment = await Comment.findOne({
-            _id: commentId,
-            _id: { $in: task.comments } // operatore che seleziona i documenti in cui il valore di un campo è uguale a commentId specificato
-        }).populate({
-            path: 'profile', 
-            select: 'name surname' 
-          });
+        const comment = task.comments.find(c => c._id.toString() === commentId)
+        if (!comment) {
+            return res.status(404).send({ message: 'Commento non trovato' })
+        }
+
         res.status(200).send(comment)
     } catch (error) {
-        res.status(500).send({ error: 'Errore interno del server' });
+        console.error(error);
+        res.status(500).send({ error: 'Errore del server' })
     }
 }
 
 export const updateComment = async (req, res) => {
     const { employeeId, dailytaskId, commentId } = req.params;
-    const { content } = req.body; 
+    const { content } = req.body;
+
     try {
-        const employeeProfile = await Profile.findOne({ 'whoIs.employeeData': employeeId })
-            .populate({
-                path: 'whoIs.employeeData',
-                select: 'dailyTask' 
-            });
+        const employeeProfile = await Employee.findById(employeeId)
         if (!employeeProfile) {
-            return res.status(404).send({ message: 'Questo dipendente non esiste' });
+            return res.status(404).send({ message: 'Questo dipendente non esiste' })
         }
 
-        const employee = employeeProfile.whoIs.employeeData;
-        const task = employee.dailyTask.id(dailytaskId);
+        const task = employeeProfile.dailyTask.id(dailytaskId)
         if (!task) {
-            return res.status(404).send({ message: 'Task non trovato' });
+            return res.status(404).send({ message: 'Task non trovato' })
         }
 
-        const comment = await Comment.findOne({
-            _id: commentId,
-            _id: { $in: task.comments }
-        }).populate({
-            path: 'profile',
-            select: '_id name surname' // se l'ID del profile corrisponde all'ID dell'utenza loggata allora consentirà lato front-end la modifica
-        });
-
-        // findIndex con la variabile comment trova un Object perché così è referenziato dentro dailyTask chiave del documento/oggetto JSON employee 
-        const commentIndex = task.comments.findIndex(comment => comment._id.toString() === commentId)
+        // trova l'indice del commento nell'array dei commenti del task
+        const commentIndex = task.comments.findIndex(c => c.toString() === commentId)
         if (commentIndex === -1) {
-            return res.status(404).send({ message: 'Commento non presente per questo task quotidiano' });
+            return res.status(404).send({ message: 'Commento non trovato nel task' })
         }
 
-        task.comments.splice(commentIndex, 1)
+        // recupera e aggiorna il commento nella collection
+        let comment = await Comment.findById(commentId)
+        if (!comment) {
+            return res.status(404).send({ message: 'Commento non trovato nella collezione' })
+        }
 
+        // aggiorna esplicitamente il contenuto e salva
         comment.content = content
-
         await comment.save()
+
+        // assicura che l'array dei task mantenga il riferimento corretto
+        task.comments[commentIndex] = comment._id
         await employeeProfile.save()
-        res.status(200).send({ message: 'Commento modificato correttamente', comment })
+
+        // popola il profilo per includere i dettagli dell'autore del commento
+        comment = await comment.populate({
+            path: 'profile',
+            select: '_id name surname'
+        })
+
+        res.status(200).json({
+            message: 'Commento aggiornato correttamente',
+            comment,
+        })
     } catch (error) {
-        res.status(500).send({ error: 'Errore interno del server' });
+    
+        res.status(500).send({ error: 'Errore del server' })
     }
 }
 
@@ -152,19 +144,19 @@ export const deleteComment = async (req, res) => {
         
         const employee = await Employee.findById(employeeId) // devo utilizzare employee per poi poter modificare la chiave che riguarda i compiti quotidiani che contiene un array 
         if (!employee) {
-            return res.status(404).send({ message: 'Questo dipendente non esiste' });
+            return res.status(404).send({ message: 'Questo dipendente non esiste' })
         }
 
         const task = employee.dailyTask.id(dailytaskId)
         if (!task) {
-            return res.status(404).send({ message: 'Task non trovato' });
+            return res.status(404).send({ message: 'Task non trovato' })
         }
 
         const commentIndex = task.comments.indexOf(commentId) // cerca il commento nell'array dei task con indexOf + ID comment di params e lo rimuove con lo splice che è un metodo per gli array
         if (commentIndex > -1) {
-            task.comments.splice(commentIndex, 1);  
+            task.comments.splice(commentIndex, 1)
         } else {
-            return res.status(404).send({ message: 'Commento non presente per questo task quotidiano' });
+            return res.status(404).send({ message: 'Commento non presente per questo task quotidiano' })
         }
 
         await employee.save()
@@ -175,7 +167,7 @@ export const deleteComment = async (req, res) => {
 
     } catch (error) {
         console.error(error);
-        res.status(500).send({ error: 'Errore interno del server' });
+        res.status(500).send({ error: 'Errore del server' })
     }
 }
 

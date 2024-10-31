@@ -34,10 +34,7 @@ server.use('/', employeeRouter)
 
 server.use('/api/v1', payEnvelopeRouter)
 server.use('/', dailytaskRouter)
-
-
-server.use('/profile', requestsRouter)
-
+server.use('/', requestsRouter)
 
 await mongoose.connect(process.env.MONGODB_URL)
     .then(() => console.log('Connessione al database...'))

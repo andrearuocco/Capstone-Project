@@ -1,5 +1,5 @@
 ###
-POST http://localhost:5000/profile/66f260ac3286e2dd15955757/employee/66f271a789d1801f54de0438/dailytask/66f276f5dc1731e20b6b0796/comment
+POST http://localhost:5000/672348f7bb730785d387c30e/employees/672359410b296428d2e4c225/dailytasks/67239f671edb37fc45a010b0/comments
 Content-Type: application/json
 
 {
@@ -7,13 +7,13 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:5000/profile/66f271a789d1801f54de043a/employee/66f271a789d1801f54de0438/dailytask/66f276f5dc1731e20b6b0796/comment
+GET http://localhost:5000/employees/672359410b296428d2e4c225/dailytasks/67239f671edb37fc45a010b0/comments
 
 ###
-GET http://localhost:5000/profile/66f261ac57b6ca66285d5d01/employee/66f271a789d1801f54de0438/dailytask/66f276f5dc1731e20b6b0796/comment/66f27715dc1731e20b6b079e
+GET http://localhost:5000/employees/672359410b296428d2e4c225/dailytasks/67239f671edb37fc45a010b0/comments/6723a0ac1edb37fc45a010b8
 
 ###
-PUT http://localhost:5000/profile/66f261ac57b6ca66285d5d01/employee/66f271a789d1801f54de0438/dailytask/66f276f5dc1731e20b6b0796/comment/66f29f2a9c333f2c886ab0ed
+PUT http://localhost:5000/employees/672359410b296428d2e4c225/dailytasks/67239f671edb37fc45a010b0/comments/6723aaf0abb9d8a1692ae1db
 Content-Type: application/json
 
 {
@@ -21,4 +21,4 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:5000/profile/66f271a789d1801f54de043a/employee/66f271a789d1801f54de0438/dailytask/66f276f5dc1731e20b6b0796/comment/66f29f2a9c333f2c886ab0ed
+DELETE http://localhost:5000/employees/672359410b296428d2e4c225/dailytasks/67239f671edb37fc45a010b0/comments/6723a0ac1edb37fc45a010b8

@@ -15,14 +15,14 @@ dailytaskRouter.put('/employee/:employeeId/dailytask/:dailytaskId', editdailytas
 dailytaskRouter.delete('/employee/:employeeId/dailytask/:dailytaskId', deletedailytask)
 
 
-dailytaskRouter.post('/:profileId/employee/:employeeId/dailytask/:dailytaskId/comment', createOne) 
+dailytaskRouter.post('/:profileId/employees/:employeeId/dailytasks/:dailytaskId/comments', createOne) 
 
-dailytaskRouter.get('/:profileId/employee/:employeeId/dailytask/:dailytaskId/comment', getAll) // tutti i commenti di un task assegnato
+dailytaskRouter.get('/employees/:employeeId/dailytasks/:dailytaskId/comments', getAll) // tutti i commenti di un task assegnato
 
-dailytaskRouter.get('/:profileId/employee/:employeeId/dailytask/:dailytaskId/comment/:commentId', getComment) // un singolo commento di uno specifico task 
+dailytaskRouter.get('/employees/:employeeId/dailytasks/:dailytaskId/comments/:commentId', getComment) // un singolo commento di uno specifico task 
 
-dailytaskRouter.put('/:profileId/employee/:employeeId/dailytask/:dailytaskId/comment/:commentId', updateComment) 
+dailytaskRouter.put('/employees/:employeeId/dailytasks/:dailytaskId/comments/:commentId', updateComment) 
 
-dailytaskRouter.delete('/:profileId/employee/:employeeId/dailytask/:dailytaskId/comment/:commentId', deleteComment)
+dailytaskRouter.delete('/employees/:employeeId/dailytasks/:dailytaskId/comments/:commentId', deleteComment)
 
 export default dailytaskRouter
