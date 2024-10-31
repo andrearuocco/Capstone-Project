@@ -1,26 +1,26 @@
 ###
-POST http://localhost:5000/profile/66f260ac3286e2dd15955757/employee/670404dec716ce083a8aba31/dailytask
+POST http://localhost:5000/employee/67234b29bb730785d387c329/dailytask
 Content-Type: application/json
 
 {
-  "day": "Mercoledì",
+  "day": 323752800110,
   "when": "Pomeriggio",
   "description": "Andare a prendere le cose dal magazzino e portare materiale in Via provinciale Pisana."
 }
 
 ###
-GET http://localhost:5000/profile/66f260ac3286e2dd15955757/employee/66f271a789d1801f54de0438/dailytask
+GET http://localhost:5000/employee/67234b29bb730785d387c329/dailytask
 
 ###
-GET http://localhost:5000/profile/66f271a789d1801f54de043a/employee/66f271a789d1801f54de0438/dailytask/66f27575dc1731e20b6b0769
+GET http://localhost:5000/employee/67234b29bb730785d387c329/dailytask/67236f5d135a41f77612428c
 
 ###
-PUT http://localhost:5000/profile/66f260ac3286e2dd15955757/employee/66f271a789d1801f54de0438/dailytask/66f27575dc1731e20b6b0769
+PUT http://localhost:5000/employee/67234b29bb730785d387c329/dailytask/67236f5d135a41f77612428c
 Content-Type: application/json
 
 {
-  "day": "Mercoledì"
+  "when": "Mattina"
 }
 
 ###
-DELETE http://localhost:5000/profile/66f260ac3286e2dd15955757/employee/66f271a789d1801f54de0438/dailytask/66f27575dc1731e20b6b0769
+DELETE http://localhost:5000/employee/67234b29bb730785d387c329/dailytask/67236f5d135a41f77612428c

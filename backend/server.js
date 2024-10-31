@@ -33,9 +33,9 @@ server.use('/', adminRouter)
 server.use('/', employeeRouter)
 
 server.use('/api/v1', payEnvelopeRouter)
+server.use('/', dailytaskRouter)
 
 
-server.use('/profile', dailytaskRouter)
 server.use('/profile', requestsRouter)
 
 

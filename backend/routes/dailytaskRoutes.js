@@ -4,15 +4,16 @@ import { createOne, getAll, getComment, updateComment, deleteComment } from '../
 
 const dailytaskRouter = express.Router()
 
-dailytaskRouter.post('/:profileId/employee/:employeeId/dailytask', adddailytask) 
+dailytaskRouter.post('/employee/:employeeId/dailytask', adddailytask) 
 
-dailytaskRouter.get('/:profileId/employee/:employeeId/dailytask', getAlldailytask) // sarà usata dai dipendenti per vedere i task assegnati e consentirà loro una ricerca secondo i giorni settimanali
+dailytaskRouter.get('/employee/:employeeId/dailytask', getAlldailytask) // sarà usata dai dipendenti per vedere i task assegnati e consentirà loro una ricerca secondo i giorni settimanali
 
-dailytaskRouter.get('/:profileId/employee/:employeeId/dailytask/:dailytaskId', getdailytask) // i titolari potranno vedere a chi hanno assegnato un task specifico (occorre 'il match' tra profileId e employeeId) 
+dailytaskRouter.get('/employee/:employeeId/dailytask/:dailytaskId', getdailytask) // i titolari potranno vedere a chi hanno assegnato un task specifico 
 
-dailytaskRouter.put('/:profileId/employee/:employeeId/dailytask/:dailytaskId', editdailytask) 
+dailytaskRouter.put('/employee/:employeeId/dailytask/:dailytaskId', editdailytask) 
 
-dailytaskRouter.delete('/:profileId/employee/:employeeId/dailytask/:dailytaskId', deletedailytask)
+dailytaskRouter.delete('/employee/:employeeId/dailytask/:dailytaskId', deletedailytask)
+
 
 dailytaskRouter.post('/:profileId/employee/:employeeId/dailytask/:dailytaskId/comment', createOne) 
 
