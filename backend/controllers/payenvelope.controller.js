@@ -2,60 +2,29 @@ import payEnvelope from '../models/payenvelopeSchema.js';
 import Employee from '../models/employeeSchema.js'; 
 import Profile from '../models/profileSchema.js'; 
 
+// crea un nuovo pagamento per un dipendente specifico
 export const addPayments = async (req, res) => {
   try {
-    // verifica l'ID del profilo
-    console.log(req.params.profileId); // id profile
-    console.log(req.params.employeeId); // id employee
+      const { employeeId } = req.params
+      const paymentData = req.body
 
-    const profile = await Profile.findById(req.params.profileId);
-    if (!profile) {
-      console.log('Questa utenza non esiste');
-      return res.status(404).json({ error: "Questa utenza non esiste" });
-    }
+      const newPayment = new payEnvelope(paymentData)
+      await newPayment.save()
 
-    // verifica che sia un employee
-    if (profile.whoIs.type !== 'employee') {
-      console.log('Questo profilo non è di un dipendente');
-      return res.status(400).json({ error: "Questo profilo non è di un dipendente" });
-    }
+      await Employee.findByIdAndUpdate(employeeId, {
+          $push: { payments: newPayment._id } // aggiungi il pagamento nel profilo dipendente 
+      })
 
-    // verifica che l'ID dell'employee corrisponda
-    if (profile.whoIs.employeeData.toString() !== req.params.employeeId) {
-      console.log('Questo profilo non corrisponde con i rispettivi dati dipendente');
-      return res.status(400).json({ error: "Questo profilo non corrisponde con i rispettivi dati dipendente" });
-    }
-
-    // cerca l'employee
-    const employee = await Employee.findById(req.params.employeeId);
-    if (!employee) {
-      console.log('Dipendente non trovato');
-      return res.status(404).json({ error: "Dipendente non trovato" });
-    }
-
-    // crea la busta paga
-    const newpayments = new payEnvelope(req.body);
-    await newpayments.save();
-
-    // aggiungi la busta paga all'employee
-    employee.payments.push(newpayments._id);
-    await employee.save();
-
-    return res.status(201).json({
-      message: `Busta paga inserita per il dipendente con ID ${req.params.employeeId}`,
-      payEnvelope: newpayments
-    });
-
+      res.status(201).json(newPayment)
   } catch (error) {
-
-    return res.status(500).json({ error: 'Errore server' });
+      res.status(500).json({ error: 'Pagamento non aggiunto con successo.' })
   }
-};
+}
 
 export const getPayments = async (req, res) => {
   try {
-    const page = req.query.page || 1;
-    let perPage = req.query.perPage || 6;
+    const page = req.query.page || 1
+    let perPage = req.query.perPage || 6
     perPage = perPage > 12 ? 6 : perPage
 
     // crea un oggetto filtro usato per anno e mese
@@ -64,7 +33,13 @@ export const getPayments = async (req, res) => {
       filter['payPeriod.year'] = req.query.year; // filtra secondo il valore richiesto alla chiave payPeriod.year
     }
     if (req.query.month) {
-      filter['payPeriod.month'] = req.query.month;  // filtra secondo il valore richiesto alla chiave payPeriod.month
+      filter['payPeriod.month'] = req.query.month; // filtra secondo il valore richiesto alla chiave payPeriod.month
+    }
+
+    if (req.query.companyId) {
+      filter['companyData'] = req.query.companyId; // filtra secondo l'Azienda in questione
+    } else {
+      return res.status(400).json({ error: `${companyId} non riconosciuto.` })
     }
 
     const payments = await payEnvelope.find(filter)
@@ -80,82 +55,74 @@ export const getPayments = async (req, res) => {
       totalPages,
       totalResults,
       page,
-    });
+    })
   } catch (err) {
-    res.status(404).send();
+    res.status(404).send()
   }
 }
 
 export const getSinglePayment = async (req, res) => {
   try {
-    const employee = await Employee.findById(req.params.employeeId).populate({
-      path: 'payments',
-      model: 'payEnvelope',
-      match: { _id: req.params.payEnvelopeId } 
-    });
+      const { paymentId } = req.params
 
-    // controlla se il dipendente e la busta paga esistono
-    if (!employee || !employee.payments.length) {
-      return res.status(404).send({ message: 'Not Found' });
-    }
+      const payment = await payEnvelope.findById(paymentId).populate('companyData')
+      if (!payment) {
+          return res.status(404).json({ error: 'Pagamento non trovato.' })
+      }
 
-    // restituisce solo il payments identificato con l'ID e lo 'tira fuori' dall'array
-    const payment = employee.payments[0];
-    res.send(payment);
+      res.json(payment)
   } catch (error) {
-    res.status(500).send({ message: 'Internal Server Error' });
+      res.status(500).json({ error: 'Riprova più tardi.' });
+  }
+}
+
+export const employeePayments = async (req, res) => {
+  try {
+      const { employeeId } = req.params;
+
+      const employee = await Employee.findById(employeeId).populate('payments')
+      if (!employee) {
+          return res.status(404).json({ error: 'Dipendente non trovato.' })
+      }
+
+      res.json(employee.payments)
+  } catch (error) {
+      res.status(500).json({ error: 'Riprova più tardi.' })
   }
 }
 
 export const editPayment = async (req, res) => {
-  const { employeeId, payEnvelopeId } = req.params;
-  const updatedFields = req.body; 
-
   try {
-    
-    const employee = await Employee.findById(employeeId);
-    if (!employee) {
-      return res.status(404).json({ message: 'Dipendente non trovato' });
-    }
+      const { paymentId } = req.params
+      const updateData = req.body
 
-    const payment = await payEnvelope.findByIdAndUpdate(payEnvelopeId, updatedFields, { new: true });
+      const updatedPayment = await payEnvelope.findByIdAndUpdate(paymentId, updateData, { new: true })
+      if (!updatedPayment) {
+          return res.status(404).json({ error: 'Pagamento non trovato.' })
+      }
 
-    res.status(200).json({
-      message: 'Busta paga aggiornata correttamente',
-      payment
-    });
-
+      res.json(updatedPayment)
   } catch (error) {
-
-    console.error('Errore in fase di aggiornamento:', error);
-    res.status(500).json({ message: 'Internal server error' });
-
+      res.status(500).json({ error: 'Riprova più tardi.' })
   }
 }
 
 export const deletePayment = async (req, res) => {
-  const { employeeId, payEnvelopeId } = req.params;
-
   try {
-    
-    const employee = await Employee.findById(employeeId) // trova il dipendente tramite l'ID
-    if (!employee) {
-      return res.status(404).json({ message: 'Dipendente non trovato' });
-    }
+      const { paymentId } = req.params
 
-    employee.payments.splice(employee.payments.indexOf(payEnvelopeId), 1) // rimuovi il pagamento dall'array payments
+      const deletedPayment = await payEnvelope.findByIdAndDelete(paymentId)
+      if (!deletedPayment) {
+          return res.status(404).json({ error: 'Pagamento non trovato.' })
+      }
 
-    const payment = await payEnvelope.findByIdAndDelete(payEnvelopeId) // cancella il pagamento dal database
-    if (!payment) {
-      return res.status(404).json({ message: 'Pagamento non trovato nel database' });
-    }
+      await Employee.updateMany({ payments: paymentId }, {
+          $pull: { payments: paymentId }
+      }) // rimuovi il riferimento del pagamento dal dipendente associato
 
-    await employee.save() // salva i dati dipendente aggiornati
-
-    return res.status(200).json({ message: `Pagamento con ID ${payEnvelopeId} cancellato` });
-
+      res.status(200).json({ message: 'Pagamento eliminato.' })
   } catch (error) {
-    return res.status(400).json({ message: error.message });
+      res.status(500).json({ error: 'Riprova più tardi.' })
   }
 }
 
