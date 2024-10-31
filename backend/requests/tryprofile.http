@@ -1,20 +1,20 @@
 ###
-POST http://localhost:5000/companies/672290bf13f0823fa4b48067/profile
+POST http://localhost:5000/companies/6723406bbb730785d387c2dc/profile
 Content-Type: application/json
 
 {
-    "name": "Andrea",
+    "name": "Umberto",
     "surname": "Epicode",
-    "email": "andreaepicode@gmail.com",
-    "password": "andreaepicode",
+    "email": "umbertoepicode@gmail.com",
+    "password": "umbertoepicode",
     "birthday": 323752800110,
     "IBAN": "IT20Q0300203280561121424713",
-    "TIN": "RCCNDR96H17E625S",
+    "TIN": "PTTFRE86H17E625S",
     "country": "Italia"
 }
 
 ###
-GET http://localhost:5000/companies/672290bf13f0823fa4b48067/profile
+GET http://localhost:5000/companies/672340d0bb730785d387c2e3/profile
 
 ###
 POST http://localhost:5000/api/v1/auth/login
@@ -27,7 +27,7 @@ Content-Type: application/json
 
 ###
 GET http://localhost:5000/api/v1/auth/me
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9maWxlSWQiOiI2NzIyOTFkZTEzZjA4MjNmYTRiNDgwNmYiLCJpYXQiOjE3MzAzMTkxMTgsImV4cCI6MTczMDMyMjcxOH0.BDaoaxkrJ_8h7YZq76HmQ-Mqy_gXb-q_XPz1nBVIljk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9maWxlSWQiOiI2NzIzNDE1Y2JiNzMwNzg1ZDM4N2MyZTgiLCJpYXQiOjE3MzAzNjM4NDMsImV4cCI6MTczMDM2NzQ0M30.Nyloae5F3Grrz0wddI2sT3xiwY3kg5W1ju974_PFGaA
 
 
 
