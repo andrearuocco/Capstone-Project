@@ -1,4 +1,5 @@
 import Employee from '../models/employeeSchema.js'
+import { calculateAverageRating } from '../services/calculate.js'
 
 export const addEmployee = async (req, res) => {
     const { profileId } = req.params
@@ -97,5 +98,22 @@ export const deleteEmployee = async (req, res) => {
         res.status(200).send({ message: 'Employee eliminato con successo' })
     } catch (error) {
         res.status(500).send({ message: 'Riprova più tardi.', error: error.message })
+    }
+}
+
+export const rateEmployee = async (req, res) => {
+    const { rating } = req.body
+    const employeeId = req.params.id
+
+    try {
+        const employee = await Employee.findById(employeeId)
+
+        employee.ratings.push(rating)
+        employee.reliabilityRates = calculateAverageRating(employee.ratings)
+        await employee.save()
+        
+        res.status(200).send(employee)
+    } catch (error) {
+        res.status(500).send('Riprova più tardi.', error)
     }
 }

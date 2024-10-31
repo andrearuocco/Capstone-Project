@@ -1,5 +1,5 @@
 import express from 'express';
-import { addEmployee, getAllEmployee, getSingleEmployee, editEmployee, deleteEmployee } from '../controllers/employee.controller.js';
+import { addEmployee, getAllEmployee, getSingleEmployee, editEmployee, deleteEmployee, rateEmployee } from '../controllers/employee.controller.js';
 
 const employeeRouter = express.Router()
 
@@ -15,5 +15,7 @@ employeeRouter.get('/employee/:id', getSingleEmployee) // questa rotta servirà 
 employeeRouter.put('/employee/:id', editEmployee) 
 
 employeeRouter.delete('/employee/:id', deleteEmployee)
+
+employeeRouter.post('/employee/:id/rate', rateEmployee) // valutazioni su dailyTask assegnati
 
 export default employeeRouter

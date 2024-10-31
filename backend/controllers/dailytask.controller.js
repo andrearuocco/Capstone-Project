@@ -1,4 +1,5 @@
 import Employee from '../models/employeeSchema.js'
+import { calculateAverageRating } from '../services/calculate.js'
 
 export const adddailytask = async (req, res) => { 
     const { employeeId } = req.params
@@ -122,6 +123,13 @@ export const deletedailytask = async (req, res) => {
         }
 
         employee.dailyTask.splice(taskIndex, 1)
+
+/*      
+        employee.ratings.push(rating)
+        
+        employee.reliabilityRates = calculateAverageRating(employee.ratings) 
+*/
+
         await employee.save()
 
         res.status(200).json({ message: `Task eliminato per il dipendente ${employeeId}` })

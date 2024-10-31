@@ -26,6 +26,7 @@ const employeeSchema = new Schema({
         required: true,
     },
     qualifications: String,
+    ratings: [Number],
     reliabilityRates: {
         type: Number,
         minimum: 0,

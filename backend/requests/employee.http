@@ -1,5 +1,5 @@
 ###
-POST http://localhost:5000/profile/672349d6bb730785d387c320/employee
+POST http://localhost:5000/profile/6723d2336845512e5b455fd2/employee
 Content-Type: application/json
 
 {
@@ -13,7 +13,7 @@ GET http://localhost:5000/employee
 GET http://localhost:5000/employee?role=addetta
 
 ###
-GET http://localhost:5000/employee/67234846bb730785d387c2fc
+GET http://localhost:5000/employee/6723d2506845512e5b455fd5
 
 ###
 PUT http://localhost:5000/employee/67234846bb730785d387c2fc
@@ -25,3 +25,11 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:5000/employee/67234846bb730785d387c2fc
+
+###
+POST http://localhost:5000/employee/6723d2506845512e5b455fd5/rate
+Content-Type: application/json
+
+{
+    "rating": 2
+}
